@@ -14,7 +14,7 @@ private:
     
     void makeDeposit(Account *account, int amount);
     void makeWithdrawal(Account *account, int amount);
-    void giveLoan(Account *account, int amount);
+    void processLoan(Account *account, int amount);
     
 public:
 
