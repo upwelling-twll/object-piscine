@@ -40,6 +40,8 @@ private:
     void processLoan(const int id, const int amount);
 
 
+
+
 public:
 
     int     getLiquidity() const;

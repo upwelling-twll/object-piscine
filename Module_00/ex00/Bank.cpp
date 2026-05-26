@@ -61,6 +61,17 @@ void Bank::makeWithdrawal(const int id, const int amount)
     }
 }
 
+void Bank::processLoan(const int id, const int amount)
+{
+     if (amount >= 0 && _clientAccounts.find(id) != _clientAccounts.end() && this->_liquidity >= amount)
+    {
+        Account *account = _clientAccounts[id];
+        account->_value += amount - amount * INFLOW_FEE; // Assuming a 5% fee on loans
+        account->_loanAmount += amount;
+        this->_liquidity -= amount;
+    }
+}
+
 Bank::Bank(int liquidity) : liquidity(liquidity)
 {
     if (liquidity < 0)
