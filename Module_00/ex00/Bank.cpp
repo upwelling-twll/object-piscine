@@ -10,12 +10,12 @@ const Bank::Account& Bank::operator[](const int id) const
     it = _clientAccounts.find(id);
     if (it == _clientAccounts.end())
     {
-        throw AccountNotFoundException("Account not found");
+        throw AccountException("Account not found");
     }
     const Account *account = it->second;
     if (account == nullptr)
     {
-        throw AccountNotFoundException("Account was deleted");
+        throw AccountException("Account was deleted");
     }
     return *account;
 }
@@ -38,21 +38,22 @@ Bank::Account::Account(int id, std::string name, std::string address) \
 
 Bank::Account::~Account()
 {
-    std::cout << "Account with ID " << this->_id << " is being destroyed." << std::endl;
+    // std::cout << "Account with ID " << this->_id << " is being destroyed." << std::endl;
 }
 
 //Bank
 
 int Bank::addAccount(const std::string name, const std::string address)
 {
-    Account newAccount(this->_nextAccountId, name, address);
+    Account *newAccount = new Account(this->_nextAccountId, name, address);
+    std::cout <<"add account: id = " << _nextAccountId << std::endl;
     _nextAccountId++;
-    _clientAccounts.insert({newAccount.getId(), &newAccount});
+    _clientAccounts.insert({newAccount->getId(), newAccount});
 
-    std::cout << "Account with ID " << newAccount.getId() \
+    std::cout << "Account with ID " << newAccount->getId() \
      << " added to the bank." << std::endl;
     
-     return _clientAccounts[newAccount.getId()];
+    return newAccount->getId();
 }
 
 void Bank::deleteAccount(const int id)
@@ -88,6 +89,10 @@ void Bank::makeDeposit(const int id, const int amount)
         account->_value += amount - amount * INFLOW_FEE; // Assuming a 5% fee on deposits
         this->_liquidity += amount;
     }
+    else
+    {
+        throw AccountException("Account not found or invalid deposit amount");
+    }
 }
 
 void Bank::makeWithdrawal(const int id, const int amount)
@@ -95,11 +100,15 @@ void Bank::makeWithdrawal(const int id, const int amount)
     if (amount >= 0 && _clientAccounts.find(id) != _clientAccounts.end())
     {
         Account *account = _clientAccounts[id];
-        if (account->value >= amount) 
+        if (account->_value >= amount) 
         {
             account->_value -= amount;
             this->_liquidity -= amount;
         }
+    }
+    else
+    {
+        throw AccountException("Account not found or invalid withdrawal amount");
     }
 }
 
@@ -112,26 +121,41 @@ void Bank::processLoan(const int id, const int amount)
         account->_loanAmount += amount;
         this->_liquidity -= amount;
     }
+    else
+    {
+        throw AccountException("Account not found, invalid loan amount, or insufficient liquidity");
+    }
 }
 
-Bank::Bank(int liquidity) : liquidity(liquidity)
+Bank::Bank(int liquidity) : _liquidity(liquidity), _nextAccountId(0)
 {
     if (liquidity < 0)
     {
         std::cerr << "Error: Liquidity cannot be negative. \
          Setting to default value." << std::endl;
-        this->liquidity = 0;
+        this->_liquidity = 0;
     }
-    std::cout << "Bank created with liquidity: " << liquidity << std::endl;
+    std::cout << "Bank created with liquidity: " << _liquidity << std::endl;
 }
 
 Bank::~Bank()
 {
     std::cout << "Bank is being destroyed. Cleaning up resources." << std::endl;
+    if (_clientAccounts.empty())
+    {
+        std::cout << "No accounts to clean up." << std::endl;
+        return;
+    }
+
+    std::cout << "Cleaning up " << _clientAccounts.size() << " accounts." << std::endl; 
     std::map<int, Account*>::iterator it;
     for (it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it)
     {
-        delete it->second;
+        if (it->second != nullptr)
+        {
+            std::cout << "Deleting account with ID: " << it->first << std::endl;
+            delete it->second;
+        }
     }
     _clientAccounts.clear();
 }

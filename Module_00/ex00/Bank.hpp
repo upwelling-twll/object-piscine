@@ -7,21 +7,21 @@
 
 #ifndef INFLOW_FEE
 #define INFLOW_FEE 0.05
+#endif
 
-
-class AccountNotFoundException : public std::exception
+class AccountException : public std::exception
 {
 private:
     std::string _message;
 
 public:
 
-    AccountNotFoundException(const std::string& message)
+    AccountException(const std::string& message)
         : _message(message)
     {
     }
 
-    virtual ~AccountNotFoundException() throw()
+    virtual ~AccountException() throw()
     {
     }
 
@@ -53,6 +53,8 @@ private:
             
             Account(int id, std::string name, std::string address);
             ~Account();
+
+            friend class Bank; // Allow Bank to access private members of Account
     };
 
     int                         _liquidity;
