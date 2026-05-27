@@ -1,6 +1,48 @@
 #include "Bank.hpp"
 #include <iostream>
 
+//Account
+
+const Bank::Account& Bank::operator[](const int id) const
+{
+    std::map<int, Account*>::const_iterator it;
+
+    it = _clientAccounts.find(id);
+    if (it == _clientAccounts.end())
+    {
+        throw AccountNotFoundException("Account not found");
+    }
+    const Account *account = it->second;
+    if (account == nullptr)
+    {
+        throw AccountNotFoundException("Account was deleted");
+    }
+    return *account;
+}
+
+int Bank::Account::getId() const
+{
+    return this->_id;
+}
+
+int Bank::Account::getValue() const
+{
+    return this->_value;
+}
+
+Bank::Account::Account(int id, std::string name, std::string address) \
+     : _id(id), _name(name), _address(address), _value(0), _loanAmount(0)
+{
+    std::cout << "Account created with ID: " << id << std::endl;
+}
+
+Bank::Account::~Account()
+{
+    std::cout << "Account with ID " << this->_id << " is being destroyed." << std::endl;
+}
+
+//Bank
+
 int Bank::addAccount(const std::string name, const std::string address)
 {
     Account newAccount(this->_nextAccountId, name, address);
@@ -86,5 +128,10 @@ Bank::Bank(int liquidity) : liquidity(liquidity)
 Bank::~Bank()
 {
     std::cout << "Bank is being destroyed. Cleaning up resources." << std::endl;
-    // Clean up any dynamically allocated resources if necessary
+    std::map<int, Account*>::iterator it;
+    for (it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it)
+    {
+        delete it->second;
+    }
+    _clientAccounts.clear();
 }
