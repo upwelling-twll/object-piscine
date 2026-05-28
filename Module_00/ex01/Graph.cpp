@@ -1,6 +1,16 @@
 #include "Graph.hpp"
 
-void Graph::draw()
+Line::Line(Vector2 start, Vector2 end) : start(start), end(end)
+{
+    std::cout << "Line created from (" << start.x << ", " << start.y << ") to ("
+              << end.x << ", " << end.y << ")" << std::endl;
+}
+
+Line::~Line()
+{
+}
+
+void Graph::drawASCII()
 {
     int width = static_cast<int>(size.x);
     int height = static_cast<int>(size.y);
@@ -34,6 +44,35 @@ void Graph::draw()
     std::cout << std::endl;
 }
 
+void Graph::addLinePoints(Line line)
+{
+    for (int x = static_cast<int>(std::min(line.start.x, line.end.x)); \
+        x <= static_cast<int>(std::max(line.start.x, line.end.x)); ++x)
+    {
+        for (int y = static_cast<int>(std::min(line.start.y, line.end.y)); \
+            y <= static_cast<int>(std::max(line.start.y, line.end.y)); ++y)
+        {
+            addPoint(Vector2{static_cast<float>(x), static_cast<float>(y)});
+            std::cout << "Adding line point (" << x << ", " << y << ") from line" << std::endl;
+        }
+    }
+}
+
+void Graph::drawLines()
+{
+    std::cout << "Lines graph" << std::endl;
+    for (std::list<Line>::iterator it = lines.begin(); it != lines.end(); ++it)
+    {
+        addLinePoints(*it);
+    }
+    drawASCII();
+}
+
+// void Graph::drawPNG()
+// {
+//     std::cout << "PNG graph (not implemented)" << std::endl;
+// }
+
 void Graph::addPoint(Vector2 point)
 {   
     std::cout << "Adding point (" << point.x << ", " << point.y << ")" << std::endl;
@@ -42,6 +81,16 @@ void Graph::addPoint(Vector2 point)
         throw "Point must be within the graph size";
     }
     points.push_back(point);
+}
+
+void Graph::addLine(Line line)
+{
+    if (line.start.x < 0 || line.start.x > size.x || line.start.y < 0 || line.start.y > size.y ||
+        line.end.x < 0 || line.end.x > size.x || line.end.y < 0 || line.end.y > size.y)
+    {
+        throw "Line must be within the graph size";
+    }
+    lines.push_back(line);
 }
 
 Graph::Graph(Vector2 size) : size(size)
