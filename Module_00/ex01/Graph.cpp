@@ -18,7 +18,9 @@ void Graph::drawASCII()
     std::cout << "ASCII graph" << std::endl;
     for (int y = height; y >= 0; --y)
     {
+        // Print y-axis labels
         std::cout << y << " ";
+        // Print graph points
         for (int x = 0; x <= width; ++x)
         {
             bool isPoint = false;
@@ -38,6 +40,7 @@ void Graph::drawASCII()
         }
         std::cout << std::endl;
     }
+    // Print x-axis labels
     std::cout << "  ";
     for (int x = 0; x <= width; ++x)
         std::cout << x << " ";
@@ -58,19 +61,95 @@ void Graph::addLinePoints(Line line)
     }
 }
 
-void Graph::drawLines()
+void Graph::drawLinesBresenham(Line line)
 {
-    std::cout << "Lines graph" << std::endl;
-    for (std::list<Line>::iterator it = lines.begin(); it != lines.end(); ++it)
+    int x1 = static_cast<int>(line.start.x);
+    int y1 = static_cast<int>(line.start.y);
+    int x2 = static_cast<int>(line.end.x);
+    int y2 = static_cast<int>(line.end.y);
+
+    int dx = std::abs(x2 - x1);
+    int dy = std::abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while (true)
     {
-        addLinePoints(*it);
+        addPoint(Vector2{static_cast<float>(x1), static_cast<float>(y1)});
+        std::cout << "Adding line point (" << x1 << ", " << y1 << ") from Bresenham's algorithm" << std::endl;
+
+        if (x1 == x2 && y1 == y2)
+            break;
+        int err2 = 2 * err;
+        if (err2 > -dy)
+        {
+            err -= dy;
+            x1 += sx;
+        }
+        if (err2 < dx)
+        {
+            err += dx;
+            y1 += sy;
+        }
     }
     drawASCII();
 }
 
+
+
+void Graph::drawLines()
+{
+    for (std::list<Line>::iterator it = lines.begin(); it != lines.end(); ++it)
+    {
+        drawLinesBresenham(*it);
+    }
+    return;
+
+    // std::cout << "Lines graph" << std::endl;
+    // for (std::list<Line>::iterator it = lines.begin(); it != lines.end(); ++it)
+    // {
+    //     addLinePoints(*it);
+    // }
+    // int width = static_cast<int>(size.x);
+    // int height = static_cast<int>(size.y);
+
+    // std::cout << "ASCII graph" << std::endl;
+    // for (int y = height; y >= 0; --y)
+    // {
+    //     // Print y-axis labels
+    //     std::cout << y << " ";
+    //     // Print graph points
+    //     for (int x = 0; x <= width; ++x)
+    //     {
+    //         bool isPoint = false;
+    //         for (std::list<Vector2>::iterator it = points.begin(); \
+    //             it != points.end(); ++it)
+    //         {
+    //             if (static_cast<int>(it->x) == x && static_cast<int>(it->y) == y)
+    //             {
+    //                 isPoint = true;
+    //                 break;
+    //             }
+    //         }
+    //         if (isPoint)
+    //             std::cout << "*" ;
+    //         else
+    //             std::cout << ".";
+    //     }
+    //     std::cout << std::endl;
+    // }
+    // // Print x-axis labels
+    // std::cout << "  ";
+    // for (int x = 0; x <= width; ++x)
+    //     std::cout << x << " ";
+    // std::cout << std::endl;
+}
+
+// TODO
 // void Graph::drawPNG()
 // {
-//     std::cout << "PNG graph (not implemented)" << std::endl;
+//     std::cout << "PNG graph \" << std::endl;
 // }
 
 void Graph::addPoint(Vector2 point)

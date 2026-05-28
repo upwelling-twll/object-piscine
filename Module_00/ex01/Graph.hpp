@@ -41,6 +41,7 @@ class Graph
         void addLinePoints(Line line);
         void addPoint(Vector2 point);
         void addLine(Line line);
+        void drawLinesBresenham(Line line);
 };
 
 #endif
