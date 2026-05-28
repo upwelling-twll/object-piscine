@@ -8,8 +8,8 @@ void Graph::draw()
     std::cout << "ASCII graph" << std::endl;
     for (int y = height; y >= 0; --y)
     {
-        std::cout << y << " | ";
-        for (int x = 0; x < width; ++x)
+        std::cout << y << " ";
+        for (int x = 0; x <= width; ++x)
         {
             bool isPoint = false;
             for (std::list<Vector2>::iterator it = points.begin(); \
@@ -21,20 +21,26 @@ void Graph::draw()
                     break;
                 }
             }
-            // std::cout << "line" << std::endl;
             if (isPoint)
-                std::cout << "*" ;
+                std::cout << "* " ;
             else
-                std::cout << ".";
+                std::cout << ". ";
         }
         std::cout << std::endl;
     }
+    std::cout << "  ";
+    for (int x = 0; x <= width; ++x)
+        std::cout << x << " ";
+    std::cout << std::endl;
 }
 
 void Graph::addPoint(Vector2 point)
-{
+{   
+    std::cout << "Adding point (" << point.x << ", " << point.y << ")" << std::endl;
     if (point.x < 0 || point.x > size.x || point.y < 0 || point.y > size.y)
+    {
         throw "Point must be within the graph size";
+    }
     points.push_back(point);
 }
 
