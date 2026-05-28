@@ -2,6 +2,7 @@
 #define GRAPH_HPP
 
 #include <list>
+#include <iostream>
 
 struct Vector2
 {
@@ -19,8 +20,8 @@ class Graph
         Graph(Vector2 size);
         ~Graph();
 
-        void addPoint(Vector2 point);
         void draw();
+        void addPoint(Vector2 point);
 };
 
 #endif

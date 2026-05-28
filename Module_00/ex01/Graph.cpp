@@ -1,6 +1,37 @@
 #include "Graph.hpp"
 
-void Grapth::addPoint(Vector2 point)
+void Graph::draw()
+{
+    int width = static_cast<int>(size.x);
+    int height = static_cast<int>(size.y);
+
+    std::cout << "ASCII graph" << std::endl;
+    for (int y = height; y >= 0; --y)
+    {
+        std::cout << y << " | ";
+        for (int x = 0; x < width; ++x)
+        {
+            bool isPoint = false;
+            for (std::list<Vector2>::iterator it = points.begin(); \
+                it != points.end(); ++it)
+            {
+                if (static_cast<int>(it->x) == x && static_cast<int>(it->y) == y)
+                {
+                    isPoint = true;
+                    break;
+                }
+            }
+            // std::cout << "line" << std::endl;
+            if (isPoint)
+                std::cout << "*" ;
+            else
+                std::cout << ".";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void Graph::addPoint(Vector2 point)
 {
     if (point.x < 0 || point.x > size.x || point.y < 0 || point.y > size.y)
         throw "Point must be within the graph size";
@@ -17,7 +48,7 @@ Graph::Graph(Vector2 size) : size(size)
 
 Graph::~Graph()
 {
-   for (std::list<Vector2>::iterator it = points.begin(); \
-    it != points.end(); ++it)
-        points.erase(it);
+    std::cout << "Graph destroyed" << std::endl;
+    
+        points.clear();
 }
