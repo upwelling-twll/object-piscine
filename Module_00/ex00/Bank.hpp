@@ -31,6 +31,28 @@ public:
     }
 };
 
+class BankException : public std::exception
+{
+private:
+    std::string _message;
+
+public:
+
+    BankException(const std::string& message)
+        : _message(message)
+    {
+    }
+
+    virtual ~BankException() throw()
+    {
+    }
+
+    virtual const char* what() const throw()
+    {
+        return _message.c_str();
+    }
+};
+
 class Bank 
 {
 private:
@@ -76,8 +98,7 @@ private:
   
     const Account& operator[](const int id) const;
 
-    //int     getLiquidity() const;
-    // void    getBankInformation() const;
+    void    getBankInformation() const;
 
     Bank(int liquidity);
     ~Bank();
