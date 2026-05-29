@@ -3,11 +3,29 @@
 
 #include <list>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <fcntl.h>
+#include <unistd.h>
 // #include "Line.hpp"
+
+struct RGB
+{
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+};
+
 struct Vector2
 {
     float x;
     float y;
+};
+
+struct Pixel
+{
+    Vector2 position;
+    RGB color;
 };
 
 class Line
@@ -37,11 +55,12 @@ class Graph
 
         void drawASCII();
         void drawLines();
-        // void drawPNG();
-        void addLinePoints(Line line);
+        void draw();
         void addPoint(Vector2 point);
         void addLine(Line line);
+        void readPointsFromFile(int fd);
         void drawLinesBresenham(Line line);
+        void exportPNG();
 };
 
 #endif
