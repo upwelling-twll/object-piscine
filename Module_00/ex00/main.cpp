@@ -5,7 +5,7 @@ int main()
 {
     try
     {
-        Bank bank(100000); // Initialize the bank with a liquidity of 100,000
+        Bank bank(100000); 
         int id1 = bank.addAccount("Alice", "123 Main St");
         int id2 = bank.addAccount("Bob", "456 Elm St");
        
@@ -36,29 +36,3 @@ int main()
     }
         return 0;
 }
-
-    // try
-    // {
-    //     bank.processLoan(id2, 1016872000);
-    // }
-    // catch (const AccountException& e)
-    // {
-    //     std::cerr << "Error: " << e.what() << std::endl;
-    // }
-    // try
-    // {
-    //      bank.makeDeposit(id1, 3000);
-    //     std::cout << "Account 1 value: " << bank[id1].getValue() << std::endl;
-    // }
-    // catch (const AccountException& e)
-    // {
-    //     std::cerr << "Error: " << e.what() << std::endl;
-    // }
-
-    // bank.getBankInformation();
-
-
-    // std::cout << "Bank Liquidity after transactions: " << bank.getLiquidity() << std::endl;
-
-//     return 0;
-// }
