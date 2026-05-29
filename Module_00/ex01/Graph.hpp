@@ -7,6 +7,8 @@
 #include <sstream>
 #include <fcntl.h>
 #include <unistd.h>
+#include <cmath>
+
 // #include "Line.hpp"
 
 struct RGB
@@ -16,10 +18,17 @@ struct RGB
     unsigned char b;
 };
 
-struct Vector2
+class Vector2
 {
     float x;
     float y;
+public:
+    Vector2(float x, float y) : x(x), y(y) {};
+    float getX() const;
+    float getY() const;
+
+    friend class Graph;
+    friend class Line;
 };
 
 struct Pixel
@@ -50,17 +59,21 @@ class Graph
         std::list<Line>    lines;
 
     public:
-        Graph(Vector2 size);
+        Graph(const Vector2 size);
         ~Graph();
 
         void drawASCII();
         void drawLines();
         void draw();
         void addPoint(Vector2 point);
+        
         void addLine(Line line);
-        void readPointsFromFile(int fd);
         void drawLinesBresenham(Line line);
+        
         void exportPNG();
+
+        void readPointsFromFile(int fd);
+        bool parsePoints(std::istringstream& iss, float* x, float* y);
 };
 
 #endif

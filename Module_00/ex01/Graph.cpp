@@ -62,8 +62,9 @@ void Graph::drawLinesBresenham(Line line)
     while (true)
     {
         // Add the current point to the graph
-        addPoint(Vector2{static_cast<float>(x1), static_cast<float>(y1)});
-        std::cout << "Adding line point (" << x1 << ", " << y1 << ") from Bresenham's algorithm" << std::endl;
+         
+        addPoint(Vector2(static_cast<float>(x1), static_cast<float>(y1)));
+        // std::cout << "Adding line point (" << x1 << ", " << y1 << ") from Bresenham's algorithm" << std::endl;
 
         // Check if we've reached the end point
         if (x1 == x2 && y1 == y2)
@@ -129,17 +130,18 @@ void Graph::readPointsFromFile(int fd)
     {
         buffer[bytesRead] = '\0'; // Null-terminate the buffer
         std::istringstream iss(buffer);
-        float x, y;
-        while (iss >> x >> y)
+        float x;
+        float y;
+        while (iss >> x >> y) // Read pairs of coordinates from the buffer
         {
-            addPoint(Vector2{x, y});
+            addPoint(Vector2(x, y));
         }
     }
 }
 
 void Graph::addPoint(Vector2 point)
 {   
-    std::cout << "Adding point (" << point.x << ", " << point.y << ")" << std::endl;
+    // std::cout << "Adding point (" << point.x << ", " << point.y << ")" << std::endl;
     if (point.x < 0 || point.x > size.x || point.y < 0 || point.y > size.y)
     {
         throw "Point must be within the graph size";
@@ -157,7 +159,7 @@ void Graph::addLine(Line line)
     lines.push_back(line);
 }
 
-Graph::Graph(Vector2 size) : size(size)
+Graph::Graph(const Vector2 size) : size(size)
 {
     if (size.x <= 0 || size.y <= 0)
         throw "Size must be greater than 0";
