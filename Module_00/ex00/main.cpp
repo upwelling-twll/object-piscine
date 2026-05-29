@@ -21,7 +21,7 @@ int main()
     }
     try
     {
-        bank.makeDeposit(id2, 3000);
+        bank.makeDeposit(id2, -3000);
     }
     catch (const AccountException& e)
     {
@@ -40,7 +40,16 @@ int main()
     }
     try
     {
-        bank.processLoan(id2, 10000);
+        bank.processLoan(id2, 1016872000);
+    }
+    catch (const AccountException& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    try
+    {
+         bank.makeDeposit(id1, 3000);
+        std::cout << "Account 1 value: " << bank[1].getValue() << std::endl;
     }
     catch (const AccountException& e)
     {

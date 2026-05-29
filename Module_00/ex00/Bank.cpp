@@ -13,7 +13,7 @@ const Bank::Account& Bank::operator[](const int id) const
         throw AccountException("Account not found");
     }
     const Account *account = it->second;
-    if (account == nullptr)
+    if (!account)
     {
         throw AccountException("Account was deleted");
     }
@@ -31,8 +31,9 @@ int Bank::Account::getValue() const
 }
 
 Bank::Account::Account(int id, std::string name, std::string address) \
-     : _id(id), _name(name), _address(address), _value(0), _loanAmount(0)
+     : _id(id), _value(0), _loanAmount(0), _name(name), _address(address)
 {
+
     std::cout << "Account created with ID: " << id << std::endl;
 }
 
@@ -48,7 +49,7 @@ int Bank::addAccount(const std::string name, const std::string address)
     Account *newAccount = new Account(this->_nextAccountId, name, address);
     std::cout <<"add account: id = " << _nextAccountId << std::endl;
     _nextAccountId++;
-    _clientAccounts.insert({newAccount->getId(), newAccount});
+    _clientAccounts.insert(std::make_pair(newAccount->getId(), newAccount));
 
     std::cout << "Account with ID " << newAccount->getId() \
      << " added to the bank." << std::endl;
@@ -151,7 +152,7 @@ Bank::~Bank()
     std::map<int, Account*>::iterator it;
     for (it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it)
     {
-        if (it->second != nullptr)
+        if (it->second)
         {
             std::cout << "Deleting account with ID: " << it->first << std::endl;
             delete it->second;
