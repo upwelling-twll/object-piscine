@@ -14,7 +14,7 @@ int main(int argc, char** argv)
         {
             try 
             {
-                Vector2 size(5,5);
+                Vector2 size(WIDTH, HEIGHT);
                 Graph graph(size);
                 graph.readPointsFromFile(fd);
                 graph.draw();
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     {
         try 
         {
-            Graph graph(Vector2(5, 5));
+            Graph graph(Vector2(WIDTH, HEIGHT));
             graph.addLine(Line(Vector2(0, 0), Vector2(0, 3)));
             graph.addLine(Line(Vector2(0, 3), Vector2(3, 3)));
             graph.addLine(Line(Vector2(3, 3), Vector2(0, 0)));

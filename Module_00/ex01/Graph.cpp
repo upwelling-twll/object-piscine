@@ -19,7 +19,10 @@ void Graph::drawASCII()
     for (int y = height; y >= 0; --y)
     {
         // Print y-axis labels
-        std::cout << y << " ";
+        if (size.y >= 10 && y < 10) // Print labels every 5 units for larger graphs
+            std::cout << y << "  ";
+        else
+            std::cout << y << " ";
         // Print graph points
         for (int x = 0; x <= width; ++x)
         {
@@ -41,7 +44,10 @@ void Graph::drawASCII()
         std::cout << std::endl;
     }
     // Print x-axis labels
-    std::cout << "  ";
+    if (size.y >= 10) 
+        std::cout << "   ";
+    else
+        std::cout << "  ";
     for (int x = 0; x <= width; ++x)
         std::cout << x << " ";
     std::cout << std::endl;
@@ -163,8 +169,8 @@ Graph::Graph(const Vector2 size) : size(size)
 {
     if (size.x <= 0 || size.y <= 0)
         throw "Size must be greater than 0";
-    if (size.x > 100 || size.y > 100)
-        throw "Size must be less than 100";
+    if (size.x > 10 || size.y > 10)
+        throw "Size must be less than 11";
 }
 
 Graph::~Graph()
