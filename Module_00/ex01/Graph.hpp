@@ -9,9 +9,9 @@
 #include <unistd.h>
 #include <cmath>
 
-// #define WIDTH 5
-// #define HEIGHT 5
-// #include "Line.hpp"
+#define WIDTH 5
+#define HEIGHT 5
+
 
 struct RGB
 {
