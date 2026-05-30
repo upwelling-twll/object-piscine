@@ -112,7 +112,7 @@ void testWorkshopAssociation()
         std::cout << YELLOW << worker1 << RESET << std::endl;
         std::cout << YELLOW << worker2 << RESET << std::endl;
 
-        workshop.releaseWorker(&worker1);
+        // workshop.releaseWorker(&worker1);
         workshop.displayWorkers();
         std::cout << std::endl;
         std::cout << YELLOW << worker1 << RESET << std::endl;

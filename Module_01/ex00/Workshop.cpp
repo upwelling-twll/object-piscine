@@ -75,6 +75,14 @@ Workshop::Workshop() : _name("Default Workshop")
 Workshop::~Workshop( void )
 {
     std::cout << GREEN << "Workshop destructor is called" << RESET << std::endl;
+	for (std::vector<Worker*>::iterator it = this->_workers.begin(); it != this->_workers.end(); ++it)
+	{
+		if (*it)
+		{
+			std::cout << "Releasing worker: " << (*it)->getName() << std::endl;
+			(*it)->leaveWorkshop(this);
+		}
+	}
 }
 
 
