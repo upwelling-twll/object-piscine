@@ -54,6 +54,44 @@ void Worker::discardTool(Tool* tool)
 	throw "Tool not found in inventory." ;
 }
 
+void Worker::registerInWorkshop(Workshop* workshop)
+{
+	if (!workshop)
+	{
+		throw "No workshop to register in.";
+		return;
+	}
+	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
+	{
+		if (*it == workshop)
+		{
+			std::cout << YELLOW << "Worker " << this->_name << " is already registered in the workshop." << RESET << std::endl;
+			return;
+		}
+	}
+	_workshops.push_back(workshop);
+	std::cout << YELLOW << "Worker " << this->_name << " added workshop" << "." << RESET << std::endl;
+}
+
+void Worker::leaveWorkshop(Workshop* workshop)
+{
+	if (!workshop)
+	{
+		throw "No workshop to leave.";
+		return;
+	}
+	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
+	{
+		if (*it == workshop)
+		{
+			this->_workshops.erase(it);
+			std::cout << YELLOW << "Worker " << this->_name << " left workshop" << "." << RESET << std::endl;
+			return;
+		}
+	}
+	throw "Workshop not found in worker's registered workshops.";
+}
+
 /*Getters and Setters*/
 const std::string Worker::getName() const
 {
@@ -75,6 +113,11 @@ int Worker::getNumberOfTools() const
 	return this->_tools.size();
 }
 
+int Worker::getNumberOfWorkshops() const
+{
+	return this->_workshops.size();
+}
+
 /*Constructors*/
 Worker::Worker(std::string _name) : _name(_name)
 {
@@ -92,6 +135,7 @@ Worker::Worker(std::string _name) : _name(_name)
 	this->_stats = stats;
 
 	this->_tools = std::vector<Tool*>();
+	this->_workshops = std::vector<Workshop*>();
 	// std::cout << "Worker parameterized constructor is called" << std::endl;
 }
 
@@ -111,6 +155,7 @@ Worker::~Worker( void )
 				(*it)->setMemberOfUse(NULL);
 		}
 		this->_tools.clear();
+		//TODO : leave all workshops
 	}
 }
 
@@ -121,12 +166,15 @@ std::ostream& operator<<(std::ostream& output_stream, Worker& src)
 	Position pos = src.getPosition();
 	Statistic stats = src.getStats();
 	int tool_count = src.getNumberOfTools();
+	int workshop_count = src.getNumberOfWorkshops();
 	output_stream << "* Worker Class info*" << std::endl;
 	output_stream << "Name: " << src.getName() << std::endl;
 	output_stream << "Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
 	output_stream << "Level: " << stats.level << std::endl;
 	output_stream << "Experience: " << stats.experience << std::endl;	
 	output_stream << "Tools number: " << tool_count << std::endl;
+	output_stream << "Workshops number: " << workshop_count << std::endl;
+	output_stream << "-----------------------" << std::endl;
 	return output_stream;
 }
 

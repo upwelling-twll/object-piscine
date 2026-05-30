@@ -8,7 +8,7 @@
 # include "Position.hpp"
 
 class Tool;
-
+class Workshop;
 class Worker
 {
 private:
@@ -16,20 +16,24 @@ private:
 	Position			_pos;
 	Statistic			_stats;
 	std::vector<Tool*>	_tools;
+	std::vector<Workshop*> _workshops;
 
 public:
 	/*Member functions*/
     void useTool(Tool* tool);
 	void takeTool(Tool* tool);
 	void discardTool(Tool* tool);
-
+	void registerInWorkshop(Workshop* workshop);
+	void leaveWorkshop(Workshop* workshop);
+	
 	/*Getters and Setters*/
 	const std::string getName() const;
 
 	Position&	getPosition();
 	Statistic&	getStats();
 	int			getNumberOfTools() const;
-
+	int			getNumberOfWorkshops() const;
+	
 	/*Constructors*/
     Worker(std::string _name);
 

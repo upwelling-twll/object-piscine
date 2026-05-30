@@ -3,6 +3,7 @@
 #include "Shovel.hpp"
 #include "Hammer.hpp"
 #include "Worker.hpp"
+#include "Workshop.hpp"
 
 void testComposition()
 {
@@ -95,13 +96,39 @@ void testToolTransfer()
     delete tool;
 }
 
+void testWorkshopAssociation()
+{
+    std::cout << "=== Workshop Association Test ===" << std::endl;
+    Worker worker1("uruk-hai");
+    Worker worker2("orc");
+    Workshop workshop("Nan Curunír (Sauron's Workshop)");
+
+    try {
+        workshop.registerWorker(&worker1);
+        workshop.registerWorker(&worker2);
+        workshop.registerWorker(&worker1); 
+        workshop.displayWorkers();
+        std::cout << std::endl;
+        std::cout << YELLOW << worker1 << RESET << std::endl;
+        std::cout << YELLOW << worker2 << RESET << std::endl;
+
+        workshop.releaseWorker(&worker1);
+        workshop.displayWorkers();
+        std::cout << std::endl;
+        std::cout << YELLOW << worker1 << RESET << std::endl;
+    }
+    catch (const char* msg) {
+        std::cerr << RED <<"Error: " << msg << RESET << std::endl;
+    }
+}
+
 int main()
 {
 
     // testComposition();
-    testAggregation();
+    // testAggregation();
     // testInheritance();
-    // testWorkshopAssociation();
+    testWorkshopAssociation();
     // testToolTransfer();
     // testAutoRelease();
     // testInvalidOperations();
