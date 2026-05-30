@@ -1,7 +1,6 @@
 #include "Worker.hpp"
 #include "Tool.hpp"
 
-
 /*Member functions*/
 void Worker::useTool(Tool* tool)
 {
@@ -15,6 +14,7 @@ void Worker::useTool(Tool* tool)
 
 void Worker::takeTool(Tool* tool)
 {
+	std::cout << "Worker " << this->_name << " is trying to take a tool " << std::endl;
 	if (!tool)
 	{
 		throw "No tool to take." ;
@@ -22,23 +22,24 @@ void Worker::takeTool(Tool* tool)
 	}
 	if (tool->getMemberOfUse() && tool->getMemberOfUse() == this)
 	{
-		std::cout << "Worker " << this->_name << " already has this tool." << std::endl;
+		std::cout << YELLOW << "Worker " << this->_name << " already has this tool." << RESET << std::endl;
 		return;
 	}
 	if (tool->getMemberOfUse() && tool->getMemberOfUse() != this)
 	{
 		tool->getMemberOfUse()->discardTool(tool);
-		tool->setMemberOfUse(this);
 	}
+	tool->setMemberOfUse(this);
 	this->_tools.push_back(tool);
-	std::cout << "Worker " << this->_name << " has taken a tool." << std::endl;
+	std::cout << YELLOW << "Worker " << this->_name << " has taken a tool." << RESET << std::endl;
 }
 
 void Worker::discardTool(Tool* tool)
 {
+	std::cout << "Worker " << this->_name << " is trying to discard a tool " << tool->getName() << std::endl;
 	if (this->_tools.empty())
 	{
-		throw "Worker " + this->_name + " has no tools to discard." ;
+		throw "Worker has no tools to discard.";
 	}
 	for (std::vector<Tool*>::iterator it = this->_tools.begin(); it != this->_tools.end(); ++it)
 	{
@@ -46,11 +47,11 @@ void Worker::discardTool(Tool* tool)
 		{
 			this->_tools.erase(it);
 			tool->setMemberOfUse(NULL);
-			std::cout << "Worker " << this->_name << " has discarded a tool." << std::endl;
+			std::cout << YELLOW << "Worker " << this->_name << " has discarded a tool." << RESET << std::endl;
 			return;
 		}
 	}
-	throw "Tool not found in " + this->_name + "'s inventory." ;
+	throw "Tool not found in inventory." ;
 }
 
 /*Getters and Setters*/
@@ -74,8 +75,6 @@ int Worker::getNumberOfTools() const
 	return this->_tools.size();
 }
 
-
-
 /*Constructors*/
 Worker::Worker(std::string _name) : _name(_name)
 {
@@ -93,17 +92,25 @@ Worker::Worker(std::string _name) : _name(_name)
 	this->_stats = stats;
 
 	this->_tools = std::vector<Tool*>();
-	std::cout << "Worker parameterized constructor is called" << std::endl;
+	// std::cout << "Worker parameterized constructor is called" << std::endl;
 }
 
 /*Destructors*/
 Worker::~Worker( void )
 {
-    std::cout << "Worker destructor is called" << std::endl;
+    // std::cout << "Worker destructor is called" << std::endl;
 	if (!this->_tools.empty())
 	{
 		std::cout << "Worker " << this->_name << " is discarding their tools." << std::endl;
+		std::vector<Tool*>::iterator it;
 		
+		for (it = this->_tools.begin(); it != this->_tools.end(); ++it)
+		{
+			std::cout << "Discarding tool: " << (*it)->getName() << std::endl;
+			if (*it)
+				(*it)->setMemberOfUse(NULL);
+		}
+		this->_tools.clear();
 	}
 }
 

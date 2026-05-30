@@ -22,6 +22,7 @@ public:
 	
 	/*Getters and Setters*/
 	Worker* 			getMemberOfUse() const;
+	int					getNumberOfUses() const;
 	const std::string& 	getName() const;
 	
 	/*Constructors*/

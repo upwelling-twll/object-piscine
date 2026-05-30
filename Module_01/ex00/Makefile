@@ -1,4 +1,4 @@
-SRCS	=	main.cpp Worker.cpp	Tool.cpp Shover.cpp
+SRCS	=	main.cpp Worker.cpp	Tool.cpp Shovel.cpp Hammer.cpp
 
 NAME	=	Workshop
 

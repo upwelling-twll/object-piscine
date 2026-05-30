@@ -1,5 +1,5 @@
-#ifndef SHOVER_HPP
-# define SHOVER_HPP
+#ifndef Hammer_HPP
+# define Hammer_HPP
 
 # include <iostream>
 # include "Colors.hpp"
@@ -8,7 +8,7 @@
 
 class Worker;
 
-class Shover : public Tool
+class Hammer : public Tool
 {
 
 public:
@@ -16,11 +16,11 @@ public:
     void use();
 
 	/*Constructors*/
-    Shover(const std::string& _name);
-	Shover(void);
+    Hammer(const std::string& _name);
+	Hammer(void);
 
 	/*Destructors*/
-    virtual ~Shover( void );
+    virtual ~Hammer( void );
 
 };
 
