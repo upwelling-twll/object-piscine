@@ -17,14 +17,19 @@ private:
 	Statistic			_stats;
 	std::vector<Tool*>	_tools;
 
-	void discardTool();
-
 public:
 	/*Member functions*/
     void useTool(Tool* tool);
+	void takeTool(Tool* tool);
+	void discardTool(Tool* tool);
 
 	/*Getters and Setters*/
-	std::string getName() const;
+	const std::string getName() const;
+
+	Position&	getPosition();
+	Statistic&	getStats();
+	int			getNumberOfTools() const;
+
 	/*Constructors*/
     Worker(std::string _name);
 

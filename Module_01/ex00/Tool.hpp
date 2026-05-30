@@ -8,21 +8,24 @@ class Worker;
 
 class Tool
 {
+private:
+	void		setMemberOfUse(Worker* memberOfUse);
+
 protected:
 	std::string _name;
-    Worker* 	_owner;
+    Worker* 	_memberOfUse;
+	int 		_numberOfUses;
 
-	void		setOwner(Worker* owner);
 public:
 	/*Member functions*/
     virtual void use() = 0;
-
+	
 	/*Getters and Setters*/
-	Worker* 			getOwner() const;
+	Worker* 			getMemberOfUse() const;
 	const std::string& 	getName() const;
-
+	
 	/*Constructors*/
-    Tool(std::string& _name);
+    Tool(const std::string& _name);
 	Tool(void);
 
 	/*Destructors*/
