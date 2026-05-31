@@ -6,7 +6,7 @@ void Hammer::use()
 {
 	if (!this->_memberOfUse)
 	{
-		throw "No worker to use the Hammer." ;
+		throw std::runtime_error("No worker to use the Hammer.");
 		return;
 	}
 	std::cout << PINK << "🔨 Worker " << this->_memberOfUse->getName() << " is using the Hammer.🔨" << RESET << std::endl;

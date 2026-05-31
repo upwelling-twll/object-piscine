@@ -101,25 +101,61 @@ void testWorkshopAssociation()
     std::cout << "=== Workshop Association Test ===" << std::endl;
     Worker worker1("uruk-hai");
     Worker worker2("orc");
-    Workshop workshop("Nan Curunír (Sauron's Workshop)");
+    Worker worker3("gollum");
+    Workshop workshop("Nan Curunír (Saruman's Workshop in Isengard)");
+    Workshop workshop2("Gorgoroth (Sauron's Workshop in Mordor)");
+    Workshop workshop3("Saruman's Workshop in Bag End");
 
     try {
         workshop.registerWorker(&worker1);
         workshop.registerWorker(&worker2);
-        workshop.registerWorker(&worker1); 
+        workshop.registerWorker(&worker1);
         workshop.displayWorkers();
         std::cout << std::endl;
         std::cout << YELLOW << worker1 << RESET << std::endl;
         std::cout << YELLOW << worker2 << RESET << std::endl;
 
-        // workshop.releaseWorker(&worker1);
+        workshop2.registerWorker(&worker2);
+        workshop3.registerWorker(&worker2);
+        std::cout << YELLOW << worker1 << RESET << std::endl;
+        workshop2.displayWorkers();
+        workshop3.displayWorkers();
+
+        workshop.executeWorkDay();
+        workshop.releaseWorker(&worker3);
+        // worker3.work();
+        workshop.releaseWorker(&worker1);
         workshop.displayWorkers();
         std::cout << std::endl;
         std::cout << YELLOW << worker1 << RESET << std::endl;
     }
-    catch (const char* msg) {
-        std::cerr << RED <<"Error: " << msg << RESET << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
     }
+}
+
+void testToolType()
+{
+    // Hammer hammer("Hammer");
+    Shovel shovel1("oldShovel");
+    Shovel shovel2("newShovel");
+    
+    Worker worker("Alice");
+
+    // worker.takeTool(&hammer);
+    worker.takeTool(&shovel1);
+    worker.takeTool(&shovel2);
+
+    std::cout << "Found shovel: " << (worker.getTool<Shovel>())->getName() << std::endl;
+    if (worker.getTool<Hammer>() == NULL)
+    {
+        std::cout << "No hammer found." << std::endl;
+    }
+    else
+    {
+        std::cout << "Found hammer: " << (worker.getTool<Hammer>())->getName() << std::endl;
+    }
+
 }
 
 int main()
@@ -128,9 +164,10 @@ int main()
     // testComposition();
     // testAggregation();
     // testInheritance();
-    testWorkshopAssociation();
+    // testWorkshopAssociation();
     // testToolTransfer();
     // testAutoRelease();
     // testInvalidOperations();
+    testToolType();
     return 0;
 }

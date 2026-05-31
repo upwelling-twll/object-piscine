@@ -6,7 +6,7 @@ void Shovel::use()
 {
 	if (!this->_memberOfUse)
 	{
-		throw "No worker to use the Shovel." ;
+		throw std::runtime_error("No worker to use the Shovel.");
 		return;
 	}
 	std::cout << BLUE << "🪏 Worker " << this->_memberOfUse->getName() << " is using the Shovel.🪏 " << RESET << std::endl;

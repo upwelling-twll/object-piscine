@@ -25,7 +25,22 @@ public:
 	void discardTool(Tool* tool);
 	void registerInWorkshop(Workshop* workshop);
 	void leaveWorkshop(Workshop* workshop);
+	void work();
 	
+	template<typename ToolType>
+	ToolType* getTool()
+	{
+		for (std::vector<Tool*>::iterator it = this->_tools.begin(); it != this->_tools.end(); ++it)
+		{
+			ToolType* castedTool = dynamic_cast<ToolType*>(*it);
+			if (castedTool)
+			{
+				return castedTool;
+			}
+		}
+		return NULL;
+	};
+
 	/*Getters and Setters*/
 	const std::string getName() const;
 

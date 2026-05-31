@@ -2,11 +2,12 @@
 #include "Tool.hpp"
 
 /*Member functions*/
+
 void Worker::useTool(Tool* tool)
 {
 	if (!tool)
 	{
-		throw "No tool to use." ;
+		throw std::runtime_error("Worker " + this->_name + " has no tool to use.");
 		return;
 	}
     tool->use();
@@ -17,7 +18,7 @@ void Worker::takeTool(Tool* tool)
 	std::cout << "Worker " << this->_name << " is trying to take a tool " << std::endl;
 	if (!tool)
 	{
-		throw "No tool to take." ;
+		throw std::runtime_error("Worker " + this->_name + " has no tool to take.");
 		return;
 	}
 	if (tool->getMemberOfUse() && tool->getMemberOfUse() == this)
@@ -39,7 +40,7 @@ void Worker::discardTool(Tool* tool)
 	std::cout << "Worker " << this->_name << " is trying to discard a tool " << tool->getName() << std::endl;
 	if (this->_tools.empty())
 	{
-		throw "Worker has no tools to discard.";
+		throw std::runtime_error("Worker " + this->_name + " has no tools to discard.");
 	}
 	for (std::vector<Tool*>::iterator it = this->_tools.begin(); it != this->_tools.end(); ++it)
 	{
@@ -51,14 +52,14 @@ void Worker::discardTool(Tool* tool)
 			return;
 		}
 	}
-	throw "Tool not found in inventory." ;
+	throw std::runtime_error("Worker " + this->_name + " has no such tool in inventory.");
 }
 
 void Worker::registerInWorkshop(Workshop* workshop)
 {
 	if (!workshop)
 	{
-		throw "No workshop to register in.";
+		throw std::runtime_error("Worker " + this->_name + " has no workshop to register in.");
 		return;
 	}
 	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
@@ -77,7 +78,7 @@ void Worker::leaveWorkshop(Workshop* workshop)
 {
 	if (!workshop)
 	{
-		throw "No workshop to leave.";
+		throw std::runtime_error("Worker " + this->_name + " has no workshop to leave.");
 		return;
 	}
 	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
@@ -89,7 +90,19 @@ void Worker::leaveWorkshop(Workshop* workshop)
 			return;
 		}
 	}
-	throw "Workshop not found in worker's registered workshops.";
+	throw std::runtime_error("Worker " + this->_name + " is not registered in the specified workshop.");
+}
+
+void Worker::work()
+{
+	if (this->_workshops.empty())
+	{
+		throw std::runtime_error("Worker " + this->_name + " is unemployed and can go touch the grass.");
+	}
+	else
+	{
+		std::cout << YELLOW << "Worker " << this->_name << " is working" << RESET << std::endl;
+	}
 }
 
 /*Getters and Setters*/

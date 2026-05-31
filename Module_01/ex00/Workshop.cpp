@@ -6,27 +6,27 @@ void Workshop::registerWorker(Worker* worker)
 {
     if (!worker)
 	{
-		throw "No worker to register.";
+		throw std::runtime_error("No worker to register in +" + this->_name + ".");
 		return;
 	}
 	for (std::vector<Worker*>::iterator it = this->_workers.begin(); it != this->_workers.end(); ++it)
 	{
 		if (*it == worker)
 		{
-			std::cout << GREEN << "Worker " << worker->getName() << " is already registered in this workshop." << RESET << std::endl;
+			std::cout << GREEN << "Worker " << worker->getName() << " is already registered in " << this->_name << "." << RESET << std::endl;
 			return;
 		}
 	}
 	worker->registerInWorkshop(this);
 	this->_workers.push_back(worker);
-	std::cout << "Worker " << worker->getName() << " has been registered in the workshop." << std::endl;
+	std::cout << "Worker " << worker->getName() << " has been registered in the " << this->_name << std::endl;
 }
 
 void Workshop::releaseWorker(Worker* worker)
 {
 	if (!worker)
 	{
-		throw "No worker to release.";
+		throw std::runtime_error("No worker to release from " + this->_name + ".");
 		return;
 	}
 	for (std::vector<Worker*>::iterator it = this->_workers.begin(); it != this->_workers.end(); ++it)
@@ -35,11 +35,11 @@ void Workshop::releaseWorker(Worker* worker)
 		{
 			this->_workers.erase(it);
 			worker->leaveWorkshop(this);
-			std::cout << "Worker " << worker->getName()<< " has been released from the workshop." << std::endl;
+			std::cout << "Worker " << worker->getName()<< " has been released from the " << this->_name << std::endl;
 			return;
 		}
 	}
-	throw "Worker not found in this workshop.";
+	throw std::runtime_error("Worker not found in " + this->_name + " workshop.");
 }
 
 void Workshop::displayWorkers() const
@@ -48,6 +48,19 @@ void Workshop::displayWorkers() const
 	for (std::vector<Worker*>::const_iterator it = this->_workers.begin(); it != this->_workers.end(); ++it)
 	{
 		std::cout << GREEN << "- " << (*it)->getName() << RESET << std::endl;
+	}
+}
+
+void Workshop::executeWorkDay()
+{
+	std::cout << GREEN << "Executing work day in " << this->_name << " with " << this->_workers.size() << " workers." << RESET << std::endl;
+	for (std::vector<Worker*>::iterator it = this->_workers.begin(); it != this->_workers.end(); ++it)
+	{
+		if (*it)
+		{
+			std::cout << GREEN << (*it)->getName() << " is sent to work in " << this->_name << "." << RESET << std::endl;
+			(*it)->work();
+		}	
 	}
 }
 
@@ -79,7 +92,7 @@ Workshop::~Workshop( void )
 	{
 		if (*it)
 		{
-			std::cout << "Releasing worker: " << (*it)->getName() << std::endl;
+			std::cout << "Releasing worker: " << (*it)->getName() << "from "<< this->_name << std::endl;
 			(*it)->leaveWorkshop(this);
 		}
 	}
