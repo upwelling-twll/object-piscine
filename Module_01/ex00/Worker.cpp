@@ -52,6 +52,15 @@ void Worker::discardTool(Tool* tool)
 			return;
 		}
 	}
+	// for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
+	// {
+	// 	if (*it->getRequiredToolType() == tool->getType())
+	// 	{
+	// 		(*it)->releaseWorker(this);
+	// 		std::cout << YELLOW << "Worker " << this->_name << " has been released from the workshop due to discarding a required tool." << RESET << std::endl;
+	// 		return;
+	// 	}
+	// }
 	throw std::runtime_error("Worker " + this->_name + " has no such tool in inventory.");
 }
 
