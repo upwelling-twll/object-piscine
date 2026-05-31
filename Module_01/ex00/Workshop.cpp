@@ -13,9 +13,14 @@ void Workshop::registerWorker(Worker* worker)
 	{
 		if (*it == worker)
 		{
-			std::cout << GREEN << "Worker " << worker->getName() << " is already registered in " << this->_name << "." << RESET << std::endl;
+			throw std::runtime_error("Worker " + worker->getName() + " is already registered in " + this->_name + ".");
 			return;
 		}
+	}
+	if (!(worker->getTool(this->_requiredToolType)))
+	{
+		throw std::runtime_error("Worker " + worker->getName() + " has no tool of specific type and cannot be registered in " + this->_name + ".");
+		return;
 	}
 	worker->registerInWorkshop(this);
 	this->_workers.push_back(worker);
@@ -70,15 +75,20 @@ const std::string& Workshop::getName() const
 	return this->_name;
 }
 
+const std::string& Workshop::getRequiredToolType() const
+{
+	return this->_requiredToolType;
+}
+
 /*Constructors*/
 
-Workshop::Workshop(std::string name) : _name(name)
+Workshop::Workshop(std::string name, std::string requiredToolType) : _name(name), _requiredToolType(requiredToolType)
 {
 	std::cout << GREEN << "Workshop " << _name << " is created" << RESET << std::endl;
 	this->_workers = std::vector<Worker*>();
 }
 
-Workshop::Workshop() : _name("Default Workshop")
+Workshop::Workshop() : _name("42"), _requiredToolType("Keyboard")
 {
     std::cout << GREEN << "Workshop " << _name << " is created" << RESET << std::endl;
 	this->_workers = std::vector<Worker*>();

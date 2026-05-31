@@ -40,14 +40,19 @@ const std::string& Tool::getName() const
 	return this->_name;
 }
 
+const std::string& Tool::getType() const
+{
+	return this->_type;
+}
+
 /*Constructors*/
-Tool::Tool(const std::string& _name) : _name(_name), _memberOfUse(NULL),
+Tool::Tool(const std::string& _name, const std::string& _type) : _name(_name), _type(_type), _memberOfUse(NULL),
 	_numberOfUses(0)
 {
 //    std::cout << "Tool parameterized constructor is called" << std::endl;
 }
 
-Tool::Tool() : _name("Unknown"), _memberOfUse(NULL), _numberOfUses(0)
+Tool::Tool() : _name("Unknown"), _type("Multi-tool"), _memberOfUse(NULL), _numberOfUses(0)
 {
     // std::cout << "Tool default constructor is called" << std::endl;
 }
@@ -72,6 +77,7 @@ std::ostream& operator<<(std::ostream& output_stream, Tool& src)
 	}
 	output_stream << "* Tool Class info*" << std::endl;
 	output_stream << "Name: " << src.getName() << std::endl;
+	output_stream << "Type: " << src.getType() << std::endl;
 	output_stream << "memberOfUse: " << name << std::endl;
 	output_stream << "Number of uses: " << src.getNumberOfUses() << std::endl;
 	return output_stream;

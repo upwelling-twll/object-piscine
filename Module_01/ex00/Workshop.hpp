@@ -10,8 +10,9 @@ class Worker;
 class Workshop
 {
 private:
-	const std::string _name;
-    std::vector<Worker*> _workers;
+	const std::string 		_name;
+    std::vector<Worker*>	_workers;
+	std::string				_requiredToolType;
 
 public:
 	/*Member functions*/
@@ -22,9 +23,10 @@ public:
 
 	/*Getters and Setters*/
 	const std::string& getName() const;
+	const std::string& getRequiredToolType() const;
 
 	/*Constructors*/
-    Workshop(std::string name);
+    Workshop(std::string name, std::string requiredToolType);
 	Workshop(void);
 
 	/*Destructors*/
@@ -32,4 +34,4 @@ public:
 
 };
 
-#endif // WORKSHOP_HPP
+#endif

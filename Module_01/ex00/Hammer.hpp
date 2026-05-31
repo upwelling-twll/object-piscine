@@ -16,7 +16,7 @@ public:
     void use();
 
 	/*Constructors*/
-    Hammer(const std::string& _name);
+    Hammer(const std::string& _name, const std::string& _type);
 	Hammer(void);
 
 	/*Destructors*/

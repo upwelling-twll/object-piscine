@@ -14,7 +14,7 @@ void Hammer::use()
 }
 
 /*Constructors*/
-Hammer::Hammer(const std::string& _name) : Tool(_name)
+Hammer::Hammer(const std::string& _name, const std::string& _type) : Tool(_name, _type)
 {
 //    std::cout << "Hammer parameterized constructor is called" << std::endl;
 }

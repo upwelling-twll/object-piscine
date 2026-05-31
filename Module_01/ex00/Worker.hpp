@@ -25,6 +25,7 @@ public:
 	void discardTool(Tool* tool);
 	void registerInWorkshop(Workshop* workshop);
 	void leaveWorkshop(Workshop* workshop);
+	Tool* getTool(const std::string& toolType);
 	void work();
 	
 	template<typename ToolType>

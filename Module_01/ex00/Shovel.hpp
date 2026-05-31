@@ -16,7 +16,7 @@ public:
     void use();
 
 	/*Constructors*/
-    Shovel(const std::string& _name);
+    Shovel(const std::string& _name, const std::string& _type);
 	Shovel(void);
 
 	/*Destructors*/

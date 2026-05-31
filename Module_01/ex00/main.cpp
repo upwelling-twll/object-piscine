@@ -9,7 +9,7 @@ void testComposition()
 {
     std::cout << "=== Composition Test ===" << std::endl;
     Worker worker("Alice");
-    Shovel Shovel("Shovel");
+    Shovel Shovel("Metal shovel", "Shovel");
 
     worker.takeTool(&Shovel);
     worker.useTool(&Shovel);
@@ -20,14 +20,14 @@ void testAggregation()
     try {
         std::cout << "=== Aggregation Test ===" << std::endl;
         Worker* worker = new Worker("Bob");
-        Shovel* shovel = new Shovel("Shovel");
+        Shovel* shovel = new Shovel("Metal shovel", "Shovel");
 
         worker->takeTool(shovel);
         worker->useTool(shovel);
         delete shovel; 
         std::cout << YELLOW << *worker << RESET << std::endl;
 
-        Shovel* NEWShovel = new Shovel("Shovel");
+        Shovel* NEWShovel = new Shovel("Wooden shovel","Shovel");
         worker->takeTool(NEWShovel);
         worker->useTool(NEWShovel); 
         std::cout << WHITE << *NEWShovel << RESET << std::endl; 
@@ -37,9 +37,9 @@ void testAggregation()
         NEWShovel = NULL;
         std::cout << YELLOW << *worker << RESET << std::endl; 
         // worker->takeTool(NEWShovel);
-        Shovel* Shovel1 = new Shovel("Shovel1");
-        Hammer* Hammer1 = new Hammer("Hammer1");
-        Shovel* Shovel2 = new Shovel("Shovel2");
+        Shovel* Shovel1 = new Shovel("Shovel1", "Shovel");
+        Hammer* Hammer1 = new Hammer("Hammer1", "Hammer");
+        Shovel* Shovel2 = new Shovel("Shovel2", "Shovel");
         std::cout << "Taking multiple tools..." << std::endl;
         worker->takeTool(Shovel1);
         worker->takeTool(Hammer1);
@@ -64,7 +64,7 @@ void testAggregation()
 
 void testToolTransfer()
 {
-    Tool* tool = new Shovel("Shovel");
+    Tool* tool = new Shovel("Metal shovel", "Shovel");
 
     std::cout << "=== Tool Transfer Test ===" << std::endl;
     Worker worker1("Alice");
@@ -102,9 +102,9 @@ void testWorkshopAssociation()
     Worker worker1("uruk-hai");
     Worker worker2("orc");
     Worker worker3("gollum");
-    Workshop workshop("Nan Curunír (Saruman's Workshop in Isengard)");
-    Workshop workshop2("Gorgoroth (Sauron's Workshop in Mordor)");
-    Workshop workshop3("Saruman's Workshop in Bag End");
+    Workshop workshop("Nan Curunír (Saruman's Workshop in Isengard)", "Shovel");
+    Workshop workshop2("Gorgoroth (Sauron's Workshop in Mordor)", "Hammer");
+    Workshop workshop3("Saruman's Workshop in Bag End", "Shovel");
 
     try {
         workshop.registerWorker(&worker1);
@@ -136,13 +136,13 @@ void testWorkshopAssociation()
 
 void testToolType()
 {
-    // Hammer hammer("Hammer");
-    Shovel shovel1("oldShovel");
-    Shovel shovel2("newShovel");
-    
+    Hammer hammer("newHammer", "Hammer");
+    Shovel shovel1("oldShovel", "Shovel");
+    Shovel shovel2("newShovel", "Shovel");
+
     Worker worker("Alice");
 
-    // worker.takeTool(&hammer);
+    worker.takeTool(&hammer);
     worker.takeTool(&shovel1);
     worker.takeTool(&shovel2);
 
@@ -153,14 +153,37 @@ void testToolType()
     }
     else
     {
-        std::cout << "Found hammer: " << (worker.getTool<Hammer>())->getName() << std::endl;
+        std::cout << BLUE << "Found hammer: " << (worker.getTool<Hammer>())->getName() << RESET << std::endl;
+    }
+}
+
+void testWorshopToolRequirement()
+{
+    std::cout << "=== Workshop Tool Requirement Test ===" << std::endl;
+    Worker worker("Orc");
+    Workshop workshop("Isengard", "Hammer");
+
+    try {
+        workshop.registerWorker(&worker);
+    }
+    catch (const std::exception& e) {
+        std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
     }
 
+    Hammer hammer("Ugly Hammer", "Hammer");
+    worker.takeTool(&hammer);
+
+    try {
+        workshop.registerWorker(&worker);
+        workshop.displayWorkers();
+    }
+    catch (const std::exception& e) {
+        std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
+    }
 }
 
 int main()
 {
-
     // testComposition();
     // testAggregation();
     // testInheritance();
@@ -168,6 +191,7 @@ int main()
     // testToolTransfer();
     // testAutoRelease();
     // testInvalidOperations();
-    testToolType();
+    // testToolType();
+    testWorshopToolRequirement();
     return 0;
 }

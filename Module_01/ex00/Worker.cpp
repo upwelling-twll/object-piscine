@@ -93,6 +93,18 @@ void Worker::leaveWorkshop(Workshop* workshop)
 	throw std::runtime_error("Worker " + this->_name + " is not registered in the specified workshop.");
 }
 
+Tool* Worker::getTool(const std::string& toolType)
+{
+	for (std::vector<Tool*>::iterator it = this->_tools.begin(); it != this->_tools.end(); ++it)
+	{
+		if ((*it)->getType() == toolType)
+		{
+			return *it;
+		}
+	}
+	return NULL;
+}
+
 void Worker::work()
 {
 	if (this->_workshops.empty())

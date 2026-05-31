@@ -13,6 +13,7 @@ private:
 
 protected:
 	std::string _name;
+	std::string _type;
     Worker* 	_memberOfUse;
 	int 		_numberOfUses;
 
@@ -24,9 +25,10 @@ public:
 	Worker* 			getMemberOfUse() const;
 	int					getNumberOfUses() const;
 	const std::string& 	getName() const;
+	const std::string& 	getType() const;
 	
 	/*Constructors*/
-    Tool(const std::string& _name);
+    Tool(const std::string& _name, const std::string& _type);
 	Tool(void);
 
 	/*Destructors*/

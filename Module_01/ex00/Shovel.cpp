@@ -14,7 +14,7 @@ void Shovel::use()
 }
 
 /*Constructors*/
-Shovel::Shovel(const std::string& _name) : Tool(_name)
+Shovel::Shovel(const std::string& _name, const std::string& _type) : Tool(_name, _type)
 {
 //    std::cout << "Shovel parameterized constructor is called" << std::endl;
 }
