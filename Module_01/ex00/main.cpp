@@ -180,6 +180,11 @@ void testWorshopToolRequirement()
     catch (const std::exception& e) {
         std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
     }
+
+    std::cout << "===Test worker loosing requested tool===" << std::endl;
+    worker.discardTool(&hammer);
+    workshop.displayWorkers();
+
 }
 
 int main()

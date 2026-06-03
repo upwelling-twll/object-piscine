@@ -50,6 +50,11 @@ void Workshop::releaseWorker(Worker* worker)
 void Workshop::displayWorkers() const
 {
 	std::cout << GREEN << "Workers registered in " << this->_name << ":" << RESET << std::endl;
+	if (this->_workers.empty())
+	{
+		std::cout << YELLOW << "No workers registered in the workshop." << RESET << std::endl;
+		return;
+	}
 	for (std::vector<Worker*>::const_iterator it = this->_workers.begin(); it != this->_workers.end(); ++it)
 	{
 		std::cout << GREEN << "- " << (*it)->getName() << RESET << std::endl;

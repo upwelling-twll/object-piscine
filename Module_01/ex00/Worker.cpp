@@ -1,5 +1,7 @@
 #include "Worker.hpp"
 #include "Tool.hpp"
+#include "Workshop.hpp"
+
 
 /*Member functions*/
 
@@ -49,18 +51,22 @@ void Worker::discardTool(Tool* tool)
 			this->_tools.erase(it);
 			tool->setMemberOfUse(NULL);
 			std::cout << YELLOW << "Worker " << this->_name << " has discarded a tool." << RESET << std::endl;
-			return;
 		}
+		std::vector<Workshop*> workshopsCopy = this->_workshops;
+		for (std::vector<Workshop*>::iterator it = workshopsCopy.begin(); it != workshopsCopy.end(); ++it)
+		{
+			std::string requiredToolType = (*it)->getRequiredToolType();
+			std::string toolType = tool->getType();
+			std::cout << YELLOW << "Worker " << this->_name << " is checking if the discarded tool is required by workshop. his tool type is " << toolType << " and the required tool type is " << requiredToolType << "." << RESET << std::endl;
+			if (requiredToolType == toolType)
+			{
+				(*it)->releaseWorker(this);
+				std::cout << YELLOW << "Worker " << this->_name << " has been released from the workshop due to discarding a required tool." << RESET << std::endl;
+			}
+			std::cout << *this << std::endl;
+		}
+		return;
 	}
-	// for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
-	// {
-	// 	if (*it->getRequiredToolType() == tool->getType())
-	// 	{
-	// 		(*it)->releaseWorker(this);
-	// 		std::cout << YELLOW << "Worker " << this->_name << " has been released from the workshop due to discarding a required tool." << RESET << std::endl;
-	// 		return;
-	// 	}
-	// }
 	throw std::runtime_error("Worker " + this->_name + " has no such tool in inventory.");
 }
 
@@ -90,8 +96,10 @@ void Worker::leaveWorkshop(Workshop* workshop)
 		throw std::runtime_error("Worker " + this->_name + " has no workshop to leave.");
 		return;
 	}
+	std::cout << YELLOW << "Worker " << this->_name << " is trying to leave workshop " << workshop->getName() << RESET << std::endl;
 	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
 	{
+		std::cout << YELLOW << "Worker " << this->_name << " is checking if they are registered in the workshop " << (*it)->getName() << "." << RESET << std::endl;
 		if (*it == workshop)
 		{
 			this->_workshops.erase(it);
