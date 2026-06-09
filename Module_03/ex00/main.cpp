@@ -38,7 +38,10 @@ int main()
     car.shift_gears_down();
 
     car.reverse();
-
-
+    car.shift_gears_up();
+    car.shift_gears_up();
+    car.shift_gears_up();
+    car.shift_gears_up();
+    car.shift_gears_up();
     return 0;
 }
