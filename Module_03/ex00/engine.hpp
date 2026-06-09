@@ -6,7 +6,7 @@
 
 class Engine
 {
-    bool is_running;
+    bool    is_running;
     
     public:
         Engine() : is_running(false) {};
@@ -28,6 +28,18 @@ class Engine
             }
             is_running = false;
             std::cout << ENGINE << "Engine stopped" << RESET << std::endl;
+        }
+
+        void accelerate(int speed){
+            if (!is_running) {
+                std::cout << ENGINE << "Cannot accelerate, engine is not running" << RESET << std::endl;
+                return;
+            }
+            std::cout << ENGINE << "Accelerating on " << speed << " km/h" << RESET << std::endl;
+        }
+
+        bool engine_is_running(){
+            return is_running;
         }
 };
 
