@@ -77,6 +77,11 @@ class Car
         }
 
         void reverse(){
+            if (current_speed > 0 && !transmission.is_in_reverse())
+            {
+                std::cout << CAR << "Cannot switch to reverse while the car is moving forward" << RESET << std::endl;
+                return;
+            }
             transmission.reverse();
         }
 

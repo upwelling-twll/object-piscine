@@ -32,6 +32,13 @@ int main()
     car.start();
     car.reverse();
     car.accelerate(40);
+    car.shift_gears_up();
+    car.display_status();
+    car.accelerate(40);
+    car.shift_gears_down();
+
+    car.reverse();
+
 
     return 0;
 }
