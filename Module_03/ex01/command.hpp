@@ -1,7 +1,10 @@
 #ifndef COMMAND_HPP
 #define COMMAND_HPP
 
-#incldue <map>
+#include <map>
+#include "Article.hpp"
+
+class Client;
 
 struct Date
 {
@@ -12,15 +15,33 @@ struct Date
 
 class Command
 {
-    private:
+    protected:
         int                     id;
         Date                    date;
-        Client                  client;
-        std::map<Article, int>  articles;
+        Client*                 client;
+        std::map<Article*, int>  articles;
 
     public:
 
-        int get_total_price() const;
+        virtual int get_total_price()
+        {
+            int total_price = 0;
+            for (auto& article : this->articles)
+            {
+                total_price += (article.first)->getPrice() * article.second;
+            }
+            return total_price;
+        }
+
+        Command(int id, Date date, Client* client, std::map<Article*, int> articles = std::map<Article*, int>())
+        {
+            this->id = id;
+            this->date = date;
+            this->client = client;
+            this->articles = articles;
+        };
+
+        ~Command() {};
 
 };
 
