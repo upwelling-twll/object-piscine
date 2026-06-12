@@ -1,7 +1,7 @@
 #ifndef EMPLOYEEMANAGEMENT_HPP
 #define  EMPLOYEEMANAGEMENT_HPP
 
-#include <set>
+#include <vector>
 #include <iostream>
 
 class Employee;
@@ -9,7 +9,7 @@ class Employee;
 class EmployeeManger
 {
 private:
-    std::set<Employee *> _employees;
+    std::vector<Employee *> _employees;
 
 public:
     void addEmployee(Employee* employee);
