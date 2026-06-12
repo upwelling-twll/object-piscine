@@ -22,7 +22,7 @@ int main()
 	for (auto it = loggers.begin(); it != loggers.end(); ++it)
 	{
 		for (auto it_s = strings.begin(); it_s != strings.end(); ++it_s)
-			it->write(it_s);
+			(*it)->write(*it_s);
 	}
 
 }
