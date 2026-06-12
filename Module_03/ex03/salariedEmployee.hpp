@@ -12,7 +12,7 @@ class SalariedEmployee : public Employee
 		SalariedEmployee(int value) 
 			: Employee(value), absenceHours (0) {}
 		
-		void addAbscence(int hours)
+		void addAbsence(int hours)
 		{
 			absenceHours += hours;
 		}

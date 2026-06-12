@@ -1,5 +1,5 @@
-#ifndef EMPLOYEE
-#define EMPLOYEE
+#ifndef EMPLOYEE_HPP
+#define EMPLOYEE_HPP
 
 class Employee
 {
@@ -12,7 +12,7 @@ class Employee
         virtual ~Employee() {}
         
         virtual void executeWorkday() = 0;
-        virtual int calulatePay() const = 0;
+        virtual int calculatePay() const = 0;
 };
 
 #endif

@@ -5,11 +5,19 @@
 
 class TempWorker : public HourlyEmployee
 {
-	private:
-
-
 	public:
 
+		TempWorker(int value) : HourlyEmployee(value) {}
+
+		void executeWorkday()
+		{
+			workedHours += 7;
+		}
+
+		int calculatePay() const
+		{
+			return (workedHours * hourlyValue);
+		}
 
 };
 

@@ -5,10 +5,22 @@
 
 class ContractEmployee : public SalariedEmployee
 {
-	private:
-
-
 	public:
+		ContractEmployee(int value)
+			: SalariedEmployee(value) {}
+		
+		void executeWorkday()
+		{
+			//nothing happens
+		}
+
+		int calculatePay() const
+		{
+			int monthlyHours = 30 * 7;
+			int worked = monthlyHours - absenceHours;
+
+			return (worked * hourlyValue);
+		}
 
 
 };

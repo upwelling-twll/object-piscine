@@ -19,9 +19,17 @@ class Apprentice : public SalariedEmployee
 
 		void executeWorkday()
 		{
-			
+			//nothing happens	
 		}
 
+		int calculatePay() const
+		{
+			int monthlyHours = 30 * 7;
+			int normalHours = monthlyHours - absenceHours - schoolHours;
+			int schoolPay = schoolHours * (hourlyValue / 2);
+
+			return (normalHours * hourlyValue + schoolPay);
+		}
 
 };
 
