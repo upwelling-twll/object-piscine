@@ -2,6 +2,9 @@
 # define COURSE_HPP
 
 # include <iostream>
+class Student;
+class Professor;
+
 
 class Course
 {
