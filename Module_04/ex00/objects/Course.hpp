@@ -2,9 +2,10 @@
 # define COURSE_HPP
 
 # include <iostream>
+# include <vector>
+
 class Student;
 class Professor;
-
 
 class Course
 {

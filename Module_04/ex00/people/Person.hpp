@@ -3,6 +3,7 @@
 
 # include <iostream>
 
+class Room;
 class Person
 {
 private:
@@ -10,7 +11,7 @@ private:
 	Room* _currentRoom;
 
 public:
-	Personne(std::string p_name);
+	Person(std::string p_name);
 	Room* room() {return (_currentRoom);}
 
 	/*Getters and Setters*/

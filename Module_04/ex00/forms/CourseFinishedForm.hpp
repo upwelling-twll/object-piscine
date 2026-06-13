@@ -2,7 +2,7 @@
 # define COURSEFINISHEDFORM_HPP
 
 # include <iostream>
-
+# include "Form.hpp"
 class CourseFinishedForm : public Form
 {
 private:

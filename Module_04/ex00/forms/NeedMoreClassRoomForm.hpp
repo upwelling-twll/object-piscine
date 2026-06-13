@@ -2,6 +2,7 @@
 # define NEEDMORECLASSROOMFORM_HPP
 
 # include <iostream>
+# include "Form.hpp"
 
 class NeedMoreClassRoomForm : public Form
 {

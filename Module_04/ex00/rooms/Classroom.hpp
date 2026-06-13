@@ -2,6 +2,9 @@
 # define CLASSROOM_HPP
 
 # include <iostream>
+# include "Room.hpp"
+
+class Course;
 
 class Classroom : public Room
 {

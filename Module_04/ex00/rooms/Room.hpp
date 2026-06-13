@@ -2,7 +2,9 @@
 # define ROOM_HPP
 
 # include <iostream>
+# include <vector>
 
+class Person;
 class Room
 {
 private:

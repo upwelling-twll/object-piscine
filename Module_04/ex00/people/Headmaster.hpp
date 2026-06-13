@@ -2,7 +2,11 @@
 # define HEADMASTER_HPP
 
 # include <iostream>
+# include <vector>
 
+# include "Staff.hpp"
+
+class Form;
 class Headmaster : public Staff
 {
 private:

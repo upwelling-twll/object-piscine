@@ -2,9 +2,9 @@
 # define COURTYARD_HPP
 
 # include <iostream>
+# include "Room.hpp"
 
 class Courtyard : public Room
-{
 {
 private:
     // Add member variables here

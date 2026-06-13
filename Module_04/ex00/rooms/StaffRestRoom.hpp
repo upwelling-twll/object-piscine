@@ -2,6 +2,7 @@
 # define STAFFRESTROOM_HPP
 
 # include <iostream>
+# include "Room.hpp"
 
 class StaffRestRoom  : public Room
 {

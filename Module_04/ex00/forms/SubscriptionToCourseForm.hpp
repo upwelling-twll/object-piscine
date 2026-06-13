@@ -2,6 +2,7 @@
 # define SUBSCRIPTIONTOCOURSEFORM_HPP
 
 # include <iostream>
+# include "Form.hpp"
 
 class SubscriptionToCourseForm : public Form
 {

@@ -2,7 +2,9 @@
 # define PROFESSOR_HPP
 
 # include <iostream>
+# include "Staff.hpp"
 
+class Course;
 class Professor : public Staff
 {
 private:

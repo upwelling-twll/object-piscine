@@ -2,8 +2,10 @@
 # define NEEDCOURSECREATIONFORM_HPP
 
 # include <iostream>
+# include "Form.hpp"
 
 class NeedCourseCreationForm : public Form
+{
 private:
     // Add member variables here
 

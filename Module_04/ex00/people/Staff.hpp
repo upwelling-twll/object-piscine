@@ -2,6 +2,9 @@
 # define STAFF_HPP
 
 # include <iostream>
+# include "Person.hpp"
+
+class Form;
 
 class Staff : public Person
 {

@@ -2,6 +2,11 @@
 # define SPECIALOFFICE_HPP
 
 # include <iostream>
+# include <vector>
+
+# include "Room.hpp"
+
+class Form;
 
 class SpecialOffice : public Room
 {

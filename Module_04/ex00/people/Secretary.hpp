@@ -2,6 +2,10 @@
 # define SECRETARY_HPP
 
 # include <iostream>
+# include "../FormType.hpp"
+# include "Staff.hpp"
+
+class Form;
 
 class Secretary : public Staff
 {

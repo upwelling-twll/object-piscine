@@ -1,10 +1,7 @@
 #include "Form.hpp"
 
 /*Member functions*/
-void Form::method()
-{
-    // Method implementation
-}
+
 
 /*Getters and Setters*/
 

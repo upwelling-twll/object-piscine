@@ -1,10 +1,6 @@
 #include "CourseFinishedForm.hpp"
 
 /*Member functions*/
-void CourseFinishedForm::method()
-{
-    // Method implementation
-}
 
 /*Getters and Setters*/
 
