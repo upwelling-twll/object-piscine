@@ -31,6 +31,7 @@ class FileLogger : public ILogger
 			header = NULL;
 			if (!(fileStream.is_open()))
 				throw (std::runtime_error("File " + filePath + " cannot be used"));
+			std::cout << "FileLogger to " << path << std::endl;
 		}
 		
 		~FileLogger()
@@ -41,13 +42,11 @@ class FileLogger : public ILogger
 
 		void write(std::string string)
 		{
-			std::string log;
 			if (header)
-				log = header->getHeader() + " : " + string;
+				fileStream << header->getHeader() << " : " << string << "\n";
 			else
-				log = string;
-			if (fileStream.is_open())
-				fileStream << log;
+				fileStream << string << "\n";
+			fileStream.flush();
 		}
 };
 
