@@ -1,4 +1,6 @@
 #include "Graph.hpp"
+#include "Vector2.hpp"
+#include "Line.hpp"
 
 void Graph::drawASCII()
 {

@@ -9,11 +9,11 @@
 #include <unistd.h>
 #include <cmath>
 
+#include "Vector2.hpp"
+#include "Line.hpp"
+
 #define WIDTH 5
 #define HEIGHT 5
-
-class Vector2;
-class Line;
 
 class Graph
 {

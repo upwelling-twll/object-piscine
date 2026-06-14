@@ -1,7 +1,7 @@
 #ifndef LINE_HPP
 #define LINE_HPP
-
-class Vector2;
+#include <iostream>
+#include "Vector2.hpp"
 
 class Line
 {

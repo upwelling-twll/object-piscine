@@ -1,4 +1,4 @@
-SRCS	=	main.cpp Graph.cpp Line.cpp
+SRCS	=	main.cpp Graph.cpp Line.cpp Vector2.cpp
 
 NAME	=	Graph
 

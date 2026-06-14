@@ -10,7 +10,7 @@ class Vector2
         
     public:
 
-        Vector2(float x, float y) : x(x), y(y) {};
+        Vector2(float x, float y);
         float getX() const;
         float getY() const;
 
