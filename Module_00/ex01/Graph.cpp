@@ -1,15 +1,5 @@
 #include "Graph.hpp"
 
-Line::Line(Vector2 start, Vector2 end) : start(start), end(end)
-{
-    std::cout << "Line created from (" << start.x << ", " << start.y << ") to ("
-              << end.x << ", " << end.y << ")" << std::endl;
-}
-
-Line::~Line()
-{
-}
-
 void Graph::drawASCII()
 {
     int width = static_cast<int>(size.x);
@@ -108,24 +98,6 @@ void Graph::draw()
         drawASCII();
     else
         drawLines();
-}
-
-// TODO
-void Graph::exportPNG()
-{
-    std::cout << "exporting PNG graph" << std::endl ;
-    unsigned char* image = new unsigned char[static_cast<int>(size.x) * static_cast<int>(size.y) * 3];
-    for (std::list<Vector2>::iterator it = points.begin(); it != points.end(); ++it)
-    {
-        //setting pixel color to white for each point
-        int x = static_cast<int>(it->x);
-        int y = static_cast<int>(it->y);
-        int index = (y * static_cast<int>(size.x) + x) * 3;
-        image[index] = 255;     // Red
-        image[index + 1] = 255; // Green
-        image[index + 2] = 255; // Blue 
-    }
-    
 }
 
 void Graph::readPointsFromFile(int fd)

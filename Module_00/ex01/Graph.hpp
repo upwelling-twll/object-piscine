@@ -12,46 +12,8 @@
 #define WIDTH 5
 #define HEIGHT 5
 
-
-struct RGB
-{
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-};
-
-class Vector2
-{
-    float x;
-    float y;
-public:
-    Vector2(float x, float y) : x(x), y(y) {};
-    float getX() const;
-    float getY() const;
-
-    friend class Graph;
-    friend class Line;
-};
-
-struct Pixel
-{
-    Vector2 position;
-    RGB color;
-};
-
-class Line
-{
-    private:
-        Vector2 start;
-        Vector2 end;
-
-    public:
-        Line(Vector2 start, Vector2 end);
-        ~Line();
-
-        friend class Graph; // Allow Graph to access private members of Line
-};
-
+class Vector2;
+class Line;
 
 class Graph
 {

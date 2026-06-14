@@ -1,4 +1,7 @@
 #include "Graph.hpp"
+#include "Vector2.hpp"
+#include "Line.hpp"
+
 
 int main(int argc, char** argv)
 {
