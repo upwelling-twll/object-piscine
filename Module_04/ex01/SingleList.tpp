@@ -7,7 +7,7 @@ class SingleList
 	public:
 		static SingleList& getSingleList()
 		{
-			ststic SingleList newList;
+			static SingleList newList;
 			return newList;
 		}
 };
