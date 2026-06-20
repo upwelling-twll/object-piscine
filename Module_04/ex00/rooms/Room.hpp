@@ -14,12 +14,14 @@ private:
 
 public:
 
-	Room();
+	Room(const int id);
 	bool canEnter(Person*);
 	void enter(Person*);
 	void exit(Person*);
 	
 	void printOccupant();
+
+	int getRoomNumber();
 };
 
 std::ostream& operator<<(std::ostream &output_stream, Room& src);

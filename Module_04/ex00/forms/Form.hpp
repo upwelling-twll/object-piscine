@@ -11,24 +11,20 @@ private:
 
 public:
 	/*Member functions*/
-   	Form(FormType p_formType)
-	{
-
-	}
-
 	virtual void execute() = 0;
-
+	
 	/*Getters and Setters*/
-
+	
 	/*Constructors*/
-    // Form(/*Parameterized Constructor*/);
-	// Form(void);
-
-	// /*Destructors*/
-    // ~Form( void );
+	Form(FormType p_formType)
+	{
+		_formType = p_formType;
+	}
+	
+	/*Destructors*/
+    ~Form( void );
 
 	// /*Overload operators*/
-	// Form &operator=(const Form& src);
 };
 
 // std::ostream& operator<<(std::ostream &output_stream, Form& src);

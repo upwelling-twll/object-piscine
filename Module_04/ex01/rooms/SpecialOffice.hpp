@@ -1,5 +1,5 @@
-#ifndef SPECIALOFFICE_HPP
-# define SPECIALOFFICE_HPP
+#ifndef SECRETARIALOFFICE_HPP
+# define SECRETARIALOFFICE_HPP
 
 # include <iostream>
 # include <vector>
@@ -8,7 +8,7 @@
 
 class Form;
 
-class SpecialOffice : public Room
+class SecretarialOffice : public Room
 {
 private:
    	std::vector<Form*> _archivedForms;
@@ -18,16 +18,16 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // SpecialOffice(/*Parameterized Constructor*/);
-	// SpecialOffice(void);
+    // SecretarialOffice(/*Parameterized Constructor*/);
+	// SecretarialOffice(void);
 
 	// /*Destructors*/
-    // ~SpecialOffice( void );
+    // ~SecretarialOffice( void );
 
 	// /*Overload operators*/
-	// SpecialOffice &operator=(const SpecialOffice& src);
+	// SecretarialOffice &operator=(const SecretarialOffice& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, SpecialOffice& src);
+// std::ostream& operator<<(std::ostream &output_stream, SecretarialOffice& src);
 
-#endif // SPECIALOFFICE_HPP
+#endif // SecretarialOffice_HPP

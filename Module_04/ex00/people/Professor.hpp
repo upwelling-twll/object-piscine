@@ -20,16 +20,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // Professor(/*Parameterized Constructor*/);
-	// Professor(void);
+    Professor(std::string name);
 
 	// /*Destructors*/
-    // ~Professor( void );
+    ~Professor( void );
 
 	// /*Overload operators*/
-	// Professor &operator=(const Professor& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Professor& src);
+std::ostream& operator<<(std::ostream &output_stream, Professor& src);
 
 #endif // PROFESSOR_HPP

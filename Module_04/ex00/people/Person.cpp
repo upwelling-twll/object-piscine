@@ -1,22 +1,19 @@
 #include "Person.hpp"
 
-/*Member functions*/
-void Person::method()
+/*Getters and Setters*/
+Room* Person::getCurrentRoom()
 {
-    // Method implementation
+	return (_currentRoom);
 }
 
-/*Getters and Setters*/
-
+std::string Room:getName()
+{
+	return (_name);
+}
 /*Constructors*/
-Person::Person(/*Parameterized Constructor*/)
+Person::Person(std::string name) : _name(name), _currentRoom(NULL)
 {
    std::cout << "Person parameterized constructor is called" << std::endl;
-}
-
-Person::Person()
-{
-    std::cout << "Person default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -26,19 +23,16 @@ Person::~Person( void )
 }
 
 /*Overload operators*/
-Person& Person::operator=(const Person& src)
-{
-	std::cout << "Person copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, Person& src)
 {
 	output_stream << "* Person Class info*" << std::endl;
+	output_stream << "Name: " << src.getName() << std::endl;
+	Room* currentRoom;
+	currentRoom = src.getCurrentRoom();
+	if (currentRoom == NULL)
+		output_stream << "Current Room: null" << std::endl;
+	output_stream << "Current Room: " << currentRoom->getID() << std::endl;
 	return output_stream;
 }
 

@@ -23,7 +23,7 @@ public:
     // ~NeedCourseCreationForm( void );
 
 	// /*Overload operators*/
-	NeedCourseCreationForm &operator=(const NeedCourseCreationForm& src);
+	// NeedCourseCreationForm &operator=(const NeedCourseCreationForm& src);
 };
 
 // std::ostream& operator<<(std::ostream &output_stream, NeedCourseCreationForm& src);

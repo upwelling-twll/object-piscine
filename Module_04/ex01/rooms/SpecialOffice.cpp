@@ -1,7 +1,7 @@
-#include "SpecialOffice.hpp"
+#include "SecretarialOffice.hpp"
 
 /*Member functions*/
-void SpecialOffice::method()
+void SecretarialOffice::method()
 {
     // Method implementation
 }
@@ -9,26 +9,26 @@ void SpecialOffice::method()
 /*Getters and Setters*/
 
 /*Constructors*/
-SpecialOffice::SpecialOffice(/*Parameterized Constructor*/)
+SecretarialOffice::SecretarialOffice(/*Parameterized Constructor*/)
 {
-   std::cout << "SpecialOffice parameterized constructor is called" << std::endl;
+   std::cout << "SecretarialOffice parameterized constructor is called" << std::endl;
 }
 
-SpecialOffice::SpecialOffice()
+SecretarialOffice::SecretarialOffice()
 {
-    std::cout << "SpecialOffice default constructor is called" << std::endl;
+    std::cout << "SecretarialOffice default constructor is called" << std::endl;
 }
 
 /*Destructors*/
-SpecialOffice::~SpecialOffice( void )
+SecretarialOffice::~SecretarialOffice( void )
 {
-    std::cout << "SpecialOffice destructor is called" << std::endl;
+    std::cout << "SecretarialOffice destructor is called" << std::endl;
 }
 
 /*Overload operators*/
-SpecialOffice& SpecialOffice::operator=(const SpecialOffice& src)
+SecretarialOffice& SecretarialOffice::operator=(const SecretarialOffice& src)
 {
-	std::cout << "SpecialOffice copy assignment is called" << std::endl;
+	std::cout << "SecretarialOffice copy assignment is called" << std::endl;
 	if (this != &src)
 	{
 		// Assinment variables
@@ -36,9 +36,9 @@ SpecialOffice& SpecialOffice::operator=(const SpecialOffice& src)
 	return (*this);
 }
 
-std::ostream& operator<<(std::ostream& output_stream, SpecialOffice& src)
+std::ostream& operator<<(std::ostream& output_stream, SecretarialOffice& src)
 {
-	output_stream << "* SpecialOffice Class info*" << std::endl;
+	output_stream << "* SecretarialOffice Class info*" << std::endl;
 	return output_stream;
 }
 

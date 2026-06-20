@@ -20,8 +20,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // Secretary(/*Parameterized Constructor*/);
-	// Secretary(void);
+    Secretary(std::string name);
 
 	// /*Destructors*/
     // ~Secretary( void );

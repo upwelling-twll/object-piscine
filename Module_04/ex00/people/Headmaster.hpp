@@ -19,16 +19,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // Headmaster(/*Parameterized Constructor*/);
-	// Headmaster(void);
+    Headmaster(std::string name);
 
 	// /*Destructors*/
-    // ~Headmaster( void );
+    ~Headmaster( void );
 
 	// /*Overload operators*/
-	// Headmaster &operator=(const Headmaster& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Headmaster& src);
+std::ostream& operator<<(std::ostream &output_stream, Headmaster& src);
 
 #endif // HEADMASTER_HPP

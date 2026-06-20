@@ -11,11 +11,6 @@ Form::Form(/*Parameterized Constructor*/)
    std::cout << "Form parameterized constructor is called" << std::endl;
 }
 
-Form::Form()
-{
-    std::cout << "Form default constructor is called" << std::endl;
-}
-
 /*Destructors*/
 Form::~Form( void )
 {

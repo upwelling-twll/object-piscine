@@ -1,22 +1,17 @@
 #include "Staff.hpp"
 
 /*Member functions*/
-void Staff::method()
+void Staff::sign(Form* p_form)
 {
-    // Method implementation
+    
 }
 
 /*Getters and Setters*/
 
 /*Constructors*/
-Staff::Staff(/*Parameterized Constructor*/)
+Staff::Staff(std::string name) : Person(name)
 {
    std::cout << "Staff parameterized constructor is called" << std::endl;
-}
-
-Staff::Staff()
-{
-    std::cout << "Staff default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -26,15 +21,6 @@ Staff::~Staff( void )
 }
 
 /*Overload operators*/
-Staff& Staff::operator=(const Staff& src)
-{
-	std::cout << "Staff copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, Staff& src)
 {

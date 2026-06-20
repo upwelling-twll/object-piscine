@@ -10,12 +10,13 @@ class Classroom : public Room
 {
 private:
 
-	Course* _currentRoom;
+	Course* _currentCourse;
 
 public:
 
-	Classroom();
-	void assignCourse(Course* p_course);
+	Classroom(int id);
+	void	assignCourse(Course* p_course);
+	Course*	getAssignedCourse();
 };
 
 std::ostream& operator<<(std::ostream &output_stream, Classroom& src);

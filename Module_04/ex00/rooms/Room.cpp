@@ -1,22 +1,57 @@
 #include "Room.hpp"
+#include "../people/Person.hpp"
 
 /*Member functions*/
-void Room::method()
+bool Room::canEnter(Person* person)
 {
-    // Method implementation
+	if (!person)
+		throw (std::invalid_argument("Room: null persom can not enter"));
+	Room* currentRoom;
+	currentRoom = person->getCurrentRoom();
+	if (currentRoom == NULL)
+		return (true);
+	if (currentRoom == this)
+		return (false);
+	return (false);
+}
+
+void Room::enter(Person* person)
+{
+	if (!person)
+		throw (std::invalid_argument("Room: null persom can not enter"));
+	if (canEnter(person))
+	{
+		_occupants.push_back(person);
+	}
+}
+
+void Room::exit(Person* person)
+{
+	if (!person)
+		throw (std::invalid_argument("Room: null persom can not enter"));
+	if (person->getCurrentRoom() == this)
+	{
+		for (std::vector<Person*>::iterator it = _occupants.begin(); it != _occupants.end(); ++it)
+		{
+			if (*it == person)
+			{
+				_occupants.erase(it);
+				break;
+			}
+		}
+	}
 }
 
 /*Getters and Setters*/
-
-/*Constructors*/
-Room::Room(/*Parameterized Constructor*/)
+int Room::getRoomNumber()
 {
-   std::cout << "Room parameterized constructor is called" << std::endl;
+	return (ID);
 }
 
-Room::Room()
+/*Constructors*/
+Room::Room(const int id) : 	ID(id)
 {
-    std::cout << "Room default constructor is called" << std::endl;
+   std::cout << "Room parameterized constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -26,15 +61,6 @@ Room::~Room( void )
 }
 
 /*Overload operators*/
-Room& Room::operator=(const Room& src)
-{
-	std::cout << "Room copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, Room& src)
 {
