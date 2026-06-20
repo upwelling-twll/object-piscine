@@ -5,7 +5,6 @@
 /*Member functions*/
 Form* Secretary::createForm(FormType p_formType)
 {
-	Form* newForm = 
     return (new Form(p_formType));
 }
 

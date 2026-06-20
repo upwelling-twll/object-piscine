@@ -26,6 +26,6 @@ public:
 	// /*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Staff& src);
+std::ostream& operator<<(std::ostream &output_stream, Staff& src);
 
 #endif // STAFF_HPP

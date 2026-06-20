@@ -6,8 +6,7 @@
 class CourseFinishedForm : public Form
 {
 private:
-    // Add member variables here
-
+    
 public:
 	/*Member functions*/
     void execute();
@@ -15,16 +14,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // CourseFinishedForm(/*Parameterized Constructor*/);
-	// CourseFinishedForm(void);
+    CourseFinishedForm(FormType type);
 
-	// /*Destructors*/
-    // ~CourseFinishedForm( void );
+	/*Destructors*/
+    ~CourseFinishedForm( void );
 
-	// /*Overload operators*/
-	// CourseFinishedForm &operator=(const CourseFinishedForm& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, CourseFinishedForm& src);
+std::ostream& operator<<(std::ostream &output_stream, CourseFinishedForm& src);
 
 #endif // COURSEFINISHEDFORM_HPP

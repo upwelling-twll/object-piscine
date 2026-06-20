@@ -1,7 +1,7 @@
 #include "NeedCourseCreationForm.hpp"
 
 /*Member functions*/
-void NeedCourseCreationForm::method()
+void NeedCourseCreationForm::execute()
 {
     // Method implementation
 }
@@ -9,14 +9,9 @@ void NeedCourseCreationForm::method()
 /*Getters and Setters*/
 
 /*Constructors*/
-NeedCourseCreationForm::NeedCourseCreationForm(/*Parameterized Constructor*/)
+NeedCourseCreationForm::NeedCourseCreationForm(FormType type) : Form(type)
 {
    std::cout << "NeedCourseCreationForm parameterized constructor is called" << std::endl;
-}
-
-NeedCourseCreationForm::NeedCourseCreationForm()
-{
-    std::cout << "NeedCourseCreationForm default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -26,15 +21,6 @@ NeedCourseCreationForm::~NeedCourseCreationForm( void )
 }
 
 /*Overload operators*/
-NeedCourseCreationForm& NeedCourseCreationForm::operator=(const NeedCourseCreationForm& src)
-{
-	std::cout << "NeedCourseCreationForm copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, NeedCourseCreationForm& src)
 {

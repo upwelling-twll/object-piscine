@@ -1,22 +1,13 @@
 #include "SecretarialOffice.hpp"
 
 /*Member functions*/
-void SecretarialOffice::method()
-{
-    // Method implementation
-}
 
 /*Getters and Setters*/
 
 /*Constructors*/
-SecretarialOffice::SecretarialOffice(/*Parameterized Constructor*/)
+SecretarialOffice::SecretarialOffice(int ID) : Room(ID)
 {
    std::cout << "SecretarialOffice parameterized constructor is called" << std::endl;
-}
-
-SecretarialOffice::SecretarialOffice()
-{
-    std::cout << "SecretarialOffice default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -26,15 +17,6 @@ SecretarialOffice::~SecretarialOffice( void )
 }
 
 /*Overload operators*/
-SecretarialOffice& SecretarialOffice::operator=(const SecretarialOffice& src)
-{
-	std::cout << "SecretarialOffice copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, SecretarialOffice& src)
 {

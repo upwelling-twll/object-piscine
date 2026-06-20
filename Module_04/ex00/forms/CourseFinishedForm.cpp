@@ -1,18 +1,16 @@
 #include "CourseFinishedForm.hpp"
 
 /*Member functions*/
-
+void CourseFinishedForm::execute()
+{
+	
+}
 /*Getters and Setters*/
 
 /*Constructors*/
-CourseFinishedForm::CourseFinishedForm(/*Parameterized Constructor*/)
+CourseFinishedForm::CourseFinishedForm(FormType type) : Form(type)
 {
    std::cout << "CourseFinishedForm parameterized constructor is called" << std::endl;
-}
-
-CourseFinishedForm::CourseFinishedForm()
-{
-    std::cout << "CourseFinishedForm default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -22,15 +20,6 @@ CourseFinishedForm::~CourseFinishedForm( void )
 }
 
 /*Overload operators*/
-CourseFinishedForm& CourseFinishedForm::operator=(const CourseFinishedForm& src)
-{
-	std::cout << "CourseFinishedForm copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, CourseFinishedForm& src)
 {

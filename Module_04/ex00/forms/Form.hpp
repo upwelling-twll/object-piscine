@@ -16,10 +16,7 @@ public:
 	/*Getters and Setters*/
 	
 	/*Constructors*/
-	Form(FormType p_formType)
-	{
-		_formType = p_formType;
-	}
+	Form(FormType p_formType);
 	
 	/*Destructors*/
     ~Form( void );

@@ -18,16 +18,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // SecretarialOffice(/*Parameterized Constructor*/);
-	// SecretarialOffice(void);
+    SecretarialOffice(int ID);
 
-	// /*Destructors*/
-    // ~SecretarialOffice( void );
+	/*Destructors*/
+    ~SecretarialOffice( void );
 
-	// /*Overload operators*/
-	// SecretarialOffice &operator=(const SecretarialOffice& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, SecretarialOffice& src);
+std::ostream& operator<<(std::ostream &output_stream, SecretarialOffice& src);
 
 #endif // SecretarialOffice_HPP

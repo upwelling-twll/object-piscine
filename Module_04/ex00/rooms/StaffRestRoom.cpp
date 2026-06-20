@@ -1,22 +1,13 @@
 #include "StaffRestRoom.hpp"
 
 /*Member functions*/
-void StaffRestRoom::method()
-{
-    // Method implementation
-}
 
 /*Getters and Setters*/
 
 /*Constructors*/
-StaffRestRoom::StaffRestRoom(/*Parameterized Constructor*/)
+StaffRestRoom::StaffRestRoom(int ID) : Room(ID)
 {
    std::cout << "StaffRestRoom parameterized constructor is called" << std::endl;
-}
-
-StaffRestRoom::StaffRestRoom()
-{
-    std::cout << "StaffRestRoom default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -26,15 +17,6 @@ StaffRestRoom::~StaffRestRoom( void )
 }
 
 /*Overload operators*/
-StaffRestRoom& StaffRestRoom::operator=(const StaffRestRoom& src)
-{
-	std::cout << "StaffRestRoom copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, StaffRestRoom& src)
 {
