@@ -5,9 +5,12 @@ template <typename T>
 class SingleList
 {
 	private:
-		std::vector<T>* _items;
+		std::vector<T*> _items;
 
-		SingleList() {}
+		SingleList()
+		{
+			_items = new std::vector<T>;
+		}
 
 	public:
 		static SingleList& getSingleList()
@@ -20,13 +23,13 @@ class SingleList
 		{
 			if (item)
 			{
-				for (std::vector<T>::iterator it = _items.begin(); it != _items.end(); ++it)
+				for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
 				{
 					if (*it == item)
 						throw std::runtime_error("Item already exists in the list");
 				}
-			}
 				_items.push_back(item);
+			}
 			else
 				throw (std::runtime_error("Cannot add item which does not exist"));
 		}
@@ -35,7 +38,7 @@ class SingleList
 		{
 			if (item)
 			{
-				for (std::vector<T>::iterator it = _items.begin(); it != _items.end(); ++it)
+				for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
 				{
 					if (*it == item)
 					{
@@ -60,17 +63,14 @@ class SingleList
 
 		~SingleList()
 		{
-			for (std::vector<T>::iterator it = _items.begin(); it != _items.end(); ++it)
-			{
-				_items.erase(it);
-			}
 			_items.clear();
 		}
 };
 
+
 std::ostream& operator<<(std::ostream &output_stream, Professor& src)
 {
-	for (std::vector<T>::iterator it = _items.begin(); it != _items.end(); ++it)
+	for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
 	{
 		std::cout << *it << std::endl;
 	}
