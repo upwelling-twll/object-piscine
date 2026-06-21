@@ -4,7 +4,7 @@
 # include <iostream>
 # include "Person.hpp"
 
-class Form;
+// class Form;
 
 class Staff : public Person
 {
@@ -13,7 +13,7 @@ private:
 
 public:
 	/*Member functions*/
-    void sign(Form* p_form);
+    // void sign(Form* p_form);
 
 	/*Getters and Setters*/
 

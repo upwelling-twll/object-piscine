@@ -22,7 +22,7 @@ public:
 	void printOccupant();
 
 	int getRoomNumber();
-	std::vector<Person*> getOccupants()
+	std::vector<Person*> getOccupants();
 };
 
 std::ostream& operator<<(std::ostream &output_stream, Room& src);

@@ -1,9 +1,8 @@
-#include "people/Student.hpp"
-#include "people/Staff.hpp"
-#include "object/Course.hpp"
-#include "rooms/Room.hpp"
-#include "singleton.hpp"
-
+#include "people/people.hpp"
+#include "objects/Course.hpp"
+#include "rooms/rooms.hpp"
+#include "singletons.hpp"
+#include <iostream>
 
 int main()
 {

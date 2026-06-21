@@ -3,15 +3,15 @@
 /*Member functions*/
 
 /*Getters and Setters*/
-std::vector<Form*> SecretarialOffice::getArchivedForms()
-{
-    if (!_archivedForms)
-        return (NULL);
-    else
-    {
-        return (_archivedForms.size());
-    }
-}
+// std::vector<Form*> SecretarialOffice::getArchivedForms()
+// {
+//     if (!_archivedForms)
+//         return (NULL);
+//     else
+//     {
+//         return (_archivedForms.size());
+//     }
+// }
 /*Constructors*/
 SecretarialOffice::SecretarialOffice(int ID) : Room(ID)
 {
@@ -29,11 +29,11 @@ SecretarialOffice::~SecretarialOffice( void )
 std::ostream& operator<<(std::ostream& output_stream, SecretarialOffice& src)
 {
 	output_stream << "* SecretarialOffice Class info*" << std::endl;
-    std::vector<Form*> af;
-	af = src.getArchivedForms();
-	if (!af)
+    // std::vector<Form*> af;
+	// af = src.getArchivedForms();
+	// if (!af)
 		output_stream << "Archived forms: 0" << std::endl;
-	output_stream << "Archived forms: " << af->size() << std::endl;
+	// output_stream << "Archived forms: " << af->size() << std::endl;
 	output_stream << Room::src << std::endl;
 	return output_stream;
 }

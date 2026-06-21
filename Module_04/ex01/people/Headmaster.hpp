@@ -6,15 +6,15 @@
 
 # include "Staff.hpp"
 
-class Form;
+// class Form;
 class Headmaster : public Staff
 {
 private:
-    std::vector<Form*> _formToValidate;
+    // std::vector<Form*> _formToValidate;
 
 public:
 	/*Member functions*/
-    void receiveForm(Form* p_form);
+    // void receiveForm(Form* p_form);
 
 	/*Getters and Setters*/
 

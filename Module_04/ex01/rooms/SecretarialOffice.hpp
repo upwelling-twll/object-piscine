@@ -6,12 +6,12 @@
 
 # include "Room.hpp"
 
-class Form;
+// class Form;
 
 class SecretarialOffice : public Room
 {
 private:
-   	std::vector<Form*> _archivedForms;
+   	// std::vector<Form*> _archivedForms;
 
 public:
 	/*Member functions*/

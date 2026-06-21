@@ -2,23 +2,23 @@
 #include "Staff.hpp"
 
 /*Member functions*/
-void Headmaster::receiveForm(Form* p_form)
-{
-    if (! p_form)
-		throw(std::invalid_argument("Headmaster: null form can not be received."));
-	else
-	{
-		for (std::vector<Form*>::iterator it = _formToValidate.begin(); it != _formToValidate.end(); ++it)
-		{
-			if (*it == p_form)
-			{
-				std::cout << "Headmaster: form is already received." << std::endl;
-				return;
-			}
-		}
-		_formToValidate.push_back(p_form);
-	}
-}
+// void Headmaster::receiveForm(Form* p_form)
+// {
+//     if (! p_form)
+// 		throw(std::invalid_argument("Headmaster: null form can not be received."));
+// 	else
+// 	{
+// 		for (std::vector<Form*>::iterator it = _formToValidate.begin(); it != _formToValidate.end(); ++it)
+// 		{
+// 			if (*it == p_form)
+// 			{
+// 				std::cout << "Headmaster: form is already received." << std::endl;
+// 				return;
+// 			}
+// 		}
+// 		_formToValidate.push_back(p_form);
+// 	}
+// }
 
 /*Getters and Setters*/
 
