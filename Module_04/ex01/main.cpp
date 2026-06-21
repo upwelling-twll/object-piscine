@@ -18,7 +18,7 @@ int main()
 
     Course potions("Potions", 100, 30);
     Course transfiguration("Transfiguration", 50, 20);
-    COurse herbology("Herbology", 50, 15);
+    Course herbology("Herbology", 50, 15);
 
     HeadmasterOffice hmoffice(1);
     SecretarialOffice soffice(2);
@@ -27,30 +27,30 @@ int main()
     Classroom   greenhouse(5);
     Room        roomofrequirement(6);
 
-    SingleList students = getSingleList(Student);
-    SingleList courses = getSingleList(Course);
-    SingleList staff = getSingleList(Staff);
-    SingleList rooms = getSingleList(Room);
+    SingleList<Student>& students = SingleList<Student>::getSingleList();
+    SingleList<Course>& courses = SingleList<Course>::getSingleList();
+    SingleList<Staff>& staff = SingleList<Staff>::getSingleList();
+    SingleList<Room>& rooms = SingleList<Room>::getSingleList();
 
-    students.add(harry);
-    students.add(hermione);
-    students.add(ron);
+    students.add(&harry);
+    students.add(&hermione);
+    students.add(&ron);
 
-    staff.add(filch);
-    staff.add(norris);
-    staff.add(hagrid);
-    staff.add(mcGonagall);
+    staff.add(&filch);
+    staff.add(&norris);
+    staff.add(&hagrid);
+    staff.add(&mcGonagall);
 
-    courses.add(potions);
-    courses.add(transfiguration);
-    courses.add(herbology);
+    courses.add(&potions);
+    courses.add(&transfiguration);
+    courses.add(&herbology);
 
-    rooms.add(hmoffice);
-    rooms.add(soffice);
-    rooms.add(potionsClass);
-    rooms.add(transfigurationClass);
-    rooms.add(greenhouse);
-    rooms.add(roomofrequirement);
+    rooms.add(&hmoffice);
+    rooms.add(&soffice);
+    rooms.add(&potionsClass);
+    rooms.add(&transfigurationClass);
+    rooms.add(&greenhouse);
+    rooms.add(&roomofrequirement);
 
 
 

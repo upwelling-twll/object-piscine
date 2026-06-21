@@ -9,7 +9,7 @@ class SingleList
 
 		SingleList()
 		{
-			_items = new std::vector<T>;
+			// _items = new std::vector<T*>;
 		}
 
 	public:
@@ -68,13 +68,13 @@ class SingleList
 };
 
 
-std::ostream& operator<<(std::ostream &output_stream, Professor& src)
-{
-	for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
-	{
-		std::cout << *it << std::endl;
-	}
-}
+// std::ostream& operator<<(std::ostream &output_stream, Professor& src)
+// {
+// 	for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
+// 	{
+// 		std::cout << *it << std::endl;
+// 	}
+// }
 
 typedef SingleList<Student> StudentList;
 typedef SingleList<Staff> StaffList;
