@@ -9,7 +9,7 @@ class Form;
 class Staff : public Person
 {
 private:
-    // Add member variables here
+    
 
 public:
 	/*Member functions*/
@@ -18,16 +18,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // Staff(/*Parameterized Constructor*/);
-	// Staff(void);
+    Staff(std::string name);
 
 	// /*Destructors*/
-    // ~Staff( void );
+    ~Staff( void );
 
 	// /*Overload operators*/
-	// Staff &operator=(const Staff& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Staff& src);
+std::ostream& operator<<(std::ostream &output_stream, Staff& src);
 
 #endif // STAFF_HPP

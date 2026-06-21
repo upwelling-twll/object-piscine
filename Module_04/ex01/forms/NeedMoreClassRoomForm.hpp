@@ -16,16 +16,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // NeedMoreClassRoomForm(/*Parameterized Constructor*/);
-	// NeedMoreClassRoomForm(void);
+    NeedMoreClassRoomForm(FormType type);
 
-	// /*Destructors*/
-    // ~NeedMoreClassRoomForm( void );
+	/*Destructors*/
+    ~NeedMoreClassRoomForm( void );
 
-	// /*Overload operators*/
-	// NeedMoreClassRoomForm &operator=(const NeedMoreClassRoomForm& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, NeedMoreClassRoomForm& src);
+std::ostream& operator<<(std::ostream &output_stream, NeedMoreClassRoomForm& src);
 
 #endif // NEEDMORECLASSROOMFORM_HPP

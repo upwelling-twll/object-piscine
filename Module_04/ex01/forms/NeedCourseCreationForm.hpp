@@ -16,16 +16,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // NeedCourseCreationForm(/*Parameterized Constructor*/);
-	// NeedCourseCreationForm(void);
+    NeedCourseCreationForm(FormType type);
 
 	// /*Destructors*/
-    // ~NeedCourseCreationForm( void );
+    ~NeedCourseCreationForm( void );
 
 	// /*Overload operators*/
-	// NeedCourseCreationForm &operator=(const NeedCourseCreationForm& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, NeedCourseCreationForm& src);
+std::ostream& operator<<(std::ostream &output_stream, NeedCourseCreationForm& src);
 
 #endif // NEEDCOURSECREATIONFORM_HPP

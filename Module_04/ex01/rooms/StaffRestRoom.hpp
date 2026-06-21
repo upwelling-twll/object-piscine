@@ -11,21 +11,18 @@ private:
 
 public:
 	/*Member functions*/
-    // void method();
 
-	// /*Getters and Setters*/
+	/*Getters and Setters*/
 
-	// /*Constructors*/
-    // StaffRestRoom(/*Parameterized Constructor*/);
-	// StaffRestRoom(void);
+	/*Constructors*/
+    StaffRestRoom(int ID);
 
-	// /*Destructors*/
-    // ~StaffRestRoom( void );
+	/*Destructors*/
+    ~StaffRestRoom( void );
 
-	// /*Overload operators*/
-	// StaffRestRoom &operator=(const StaffRestRoom& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, StaffRestRoom& src);
+std::ostream& operator<<(std::ostream &output_stream, StaffRestRoom& src);
 
 #endif // STAFFRESTROOM_HPP

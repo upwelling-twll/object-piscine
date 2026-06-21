@@ -1,6 +1,8 @@
 #ifndef PERSON_HPP
 # define PERSON_HPP
 
+#include "../rooms/Room.hpp"
+
 # include <iostream>
 
 class Room;
@@ -11,20 +13,16 @@ private:
 	Room* _currentRoom;
 
 public:
-	Person(std::string p_name);
-	Room* room() {return (_currentRoom);}
 
 	/*Getters and Setters*/
+	Room* getCurrentRoom();
+	std::string getName();
 
 	/*Constructors*/
-    // Person(/*Parameterized Constructor*/);
-	// Person(void);
+	Person(std::string name);
 
-	// /*Destructors*/
-    // ~Person( void );
-
-	// /*Overload operators*/
-	// Person &operator=(const Person& src);
+	/*Destructors*/
+    ~Person( void );
 };
 
 // std::ostream& operator<<(std::ostream &output_stream, Person& src);

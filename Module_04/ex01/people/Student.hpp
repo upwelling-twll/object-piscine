@@ -24,16 +24,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // Student(/*Parameterized Constructor*/);
-	// Student(void);
+    Student(std::string name);
 
-	// /*Destructors*/
-    // ~Student( void );
+	/*Destructors*/
+    ~Student( void );
 
-	// /*Overload operators*/
-	// Student &operator=(const Student& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Student& src);
+std::ostream& operator<<(std::ostream &output_stream, Student& src);
 
 #endif // STUDENT_HPP

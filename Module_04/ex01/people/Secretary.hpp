@@ -20,16 +20,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // Secretary(/*Parameterized Constructor*/);
-	// Secretary(void);
+    Secretary(std::string name);
 
-	// /*Destructors*/
-    // ~Secretary( void );
+	/*Destructors*/
+    ~Secretary( void );
 
 	// /*Overload operators*/
-	// Secretary &operator=(const Secretary& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Secretary& src);
+std::ostream& operator<<(std::ostream &output_stream, Secretary& src);
 
 #endif // SECRETARY_HPP

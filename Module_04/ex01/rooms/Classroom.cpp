@@ -1,20 +1,25 @@
 #include "Classroom.hpp"
+#include "../objects/Course.hpp"
 
 /*Member functions*/
-void Classroom::method()
+void Classroom::assignCourse(Course* p_course)
 {
-    // Method implementation
+	if (!p_course)
+		throw (std::invalid_argument("Classromm: null course can not be assigned"));
+    if (!_currentCourse)
+		_currentCourse = p_course;
+	else
+		std::cout << "Classroom: this room is already used for other course" << std::endl;
 }
 
 /*Getters and Setters*/
-
-/*Constructors*/
-Classroom::Classroom(/*Parameterized Constructor*/)
+Course* Classroom::getAssignedCourse()
 {
-   std::cout << "Classroom parameterized constructor is called" << std::endl;
+	return (_currentCourse);
 }
 
-Classroom::Classroom()
+/*Constructors*/
+Classroom::Classroom(int id) : Room(id)
 {
     std::cout << "Classroom default constructor is called" << std::endl;
 }
@@ -26,19 +31,15 @@ Classroom::~Classroom( void )
 }
 
 /*Overload operators*/
-Classroom& Classroom::operator=(const Classroom& src)
-{
-	std::cout << "Classroom copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, Classroom& src)
 {
 	output_stream << "* Classroom Class info*" << std::endl;
+	Course* ac;
+	ac = src.getAssignedCourse();
+	if (!ac)
+		output_stream << "Assigned course: null" << std::endl;
+	output_stream << "Assigned course: " << ac->getName() << std::endl;
 	return output_stream;
 }
 

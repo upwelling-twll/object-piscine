@@ -16,16 +16,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // SubscriptionToCourseForm(/*Parameterized Constructor*/);
-	// SubscriptionToCourseForm(void);
+    SubscriptionToCourseForm(FormType type);
 
-	// /*Destructors*/
-    // ~SubscriptionToCourseForm( void );
+	/*Destructors*/
+    ~SubscriptionToCourseForm( void );
 
 	// /*Overload operators*/
-	// SubscriptionToCourseForm &operator=(const SubscriptionToCourseForm& src);
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, SubscriptionToCourseForm& src);
+std::ostream& operator<<(std::ostream &output_stream, SubscriptionToCourseForm& src);
 
 #endif // SUBSCRIPTIONTOCOURSEFORM_HPP

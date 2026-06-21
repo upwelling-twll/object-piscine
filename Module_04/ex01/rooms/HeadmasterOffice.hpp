@@ -2,8 +2,8 @@
 # define HEADMASTEROFFICE_HPP
 
 # include <iostream>
-
-class HeadmasterOffice
+# include "Room.hpp"
+class HeadmasterOffice : public Room
 {
 private:
     // Add member variables here
@@ -14,16 +14,14 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    // HeadmasterOffice(/*Parameterized Constructor*/);
-	// HeadmasterOffice(void);
+    HeadmasterOffice(int ID);
 
-	// /*Destructors*/
-    // ~HeadmasterOffice( void );
+	/*Destructors*/
+    ~HeadmasterOffice( void );
 
-	// /*Overload operators*/
-	// HeadmasterOffice &operator=(const HeadmasterOffice& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, HeadmasterOffice& src);
+std::ostream& operator<<(std::ostream &output_stream, HeadmasterOffice& src);
 
 #endif // HEADMASTEROFFICE_HPP

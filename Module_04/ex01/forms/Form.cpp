@@ -6,14 +6,9 @@
 /*Getters and Setters*/
 
 /*Constructors*/
-Form::Form(/*Parameterized Constructor*/)
+Form::Form(FormType p_formType) : _formType(p_formType)
 {
    std::cout << "Form parameterized constructor is called" << std::endl;
-}
-
-Form::Form()
-{
-    std::cout << "Form default constructor is called" << std::endl;
 }
 
 /*Destructors*/
@@ -23,15 +18,6 @@ Form::~Form( void )
 }
 
 /*Overload operators*/
-Form& Form::operator=(const Form& src)
-{
-	std::cout << "Form copy assignment is called" << std::endl;
-	if (this != &src)
-	{
-		// Assinment variables
-	}
-	return (*this);
-}
 
 std::ostream& operator<<(std::ostream& output_stream, Form& src)
 {

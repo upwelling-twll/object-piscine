@@ -11,21 +11,19 @@ private:
 
 public:
 	/*Member functions*/
-    // void method();
 
-	// /*Getters and Setters*/
+	/*Getters and Setters*/
 
-	// /*Constructors*/
-    // Courtyard(/*Parameterized Constructor*/);
-	// Courtyard(void);
+	/*Constructors*/
+    Courtyard(int ID);
 
-	// /*Destructors*/
-    // ~Courtyard( void );
+	/*Destructors*/
+    ~Courtyard( void );
 
-	// /*Overload operators*/
-	// Courtyard &operator=(const Courtyard& src);
+	/*Overload operators*/
 };
 
-// std::ostream& operator<<(std::ostream &output_stream, Courtyard& src);
+std::ostream& operator<<(std::ostream &output_stream, Courtyard& src);
+
 
 #endif // COURTYARD_HPP
