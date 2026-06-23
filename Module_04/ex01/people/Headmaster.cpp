@@ -40,6 +40,13 @@ std::ostream& operator<<(std::ostream& output_stream, Headmaster& src)
 {
 	output_stream << "* Headmaster Class info*" << std::endl;
 	output_stream << "Name: " << src.getName() << std::endl;
+	Room* currentRoom;
+	currentRoom = src.getCurrentRoom();
+    if (currentRoom == NULL)
+		output_stream << "Current Room: null" << std::endl;
+	else
+		output_stream << "Current Room: " << currentRoom->getRoomNumber() << std::endl;
+  
 	return output_stream;
 }
 

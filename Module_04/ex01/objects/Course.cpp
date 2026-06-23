@@ -32,11 +32,9 @@ std::string Course::getName()
 	return (_name);
 }
 
-std::string Course::getResponsable()
+Professor* Course::getResponsable()
 {
-	if (!_responsable)
-		return ("none");
-	return (_responsable.getName());
+	return (_responsable);
 }
 
 int Course::getNumberOfStudents()
@@ -55,7 +53,7 @@ int Course::getMaxStudents()
 }
 /*Constructors*/
 Course::Course(std::string p_name, int numberOfClassToGraduate, int maxNumberOfStudents) 
-	: _name(p_name), _numberOfClassToGraduate(numberOfClassToGraduate), _maximumNumberOfStudent(maxNumberOfStudents)
+	: _name(p_name), _responsable(NULL), _numberOfClassToGraduate(numberOfClassToGraduate), _maximumNumberOfStudent(maxNumberOfStudents)
 {
    std::cout << "Course parameterized constructor is called" << std::endl;
 }
@@ -71,13 +69,14 @@ Course::~Course( void )
 std::ostream& operator<<(std::ostream& output_stream, Course& src)
 {
 	output_stream << "* Course Class info*" << std::endl;
-	output_stream << "Name : " << src.getName() << std::endl;
-	// if (src.getResponsible() == NULL)
-	// 	output_stream << "Professor assigned : null" << std::endl;
-	output_stream << "Professor assigned : " << src.getResponsable() << std::endl;
+	output_stream << " Name : " << src.getName() << std::endl;
+	if (src.getResponsable() == NULL)
+		output_stream << " Professor assigned : null" << std::endl;
+	else
+		output_stream << "Professor assigned : " << (src.getResponsable())->getName() << std::endl;
 	output_stream << " Number of students currently assigned : " << src.getNumberOfStudents() << std::endl;
 	output_stream << " Number of class to graduate : " << src.getNumberOfClasses() << std::endl;
-	output_stream << " Maxnumber of students : " << src.getMaxStudents(<< std::endl;
+	output_stream << " Maxnumber of students : " << src.getMaxStudents()<< std::endl;
 
 	return output_stream;
 }

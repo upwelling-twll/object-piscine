@@ -5,6 +5,7 @@
 # include <vector>
 
 class Person;
+
 class Room
 {
 private:
@@ -14,7 +15,8 @@ private:
 
 public:
 
-	Room(const int id);
+	Room(int id);
+	~Room();
 	bool canEnter(Person*);
 	void enter(Person*);
 	void exit(Person*);

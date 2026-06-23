@@ -30,7 +30,8 @@ std::ostream& operator<<(std::ostream& output_stream, Staff& src)
 	currentRoom = src.getCurrentRoom();
 	if (currentRoom == NULL)
 		output_stream << "Current Room: null" << std::endl;
-	output_stream << "Current Room: " << currentRoom->getID() << std::endl;
+	else
+		output_stream << "Current Room: " << currentRoom->getRoomNumber() << std::endl;
     return output_stream;
 }
 

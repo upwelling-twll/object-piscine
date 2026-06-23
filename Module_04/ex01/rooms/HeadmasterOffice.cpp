@@ -22,7 +22,7 @@ HeadmasterOffice::~HeadmasterOffice( void )
 std::ostream& operator<<(std::ostream& output_stream, HeadmasterOffice& src)
 {
 	output_stream << "* HeadmasterOffice Class info*" << std::endl;
-	output_stream << Room::src << std::endl;
+	output_stream << static_cast<Room&>(src) << std::endl;
 	return output_stream;
 }
 

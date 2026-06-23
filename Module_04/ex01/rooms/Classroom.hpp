@@ -15,6 +15,8 @@ private:
 public:
 
 	Classroom(int id);
+	~Classroom(void);
+
 	void	assignCourse(Course* p_course);
 	Course*	getAssignedCourse();
 };

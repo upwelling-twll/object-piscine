@@ -21,7 +21,7 @@ Courtyard::~Courtyard( void )
 std::ostream& operator<<(std::ostream& output_stream, Courtyard& src)
 {
 	output_stream << "* Courtyard Class info*" << std::endl;
-	output_stream << Room::src << std::endl;
+	output_stream << static_cast<Room&>(src) << std::endl;
 	return output_stream;
 }
 

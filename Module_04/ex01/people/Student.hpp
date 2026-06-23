@@ -5,8 +5,9 @@
 # include <vector>
 
 # include "Person.hpp"
+# include "../objects/Course.hpp"
 
-class Course;
+// class Course;
 class Classroom;
 
 class Student : public Person
@@ -22,6 +23,7 @@ public:
 	void graduate(Course* p_course);
 
 	/*Getters and Setters*/
+	const std::vector<Course*> getCourses() const;
 
 	/*Constructors*/
     Student(std::string name);

@@ -34,7 +34,7 @@ std::ostream& operator<<(std::ostream& output_stream, SecretarialOffice& src)
 	// if (!af)
 		output_stream << "Archived forms: 0" << std::endl;
 	// output_stream << "Archived forms: " << af->size() << std::endl;
-	output_stream << Room::src << std::endl;
+	output_stream << static_cast<Room&>(src) << std::endl;
 	return output_stream;
 }
 

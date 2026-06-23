@@ -21,7 +21,7 @@ StaffRestRoom::~StaffRestRoom( void )
 std::ostream& operator<<(std::ostream& output_stream, StaffRestRoom& src)
 {
 	output_stream << "* StaffRestRoom Class info*" << std::endl;
-	output_stream << Room::src << std::endl;
+	output_stream << static_cast<Room&>(src) << std::endl;
 	return output_stream;
 }
 

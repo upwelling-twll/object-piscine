@@ -6,7 +6,7 @@ Room* Person::getCurrentRoom()
 	return (_currentRoom);
 }
 
-std::string Room:getName()
+std::string Person::getName()
 {
 	return (_name);
 }
@@ -32,7 +32,7 @@ std::ostream& operator<<(std::ostream& output_stream, Person& src)
 	currentRoom = src.getCurrentRoom();
 	if (currentRoom == NULL)
 		output_stream << "Current Room: null" << std::endl;
-	output_stream << "Current Room: " << currentRoom->getID() << std::endl;
+	output_stream << "Current Room: " << currentRoom->getRoomNumber() << std::endl;
 	return output_stream;
 }
 

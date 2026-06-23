@@ -50,14 +50,14 @@ int Room::getRoomNumber()
 
 std::vector<Person*> Room::getOccupants()
 {
-	if (! _occupants)
-		return (NULL);
-	else
-		return (_occupants.size());
+	// if (! _occupants)
+	// 	return (NULL);
+	// else
+	return (_occupants);
 }
 
 /*Constructors*/
-Room::Room(const int id) : 	ID(id)
+Room::Room(int id) : 	ID(id)
 {
    std::cout << "Room parameterized constructor is called" << std::endl;
 }
@@ -74,9 +74,9 @@ std::ostream& operator<<(std::ostream& output_stream, Room& src)
 {
 	output_stream << "* Room Class info*" << std::endl;
 	output_stream << "ID : " << src.getRoomNumber() << std::endl;
-	std::vector<Person*> oc = getOccupants();
-	if (oc == NULL)
-		output_stream << "Occupants : " << 0 << std::endl;
+	std::vector<Person*> oc = src.getOccupants();
+	// if (oc == NULL)
+	// 	output_stream << "Occupants : " << 0 << std::endl;
 	output_stream << "Occupants : " << oc.size() << std::endl;
 	return output_stream;
 }
