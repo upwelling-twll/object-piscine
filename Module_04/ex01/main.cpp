@@ -2,6 +2,8 @@
 #include "objects/Course.hpp"
 #include "rooms/rooms.hpp"
 #include "singletons.hpp"
+#include "Debug.hpp"
+
 #include <iostream>
 
 void testSingleton()
@@ -54,21 +56,21 @@ void testSingleton()
     rooms.add(&roomofrequirement);
 
     
-    std::cout << *(students.get(0)) << std::endl;
-    std::cout << *(students.get(1)) << std::endl;
-    std::cout << *(students.get(2)) << std::endl;
+   LOG_INFO(students.get(0));
+    // std::cout << *(students.get(1)) << std::endl;
+    // std::cout << *(students.get(2)) << std::endl;
 
-    std::cout << *(staff.get(0)) << std::endl;
-    std::cout << *(staff.get(1)) << std::endl;
-    std::cout << *(staff.get(2)) << std::endl;
+    // std::cout << *(staff.get(0)) << std::endl;
+    // std::cout << *(staff.get(1)) << std::endl;
+    // std::cout << *(staff.get(2)) << std::endl;
 
-    std::cout << *(courses.get(0)) << std::endl;
-    std::cout << *(courses.get(1)) << std::endl;
-    std::cout << *(courses.get(2)) << std::endl;
+    // std::cout << *(courses.get(0)) << std::endl;
+    // std::cout << *(courses.get(1)) << std::endl;
+    // std::cout << *(courses.get(2)) << std::endl;
 
-    std::cout << *(rooms.get(0)) << std::endl;
-    std::cout << *(rooms.get(1)) << std::endl;
-    std::cout << *(rooms.get(2)) << std::endl;
+    // std::cout << *(rooms.get(0)) << std::endl;
+    // std::cout << *(rooms.get(1)) << std::endl;
+    // std::cout << *(rooms.get(2)) << std::endl;
 }
 
 
