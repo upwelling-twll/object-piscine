@@ -1,5 +1,6 @@
 #include "Room.hpp"
 #include "../people/Person.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 bool Room::canEnter(Person* person)
@@ -59,13 +60,13 @@ std::vector<Person*> Room::getOccupants()
 /*Constructors*/
 Room::Room(int id) : 	ID(id)
 {
-   std::cout << "Room parameterized constructor is called" << std::endl;
+	LOG_CTOR("Room parameterized constructor is called");
 }
 
 /*Destructors*/
 Room::~Room( void )
 {
-    std::cout << "Room destructor is called" << std::endl;
+	LOG_DTOR("Room destructor is called");
 }
 
 /*Overload operators*/

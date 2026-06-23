@@ -1,4 +1,5 @@
 #include "SubscriptionToCourseForm.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 void SubscriptionToCourseForm::execute()
@@ -11,13 +12,13 @@ void SubscriptionToCourseForm::execute()
 /*Constructors*/
 SubscriptionToCourseForm::SubscriptionToCourseForm(FormType type) : Form(type)
 {
-   std::cout << "SubscriptionToCourseForm parameterized constructor is called" << std::endl;
+    LOG_CTOR("SubscriptionToCourseForm parameterized constructor is called");
 }
 
 /*Destructors*/
 SubscriptionToCourseForm::~SubscriptionToCourseForm( void )
 {
-    std::cout << "SubscriptionToCourseForm destructor is called" << std::endl;
+    LOG_DTOR("SubscriptionToCourseForm destructor is called");
 }
 
 /*Overload operators*/

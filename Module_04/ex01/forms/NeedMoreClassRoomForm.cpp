@@ -1,4 +1,5 @@
 #include "NeedMoreClassRoomForm.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 void NeedMoreClassRoomForm::execute()
@@ -11,13 +12,13 @@ void NeedMoreClassRoomForm::execute()
 /*Constructors*/
 NeedMoreClassRoomForm::NeedMoreClassRoomForm(FormType type) : Form(type)
 {
-   std::cout << "NeedMoreClassRoomForm parameterized constructor is called" << std::endl;
+    LOG_CTOR("NeedMoreClassRoomForm parameterized constructor is called");
 }
 
 /*Destructors*/
 NeedMoreClassRoomForm::~NeedMoreClassRoomForm( void )
 {
-    std::cout << "NeedMoreClassRoomForm destructor is called" << std::endl;
+     LOG_DTOR("NeedMoreClassRoomForm destructor is called");
 }
 
 /*Overload operators*/

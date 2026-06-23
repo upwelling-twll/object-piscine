@@ -1,4 +1,5 @@
 #include "Courtyard.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 
@@ -7,13 +8,13 @@
 /*Constructors*/
 Courtyard::Courtyard(int ID) : Room(ID)
 {
-   std::cout << "Courtyard parameterized constructor is called" << std::endl;
+	LOG_CTOR("Courtyard parameterized constructor is called");
 }
 
 /*Destructors*/
 Courtyard::~Courtyard( void )
 {
-    std::cout << "Courtyard destructor is called" << std::endl;
+	LOG_DTOR("Courtyard destructor is called");
 }
 
 /*Overload operators*/

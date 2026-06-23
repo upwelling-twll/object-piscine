@@ -1,4 +1,5 @@
 #include "NeedCourseCreationForm.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 void NeedCourseCreationForm::execute()
@@ -11,13 +12,13 @@ void NeedCourseCreationForm::execute()
 /*Constructors*/
 NeedCourseCreationForm::NeedCourseCreationForm(FormType type) : Form(type)
 {
-   std::cout << "NeedCourseCreationForm parameterized constructor is called" << std::endl;
+    LOG_CTOR("NeedCourseCreationForm parameterized constructor is called");
 }
 
 /*Destructors*/
 NeedCourseCreationForm::~NeedCourseCreationForm( void )
 {
-    std::cout << "NeedCourseCreationForm destructor is called" << std::endl;
+    LOG_DTOR("NeedCourseCreationForm destructor is called");
 }
 
 /*Overload operators*/

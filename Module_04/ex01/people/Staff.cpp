@@ -1,4 +1,5 @@
 #include "Staff.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 // void Staff::sign(Form* p_form)
@@ -11,13 +12,13 @@
 /*Constructors*/
 Staff::Staff(std::string name) : Person(name)
 {
-   std::cout << "Staff parameterized constructor is called" << std::endl;
+	LOG_CTOR("Staff parameterized constructor is called");
 }
 
 /*Destructors*/
 Staff::~Staff( void )
 {
-    std::cout << "Staff destructor is called" << std::endl;
+	LOG_DTOR("Staff destructor is called");
 }
 
 /*Overload operators*/

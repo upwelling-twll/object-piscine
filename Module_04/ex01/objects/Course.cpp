@@ -1,4 +1,5 @@
 #include "Course.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 void Course::assign(Professor* p_professor)
@@ -55,13 +56,13 @@ int Course::getMaxStudents()
 Course::Course(std::string p_name, int numberOfClassToGraduate, int maxNumberOfStudents) 
 	: _name(p_name), _responsable(NULL), _numberOfClassToGraduate(numberOfClassToGraduate), _maximumNumberOfStudent(maxNumberOfStudents)
 {
-   std::cout << "Course parameterized constructor is called" << std::endl;
+    LOG_CTOR("Course parameterized constructor is called");
 }
 
 /*Destructors*/
 Course::~Course( void )
 {
-    std::cout << "Course destructor is called" << std::endl;
+    LOG_DTOR("Course destructor is called");
 }
 
 /*Overload operators*/

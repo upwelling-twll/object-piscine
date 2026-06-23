@@ -1,4 +1,5 @@
 #include "SecretarialOffice.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 
@@ -15,13 +16,13 @@
 /*Constructors*/
 SecretarialOffice::SecretarialOffice(int ID) : Room(ID)
 {
-   std::cout << "SecretarialOffice parameterized constructor is called" << std::endl;
+	LOG_CTOR("SecretarialOffice parameterized constructor is called");
 }
 
 /*Destructors*/
 SecretarialOffice::~SecretarialOffice( void )
 {
-    std::cout << "SecretarialOffice destructor is called" << std::endl;
+	LOG_DTOR("SecretarialOffice destructor is called");
 }
 
 /*Overload operators*/

@@ -1,5 +1,6 @@
 #include "Classroom.hpp"
 #include "../objects/Course.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 void Classroom::assignCourse(Course* p_course)
@@ -21,13 +22,13 @@ Course* Classroom::getAssignedCourse()
 /*Constructors*/
 Classroom::Classroom(int id) : Room(id)
 {
-    std::cout << "Classroom default constructor is called" << std::endl;
+	LOG_CTOR("Classroom default constructor is called");
 }
 
 /*Destructors*/
 Classroom::~Classroom( void )
 {
-    std::cout << "Classroom destructor is called" << std::endl;
+	LOG_DTOR("Classroom destructor is called");
 }
 
 /*Overload operators*/

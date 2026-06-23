@@ -1,4 +1,5 @@
 #include "Student.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 // void Student::method()
@@ -15,13 +16,13 @@ const std::vector<Course*> Student::getCourses() const
 /*Constructors*/
 Student::Student(std::string name) : Person(name)
 {
-   std::cout << "Student parameterized constructor is called" << std::endl;
+	LOG_CTOR("Student parameterized constructor is called");
 }
 
 /*Destructors*/
 Student::~Student( void )
 {
-    std::cout << "Student destructor is called" << std::endl;
+	LOG_DTOR("Student destructor is called");
 }
 
 /*Overload operators*/

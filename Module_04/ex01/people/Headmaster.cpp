@@ -1,5 +1,6 @@
 #include "Headmaster.hpp"
 #include "Staff.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 // void Headmaster::receiveForm(Form* p_form)
@@ -25,13 +26,13 @@
 /*Constructors*/
 Headmaster::Headmaster(std::string name) : Staff(name)
 {
-   std::cout << "Headmaster parameterized constructor is called" << std::endl;
+	LOG_CTOR("Headmaster parameterized constructor is called");
 }
 
 /*Destructors*/
 Headmaster::~Headmaster( void )
 {
-    std::cout << "Headmaster destructor is called" << std::endl;
+	LOG_DTOR("Headmaster destructor is called");
 }
 
 /*Overload operators*/

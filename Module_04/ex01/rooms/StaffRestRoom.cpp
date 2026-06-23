@@ -1,4 +1,5 @@
 #include "StaffRestRoom.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 
@@ -7,13 +8,13 @@
 /*Constructors*/
 StaffRestRoom::StaffRestRoom(int ID) : Room(ID)
 {
-   std::cout << "StaffRestRoom parameterized constructor is called" << std::endl;
+	LOG_CTOR("StaffRestRoom parameterized constructor is called");
 }
 
 /*Destructors*/
 StaffRestRoom::~StaffRestRoom( void )
 {
-    std::cout << "StaffRestRoom destructor is called" << std::endl;
+	LOG_DTOR("StaffRestRoom destructor is called");
 }
 
 /*Overload operators*/

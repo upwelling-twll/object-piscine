@@ -1,6 +1,7 @@
 #include "Secretary.hpp"
 #include "Staff.hpp"
 #include "../forms/Form.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 // Form* Secretary::createForm(FormType p_formType)
@@ -18,13 +19,13 @@
 /*Constructors*/
 Secretary::Secretary(std::string name) : Staff(name)
 {
-   std::cout << "Secretary parameterized constructor is called" << std::endl;
+	LOG_CTOR("Secretary parameterized constructor is called");
 }
 
 /*Destructors*/
 Secretary::~Secretary( void )
 {
-    std::cout << "Secretary destructor is called" << std::endl;
+	LOG_DTOR("Secretary destructor is called");
 }
 
 /*Overload operators*/

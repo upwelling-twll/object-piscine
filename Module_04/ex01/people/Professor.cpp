@@ -17,20 +17,20 @@ void Professor::doClass()
 {
 	if (_currentCourse)
 	{
-		std::cout << "Professor : doing class" << std::endl;
+		LOG_ACTION("Professor is teaching " << _currentCourse->getName());
 		// _currentCourse.doCourseClass();
 	}
 	else
-		std::cout << "Professor : no course to do" << std::endl;
+		LOG_INFO("Professor : no course to do");
 }
 
 void Professor::closeCourse()
 {
 	if (! _currentCourse)
-		std::cout << "Professor : no course to close" << std::endl;
+		LOG_INFO("Professor : no course to close");
 	else
 		// _currentCourse.closeCourse();
-		std::cout << "Professor : closed course" << std::endl;
+		LOG_ACTION("Professor : closed course");
 }
 
 /*Getters and Setters*/
@@ -38,13 +38,13 @@ void Professor::closeCourse()
 /*Constructors*/
 Professor::Professor(std::string name) : Staff(name)
 {
-   std::cout << "Professor parameterized constructor is called" << std::endl;
+	LOG_CTOR("Professor parameterized constructor is called");
 }
 
 /*Destructors*/
 Professor::~Professor( void )
 {
-    std::cout << "Professor destructor is called" << std::endl;
+    LOG_DTOR("Professor destructor is called");
 }
 
 /*Overload operators*/

@@ -1,4 +1,5 @@
 #include "Person.hpp"
+#include "../Debug.hpp"
 
 /*Getters and Setters*/
 Room* Person::getCurrentRoom()
@@ -13,13 +14,13 @@ std::string Person::getName()
 /*Constructors*/
 Person::Person(std::string name) : _name(name), _currentRoom(NULL)
 {
-   std::cout << "Person parameterized constructor is called" << std::endl;
+	LOG_CTOR("Person parameterized constructor is called");
 }
 
 /*Destructors*/
 Person::~Person( void )
 {
-    std::cout << "Person destructor is called" << std::endl;
+	LOG_DTOR("Person destructor is called");
 }
 
 /*Overload operators*/

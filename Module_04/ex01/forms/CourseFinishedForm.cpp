@@ -10,13 +10,13 @@ void CourseFinishedForm::execute()
 /*Constructors*/
 CourseFinishedForm::CourseFinishedForm(FormType type) : Form(type)
 {
-   std::cout << "CourseFinishedForm parameterized constructor is called" << std::endl;
+   LOG_CTOR("CourseFinishedForm parameterized constructor is called");
 }
 
 /*Destructors*/
 CourseFinishedForm::~CourseFinishedForm( void )
 {
-    std::cout << "CourseFinishedForm destructor is called" << std::endl;
+    LOG_DTOR("CourseFinishedForm destructor is called");
 }
 
 /*Overload operators*/

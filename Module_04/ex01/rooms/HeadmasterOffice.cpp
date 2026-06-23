@@ -1,4 +1,5 @@
 #include "HeadmasterOffice.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 
@@ -7,14 +8,14 @@
 /*Constructors*/
 HeadmasterOffice::HeadmasterOffice(int ID) : Room(ID)
 {
-   std::cout << "HeadmasterOffice parameterized constructor is called" << std::endl;
+	LOG_CTOR("HeadmasterOffice parameterized constructor is called");
 }
 
 
 /*Destructors*/
 HeadmasterOffice::~HeadmasterOffice( void )
 {
-    std::cout << "HeadmasterOffice destructor is called" << std::endl;
+	LOG_DTOR("HeadmasterOffice destructor is called");
 }
 
 /*Overload operators*/

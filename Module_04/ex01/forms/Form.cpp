@@ -1,4 +1,5 @@
 #include "Form.hpp"
+#include "../Debug.hpp"
 
 /*Member functions*/
 
@@ -8,13 +9,13 @@
 /*Constructors*/
 Form::Form(FormType p_formType) : _formType(p_formType)
 {
-   std::cout << "Form parameterized constructor is called" << std::endl;
+    LOG_CTOR("Form parameterized constructor is called");
 }
 
 /*Destructors*/
 Form::~Form( void )
 {
-    std::cout << "Form destructor is called" << std::endl;
+    LOG_DTOR("Form destructor is called");
 }
 
 /*Overload operators*/
