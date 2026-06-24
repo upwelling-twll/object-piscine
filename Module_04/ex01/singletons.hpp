@@ -9,7 +9,6 @@ class SingleList
 
 		SingleList()
 		{
-			// _items = new std::vector<T*>;
 		}
 
 	public:
@@ -65,6 +64,9 @@ class SingleList
 		{
 			_items.clear();
 		}
+
+		Singleton(const SingleList&) = delete;
+		void operator=(const SingleLis) = delete;
 };
 
 

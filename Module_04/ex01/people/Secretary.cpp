@@ -4,10 +4,10 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-// Form* Secretary::createForm(FormType p_formType)
-// {
-//     return (new Form(p_formType));
-// }
+Form* Secretary::createForm(FormType p_formType)
+{
+    return (new Form(p_formType));
+}
 
 // void Secretary::archiveForm()
 // {
