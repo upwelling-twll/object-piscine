@@ -56,7 +56,7 @@ void testSingleton()
     rooms.add(&roomofrequirement);
 
     
-   LOG_INFO(students.get(0));
+   LOG_INFO(*(students.get(0)));
     // std::cout << *(students.get(1)) << std::endl;
     // std::cout << *(students.get(2)) << std::endl;
 
