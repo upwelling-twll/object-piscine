@@ -48,4 +48,11 @@
 # define LOG_INFO(obj)
 #endif
 
+#ifdef DEBUG_WARNING
+# define LOG_WARNING(obj) \
+    std::cout << YELLOW << obj << RESET << std::endl
+#else
+# define LOG_WARNING(obj)
+#endif
+
 #endif

@@ -2,27 +2,33 @@
 # define FORM_HPP
 
 # include <iostream>
+# include <ctime>
+
 # include "../FormType.hpp"
 # include "../Debug.hpp"
+
 class Form
 {
 private:
-   FormType _formType;
-   bool		_signStatus;
-   bool		_execStatus;
+   FormType 	_formType;
+   time_t		_creationDate;
+   time_t		_expirationDate;
+   bool			_signStatus;
+   bool			_execStatus;
 
 public:
 	/*Member functions*/
 	virtual void execute() = 0;
 	
 	/*Getters and Setters*/
-	bool getSignStatus();
-	bool getExecStatus();
+	FormType	getType();
+	bool		getSignStatus();
+	bool		getExecStatus();
 
-	FormType getType();
-	
+	time_t		getCreationDate();
+	time_t		getExpirationDate();
 	/*Constructors*/
-	Form(FormType p_formType);
+	Form(FormType p_formType, time_t expirationDate);
 	
 	/*Destructors*/
     virtual ~Form( void );

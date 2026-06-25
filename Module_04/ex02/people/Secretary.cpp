@@ -4,16 +4,16 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-Form* Secretary::createForm(FormType p_formType)
+Form* Secretary::createForm(FormType p_formType, time_t expiration)
 {
 	if (p_formType == FormType::CourseFinished)
-		return (new CourseFinishedForm(p_formType));
+		return (new CourseFinishedForm(p_formType, expiration));
 	if (p_formType == FormType::NeedMoreClassRoom)
-		return (new NeedMoreClassRoomForm(p_formType));
+		return (new NeedMoreClassRoomForm(p_formType, expiration));
 	if (p_formType == FormType::NeedCourseCreation)
-		return (new NeedCourseCreationForm(p_formType));
+		return (new NeedCourseCreationForm(p_formType, expiration));
 	if (p_formType == FormType::SubscriptionToCourse)
-		return (new SubscriptionToCourseForm(p_formType));
+		return (new SubscriptionToCourseForm(p_formType, expiration));
     return (NULL);
 }
 

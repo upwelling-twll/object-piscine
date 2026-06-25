@@ -16,7 +16,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    NeedCourseCreationForm(FormType type);
+    NeedCourseCreationForm(FormType type, time_t expirationDate);
 
 	// /*Destructors*/
     ~NeedCourseCreationForm( void );

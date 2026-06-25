@@ -15,7 +15,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    CourseFinishedForm(FormType type);
+    CourseFinishedForm(FormType type, time_t expirationDate);
 
 	/*Destructors*/
     ~CourseFinishedForm( void );

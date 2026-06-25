@@ -81,7 +81,8 @@ void testFactory()
     std::cout << "=== Test factory ===" << std::endl;
     Secretary sec("Percy Weasley");
    
-    Form* newForm = sec.createForm(FormType::NeedCourseCreation);
+    time_t et = time(0) + (3600 * 24); //24 hours from now
+    Form* newForm = sec.createForm(FormType::NeedCourseCreation, et);
     NeedCourseCreationForm* f = dynamic_cast<NeedCourseCreationForm*>(newForm);
     LOG_INFO(*f);
 

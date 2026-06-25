@@ -16,7 +16,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    NeedMoreClassRoomForm(FormType type);
+    NeedMoreClassRoomForm(FormType type, time_t expirationDate);
 
 	/*Destructors*/
     ~NeedMoreClassRoomForm( void );

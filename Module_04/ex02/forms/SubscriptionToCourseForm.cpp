@@ -10,7 +10,7 @@ void SubscriptionToCourseForm::execute()
 /*Getters and Setters*/
 
 /*Constructors*/
-SubscriptionToCourseForm::SubscriptionToCourseForm(FormType type) : Form(type)
+SubscriptionToCourseForm::SubscriptionToCourseForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
     LOG_CTOR("SubscriptionToCourseForm parameterized constructor is called");
 }

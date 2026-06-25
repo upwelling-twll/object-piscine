@@ -20,10 +20,28 @@ FormType Form::getType()
     return(_formType);
 }
 
-/*Constructors*/
-Form::Form(FormType p_formType) : 
-    _formType(p_formType), _signStatus(false), _execStatus(false)
+time_t Form::getCreationDate()
 {
+    return (_creationDate);
+}
+
+time_t Form::getExpirationDate()
+{
+    return (_expirationDate);
+}
+
+/*Constructors*/
+Form::Form(FormType p_formType, time_t expirationDate) : 
+_formType(p_formType), _signStatus(false), _execStatus(false)
+{
+    time_t   _creationDate;
+    time(&_creationDate);
+    
+    if (_creationDate < expirationDate)
+        _expirationDate = expirationDate;
+    else
+        LOG_WARNING("Form: expiration date must be later then creation");
+    _expirationDate = _creationDate;
     LOG_CTOR("Form parameterized constructor is called");
 }
 

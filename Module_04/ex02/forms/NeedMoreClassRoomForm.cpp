@@ -10,7 +10,7 @@ void NeedMoreClassRoomForm::execute()
 /*Getters and Setters*/
 
 /*Constructors*/
-NeedMoreClassRoomForm::NeedMoreClassRoomForm(FormType type) : Form(type)
+NeedMoreClassRoomForm::NeedMoreClassRoomForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
     LOG_CTOR("NeedMoreClassRoomForm parameterized constructor is called");
 }

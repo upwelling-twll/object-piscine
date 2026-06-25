@@ -16,7 +16,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    SubscriptionToCourseForm(FormType type);
+    SubscriptionToCourseForm(FormType type, time_t expirationDate);
 
 	/*Destructors*/
     ~SubscriptionToCourseForm( void );

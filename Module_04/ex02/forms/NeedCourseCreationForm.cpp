@@ -10,7 +10,7 @@ void NeedCourseCreationForm::execute()
 /*Getters and Setters*/
 
 /*Constructors*/
-NeedCourseCreationForm::NeedCourseCreationForm(FormType type) : Form(type)
+NeedCourseCreationForm::NeedCourseCreationForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
     LOG_CTOR("NeedCourseCreationForm parameterized constructor is called");
 }

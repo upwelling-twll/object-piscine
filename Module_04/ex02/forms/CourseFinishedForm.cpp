@@ -8,7 +8,7 @@ void CourseFinishedForm::execute()
 /*Getters and Setters*/
 
 /*Constructors*/
-CourseFinishedForm::CourseFinishedForm(FormType type) : Form(type)
+CourseFinishedForm::CourseFinishedForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
    LOG_CTOR("CourseFinishedForm parameterized constructor is called");
 }
