@@ -11,6 +11,9 @@ Staff::Staff(std::string name) : Person(name)
 	LOG_CTOR("Staff parameterized constructor is called");
 }
 
+Staff::~Staff()
+{}
+
 /*Destructors*/
 
 
