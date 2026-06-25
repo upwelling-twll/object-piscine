@@ -1,5 +1,6 @@
 #include "Course.hpp"
 #include "../Debug.hpp"
+# include "../people/Professor.hpp"
 
 /*Member functions*/
 void Course::assign(Professor* p_professor)

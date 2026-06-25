@@ -17,7 +17,7 @@ void Professor::doClass()
 {
 	if (_currentCourse)
 	{
-		LOG_ACTION("Professor is teaching " << _currentCourse->getName());
+		LOG_ACTION("Professor is teaching "+ _currentCourse->getName());
 		// _currentCourse.doCourseClass();
 	}
 	else

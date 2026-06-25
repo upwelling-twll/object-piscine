@@ -3,10 +3,10 @@
 
 # include <iostream>
 # include <vector>
-# include "../people/Professor.hpp"
+// # include "../people/Professor.hpp"
 
 class Student;
-// class Professor;
+class Professor;
 
 class Course
 {
