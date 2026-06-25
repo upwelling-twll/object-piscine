@@ -102,7 +102,6 @@ void testCommand()
     hm.sign(f);
     hm.execute(f);
 
-
 }
 
 int main()

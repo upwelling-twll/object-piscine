@@ -1,11 +1,21 @@
 #include "CourseFinishedForm.hpp"
+#include "../objects/Course.hpp"
+#include "../people/Headmaster.hpp"
 
 /*Member functions*/
 void CourseFinishedForm::execute(Headmaster *hm)
 {
 	(void)hm;
+	
+	// (hm->getCourses()).erase(p_course);
+	LOG_ACTION("CourseFinishedForm: course" + p_course->getName() + "was finished");
 }
 /*Getters and Setters*/
+void	CourseFinishedForm::setCourse(Course* course)
+{
+	p_course = course;
+}
+
 
 /*Constructors*/
 CourseFinishedForm::CourseFinishedForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
