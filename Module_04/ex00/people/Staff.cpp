@@ -1,10 +1,10 @@
 #include "Staff.hpp"
 
 /*Member functions*/
-void Staff::sign(Form* p_form)
-{
+// void Staff::sign(Form* p_form)
+// {
     
-}
+// }
 
 /*Getters and Setters*/
 

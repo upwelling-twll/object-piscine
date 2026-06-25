@@ -1,17 +1,17 @@
 #include "Secretary.hpp"
 #include "Staff.hpp"
-#include "../forms/Form.hpp"
+// #include "../forms/Form.hpp"
 
 /*Member functions*/
-Form* Secretary::createForm(FormType p_formType)
-{
-    return (new Form(p_formType));
-}
+// Form* Secretary::createForm(FormType p_formType)
+// {
+//     return (new Form(p_formType));
+// }
 
-void Secretary::archiveForm()
-{
+// void Secretary::archiveForm()
+// {
 
-}
+// }
 
 /*Getters and Setters*/
 

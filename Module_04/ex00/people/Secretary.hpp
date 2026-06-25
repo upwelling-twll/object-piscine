@@ -2,10 +2,10 @@
 # define SECRETARY_HPP
 
 # include <iostream>
-# include "../FormType.hpp"
+// # include "../FormType.hpp"
 # include "Staff.hpp"
 
-class Form;
+// class Form;
 
 class Secretary : public Staff
 {
@@ -14,8 +14,8 @@ private:
 
 public:
 	/*Member functions*/
-	Form* createForm(FormType p_formType);
-	void archiveForm();
+	// Form* createForm(FormType p_formType);
+	// void archiveForm();
 
 	/*Getters and Setters*/
 
