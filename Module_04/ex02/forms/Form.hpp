@@ -7,6 +7,8 @@
 # include "../FormType.hpp"
 # include "../Debug.hpp"
 
+class Headmaster;
+
 class Form
 {
 private:
@@ -18,7 +20,8 @@ private:
 
 public:
 	/*Member functions*/
-	virtual void execute() = 0;
+	virtual void	execute(Headmaster *hm) = 0;
+	void			beSigned();
 	
 	/*Getters and Setters*/
 	FormType	getType();

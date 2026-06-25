@@ -11,7 +11,7 @@ private:
 
 public:
 	/*Member functions*/
-   void execute();
+   void execute(Headmaster *hm);
 
 	/*Getters and Setters*/
 

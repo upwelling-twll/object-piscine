@@ -1,9 +1,9 @@
 #include "CourseFinishedForm.hpp"
 
 /*Member functions*/
-void CourseFinishedForm::execute()
+void CourseFinishedForm::execute(Headmaster *hm)
 {
-	
+	(void)hm;
 }
 /*Getters and Setters*/
 

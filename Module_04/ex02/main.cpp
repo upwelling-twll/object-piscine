@@ -1,11 +1,10 @@
-#include "people/people.hpp"
+#include "FormType.hpp"
 #include "objects/Course.hpp"
 #include "forms/forms.hpp"
+#include "people/people.hpp"
 #include "rooms/rooms.hpp"
 #include "singletons.hpp"
 #include "Debug.hpp"
-#include "FormType.hpp"
-
 
 #include <iostream>
 
@@ -16,9 +15,9 @@ void testSingleton()
     Student hermione("Hermione");
     Student ron("Ron");
 
-    Staff filch("Argus");
-    Staff norris("Ms Norris🐾");
-    Staff hagrid("Rubeus");
+    // Staff filch("Argus");
+    // Staff norris("Ms Norris🐾");
+    // Staff hagrid("Rubeus");
     Professor mcGonagall("Minerva");
     Headmaster dumblerode("Albus");
 
@@ -42,9 +41,9 @@ void testSingleton()
     students.add(&hermione);
     students.add(&ron);
 
-    staff.add(&filch);
-    staff.add(&norris);
-    staff.add(&hagrid);
+    // staff.add(&filch);
+    // staff.add(&norris);
+    staff.add(&dumblerode);
     staff.add(&mcGonagall);
 
     courses.add(&potions);
@@ -58,8 +57,7 @@ void testSingleton()
     rooms.add(&greenhouse);
     rooms.add(&roomofrequirement);
 
-    
-   LOG_INFO(*(students.get(0)));
+    LOG_INFO(*(students.get(0)));
     // std::cout << *(students.get(1)) << std::endl;
     // std::cout << *(students.get(2)) << std::endl;
 
@@ -84,13 +82,15 @@ void testFactory()
     time_t et = time(0) + (3600 * 24); //24 hours from now
     Form* newForm = sec.createForm(FormType::NeedCourseCreation, et);
     NeedCourseCreationForm* f = dynamic_cast<NeedCourseCreationForm*>(newForm);
+    
     LOG_INFO(*f);
-
+    
 }
 
 int main()
 {
-    testSingleton();
+    // testSingleton();
     testFactory();
+    // testCommand();
     return (0);
 }

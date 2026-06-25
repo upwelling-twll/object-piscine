@@ -2,11 +2,6 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-void Staff::sign(Form* p_form)
-{
-	(void) p_form;
-	LOG_ACTION("Form signed by " + this->getName());   
-}
 
 /*Getters and Setters*/
 
@@ -17,10 +12,7 @@ Staff::Staff(std::string name) : Person(name)
 }
 
 /*Destructors*/
-Staff::~Staff( void )
-{
-	LOG_DTOR("Staff destructor is called");
-}
+
 
 /*Overload operators*/
 

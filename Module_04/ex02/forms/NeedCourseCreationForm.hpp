@@ -3,17 +3,26 @@
 
 # include <iostream>
 # include "Form.hpp"
+# include "../objects/Course.hpp"
+# include "../people/Headmaster.hpp"
+
 
 class NeedCourseCreationForm : public Form
 {
 private:
-    // Add member variables here
+    std::string	courseName;
+	int			classesToGraduate;
+	int			maxNumberOfStudents;
 
 public:
 	/*Member functions*/
-    void execute();
+    void execute(Headmaster *hm);
 
 	/*Getters and Setters*/
+	void	setCourseName(std::string name);
+	void	setClassesToGraduate(int classes);
+	void	setNumberOfStudents(int number);
+
 
 	/*Constructors*/
     NeedCourseCreationForm(FormType type, time_t expirationDate);

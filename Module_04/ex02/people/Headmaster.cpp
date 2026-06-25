@@ -1,5 +1,5 @@
-#include "Headmaster.hpp"
 #include "Staff.hpp"
+#include "Headmaster.hpp"
 #include "../Debug.hpp"
 
 /*Member functions*/
@@ -21,7 +21,27 @@ void Headmaster::receiveForm(Form* p_form)
 	}
 }
 
+void Headmaster::sign(Form* p_form)
+{
+	p_form->beSigned();
+	LOG_ACTION("Form signed by " + this->getName());   
+}
+
+void Headmaster::execute(Form* p_form)
+{
+	if (p_form->getSignStatus())
+		p_form->execute(this);
+	else
+		LOG_WARNING("Headmaster won't execute anapproved form");
+}
+
+
 /*Getters and Setters*/
+std::vector<Course*> Headmaster::getCourses()
+{
+	return (_courses);
+}
+
 
 /*Constructors*/
 Headmaster::Headmaster(std::string name) : Staff(name)

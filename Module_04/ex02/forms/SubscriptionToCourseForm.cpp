@@ -2,8 +2,9 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-void SubscriptionToCourseForm::execute()
+void SubscriptionToCourseForm::execute(Headmaster *hm)
 {
+    (void)hm;
     // Method implementation
 }
 

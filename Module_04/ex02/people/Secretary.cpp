@@ -1,5 +1,5 @@
-#include "Secretary.hpp"
 #include "Staff.hpp"
+#include "Secretary.hpp"
 #include "../forms/forms.hpp"
 #include "../Debug.hpp"
 

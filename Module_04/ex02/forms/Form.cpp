@@ -2,7 +2,13 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-
+void    Form::beSigned()
+{
+    if (_signStatus)
+        LOG_WARNING("Form is already signed");
+    else
+        _signStatus = true;
+}
 
 /*Getters and Setters*/
 bool Form::getSignStatus()

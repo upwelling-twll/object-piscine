@@ -2,12 +2,33 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-void NeedCourseCreationForm::execute()
+void NeedCourseCreationForm::execute(Headmaster *hm)
 {
-    // Method implementation
-}
+    Course* newCourse = new Course(courseName, classesToGraduate, maxNumberOfStudents);
+    if (newCourse)
+    {
+        (hm->getCourses()).push_back(newCourse);
+        LOG_ACTION("NeedCourseCreationForm: created course");
+    }    
+    else 
+        LOG_WARNING("NeedCourseCreationForm:course was not created");
+}   
 
 /*Getters and Setters*/
+void	NeedCourseCreationForm::setCourseName(std::string name)
+{
+    courseName = name;
+}
+
+void	NeedCourseCreationForm::setClassesToGraduate(int classes)
+{
+    classesToGraduate = classes;
+}
+
+void	NeedCourseCreationForm::setNumberOfStudents(int number)
+{
+    maxNumberOfStudents = number;
+}
 
 /*Constructors*/
 NeedCourseCreationForm::NeedCourseCreationForm(FormType type, time_t expirationDate) : Form(type, expirationDate)

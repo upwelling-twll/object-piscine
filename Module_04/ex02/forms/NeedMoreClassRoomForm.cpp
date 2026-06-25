@@ -2,8 +2,9 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-void NeedMoreClassRoomForm::execute()
+void NeedMoreClassRoomForm::execute(Headmaster *hm)
 {
+    (void)hm;
     // Method implementation
 }
 

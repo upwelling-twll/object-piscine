@@ -4,7 +4,7 @@
 # include <iostream>
 # include "Person.hpp"
 #include "../Debug.hpp"
-#include "../forms/forms.hpp"
+// #include "../forms/forms.hpp"
 
 
 
@@ -17,7 +17,6 @@ private:
 
 public:
 	/*Member functions*/
-    void sign(Form* p_form);
 
 	/*Getters and Setters*/
 
@@ -25,7 +24,7 @@ public:
     Staff(std::string name);
 
 	// /*Destructors*/
-    ~Staff( void );
+    virtual ~Staff( void );
 
 	// /*Overload operators*/
 };

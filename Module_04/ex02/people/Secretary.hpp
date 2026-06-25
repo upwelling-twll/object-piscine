@@ -2,7 +2,7 @@
 # define SECRETARY_HPP
 
 # include <iostream>
-// # include "../FormType.hpp"
+# include "../forms/Form.hpp"
 # include "Staff.hpp"
 
 // class Form;
