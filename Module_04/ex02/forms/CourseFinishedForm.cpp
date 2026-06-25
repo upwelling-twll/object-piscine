@@ -6,7 +6,8 @@
 void CourseFinishedForm::execute(Headmaster *hm)
 {
 	(void)hm;
-	
+	std::vector<Course*> _courses = hm->getCourses();
+	for (std::vector<Course*>::iterator it = _courses.begin(); it != _courses.end; ++it)
 	// (hm->getCourses()).erase(p_course);
 	LOG_ACTION("CourseFinishedForm: course" + p_course->getName() + "was finished");
 }
