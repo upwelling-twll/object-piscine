@@ -5,11 +5,15 @@
 /*Member functions*/
 void CourseFinishedForm::execute(Headmaster *hm)
 {
-	(void)hm;
-	std::vector<Course*> _courses = hm->getCourses();
-	for (std::vector<Course*>::iterator it = _courses.begin(); it != _courses.end; ++it)
-	// (hm->getCourses()).erase(p_course);
-	LOG_ACTION("CourseFinishedForm: course" + p_course->getName() + "was finished");
+	if (!hm)
+		LOG_WARNING("CourseFinishedForm: headmaster is null, can not execute");
+	else if (!p_course)
+		LOG_WARNING("CourseFinishedForm: p_course is null, can not execute");
+	else
+	{
+		hm->removeCourse(p_course);
+		LOG_ACTION("CourseFinishedForm: course" + p_course->getName() + "was finished");
+	}
 }
 /*Getters and Setters*/
 void	CourseFinishedForm::setCourse(Course* course)

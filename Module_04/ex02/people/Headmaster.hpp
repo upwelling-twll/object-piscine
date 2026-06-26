@@ -24,9 +24,13 @@ public:
     void sign(Form* p_form);
     void execute(Form* p_form);
 
+    void addCourse(Course* p_course);
+    void removeCourse(Course* p_course);
+
 
 	/*Getters and Setters*/
     std::vector<Course*> getCourses();
+
 
 	/*Constructors*/
     Headmaster(std::string name);

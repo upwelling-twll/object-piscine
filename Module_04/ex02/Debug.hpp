@@ -11,6 +11,10 @@
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
 #define CYAN    "\033[36m"
+#define GREY    "\033[90m"
+#define PINK    "\033[95m"
+
+
 
 /* Constructor logs */
 
@@ -43,16 +47,23 @@
 
 #ifdef DEBUG_INFO
 # define LOG_INFO(obj) \
-    std::cout << YELLOW << obj << RESET << std::endl
+    std::cout << YELLOW << "[INFO] " << obj << RESET << std::endl
 #else
 # define LOG_INFO(obj)
 #endif
 
 #ifdef DEBUG_WARNING
 # define LOG_WARNING(obj) \
-    std::cout << YELLOW << obj << RESET << std::endl
+    std::cout << PINK << "[WARNING] " << obj << RESET << std::endl
 #else
 # define LOG_WARNING(obj)
+#endif
+
+#ifdef DEBUG_DBUG
+# define LOG_DBUG(msg) \
+    std::cout << GREY << "[DEBUG] " << RESET << msg << std::endl
+#else
+# define LOG_DBUG(msg)
 #endif
 
 #endif

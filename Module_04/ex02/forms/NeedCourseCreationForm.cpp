@@ -7,7 +7,8 @@ void NeedCourseCreationForm::execute(Headmaster *hm)
     Course* newCourse = new Course(courseName, classesToGraduate, maxNumberOfStudents);
     if (newCourse)
     {
-        (hm->getCourses()).push_back(newCourse);
+        hm->addCourse(newCourse);
+        // std::cout << "hm has " << c.size() << " courses in vector" <<  std::endl;
         LOG_ACTION("NeedCourseCreationForm: created course");
     }    
     else 

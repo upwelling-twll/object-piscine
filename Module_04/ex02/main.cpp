@@ -92,15 +92,30 @@ void testCommand()
     std::cout << "=== Test command ===" << std::endl;
     Secretary sec("Percy Weasley");
    
+    std::cout << " --- Need Course Creation Form --- " << std::endl;
     time_t et = time(0) + (3600 * 24); //24 hours from now
     Form* newForm = sec.createForm(FormType::NeedCourseCreation, et);
     NeedCourseCreationForm* f = dynamic_cast<NeedCourseCreationForm*>(newForm);
-    
+    f->setCourseName("Transfiguration");    
     LOG_INFO(*f);
     
     Headmaster hm("Dumbledor");
     hm.sign(f);
     hm.execute(f);
+    std::vector<Course*> c = hm.getCourses();
+    std::cout << "hm has " << c.size() << " courses in vector" <<  std::endl;
+    
+
+    std::cout << "\n --- Course Finished Form --- " << std::endl;
+    Form* finishForm = sec.createForm(FormType::CourseFinished, et);
+    CourseFinishedForm* ff = dynamic_cast<CourseFinishedForm*>(finishForm);
+    std::vector<Course*> cc = hm.getCourses();
+
+    ff->setCourse(cc[0]);
+    
+    LOG_INFO(*ff);
+    hm.sign(ff);
+    hm.execute(ff);
 
 }
 
