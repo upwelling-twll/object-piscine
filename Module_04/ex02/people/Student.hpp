@@ -13,7 +13,7 @@ class Classroom;
 class Student : public Person
 {
 private:
-    	std::vector<Course*> _subscribedCourse;
+    std::vector<Course*> _subscribedCourse;
 
 
 public:
@@ -22,6 +22,8 @@ public:
 	void exitClass();
 	void graduate(Course* p_course);
 	void addCourse(Course* p_course);
+
+	Course* findCourse(Course* p_course);
 
 	/*Getters and Setters*/
 	const std::vector<Course*> getCourses() const;

@@ -17,15 +17,30 @@ void Course::subscribe(Student* p_student)
 {
    	if (! p_student)
 		throw(std::invalid_argument("Course: null student can not be assigned"));
+	if (this->findStudent(p_student))
+	{
+		LOG_WARNING("Course: student is already subscribed to this course");
+		return;
+	}
+	_students.push_back(p_student);
+	LOG_DBUG("Course: student added to course");
+}
+
+Student* Course::findStudent(Student* p_student)
+{
+	if (! p_student)
+	{
+		LOG_WARNING("Course: can not find null student");
+		return (NULL);
+	}
 	for (std::vector<Student*>::iterator it = _students.begin(); it != _students.end(); ++it)
 	{
 		if (*it == p_student)
 		{
-			std::cout << "Course: student is already subscribed" << std::endl;
-			return;
+			return (*it);
 		}
 	}
-	_students.push_back(p_student);
+	return (NULL);
 }
 
 /*Getters and Setters*/

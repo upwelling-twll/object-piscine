@@ -4,16 +4,22 @@
 # include <iostream>
 # include "Form.hpp"
 
+class Course;
+class Student;
+
 class SubscriptionToCourseForm : public Form
 {
 private:
-    // Add member variables here
+	Course*		p_course;
+	Student*	p_student;
 
 public:
 	/*Member functions*/
    void execute(Headmaster *hm);
 
 	/*Getters and Setters*/
+	void setStudent(Student* student);
+	void setCourse(Course* course);
 
 	/*Constructors*/
     SubscriptionToCourseForm(FormType type, time_t expirationDate);

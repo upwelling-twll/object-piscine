@@ -11,7 +11,7 @@ class Headmaster;
 
 class Form
 {
-private:
+protected:
    FormType 	_formType;
    time_t		_creationDate;
    time_t		_expirationDate;

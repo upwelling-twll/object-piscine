@@ -91,6 +91,8 @@ void testCommand()
 {
     std::cout << "=== Test command ===" << std::endl;
     Secretary sec("Percy Weasley");
+    Student harry("Potter");
+    StudentList::getSingleList().add(&harry);
    
     std::cout << " --- Need Course Creation Form --- " << std::endl;
     time_t et = time(0) + (3600 * 24); //24 hours from now
@@ -101,6 +103,8 @@ void testCommand()
     Headmaster hm("Dumbledor");
     hm.sign(f);
     hm.execute(f);
+    LOG_INFO(*(CourseList::getSingleList().get(0)));
+
 
     std::cout << "\n --- Course Finished Form --- " << std::endl;
     Form* finishForm = sec.createForm(FormType::CourseFinished, et);
@@ -119,8 +123,15 @@ void testCommand()
     LOG_INFO(*(RoomList::getSingleList().get(0)));
 
     std::cout << "\n --- Subscribe Student To Course Form --- " << std::endl;
+    Form* subscribeForm = sec.createForm(FormType::SubscriptionToCourse, et);
+    SubscriptionToCourseForm* sf = dynamic_cast<SubscriptionToCourseForm*>(subscribeForm);
+    LOG_INFO(*sf);
+    sf->setCourse(CourseList::getSingleList().get(0));
+    sf->setStudent(&harry);
 
-    
+    hm.sign(sf);
+    hm.execute(sf);
+    LOG_INFO(*(StudentList::getSingleList().get(0)));
 }
 
 int main()

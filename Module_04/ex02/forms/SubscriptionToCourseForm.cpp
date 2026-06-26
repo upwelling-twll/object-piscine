@@ -15,19 +15,30 @@ void SubscriptionToCourseForm::execute(Headmaster *hm)
 		LOG_WARNING("SubscriptionToCourseForm: p_student is null, can not execute");
     else
 	{
-		p_course->addStudent();
-        p_student->addCourse();
+		p_course->subscribe(p_student);
+        p_student->addCourse(p_course);
 		this->_execStatus = true;
 		//TODO maybe course should unsubscribe students or/and removed from vector
-		LOG_ACTION("SubscriptionToCourseForm: student " + p_student->getName() + " subscribed to " p_course->getName());
+		LOG_ACTION("SubscriptionToCourseForm: student " + p_student->getName() + " subscribed to " + p_course->getName());
 	}
 }
 
 /*Getters and Setters*/
+void SubscriptionToCourseForm::setCourse(Course* course)
+{
+    p_course = course;
+}
+
+void SubscriptionToCourseForm::setStudent(Student* student)
+{
+    p_student = student;
+}
 
 /*Constructors*/
 SubscriptionToCourseForm::SubscriptionToCourseForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
+    p_course = NULL;
+    p_student = NULL;
     LOG_CTOR("SubscriptionToCourseForm parameterized constructor is called");
 }
 

@@ -25,6 +25,7 @@ public:
 	
 	void	assign(Professor* p_professor);
 	void	subscribe(Student* p_student);
+	Student* findStudent(Student* p_student);
 
 	std::string getName();
 	Professor*	getResponsable();

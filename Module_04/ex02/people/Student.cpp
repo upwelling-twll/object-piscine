@@ -9,10 +9,15 @@ Course*	Student::findCourse(Course* p_course)
 		LOG_WARNING("Student: can not find null course");
 		return (NULL);
 	}
-	for (std::vector<Course*>::iterator it = )
+	for (std::vector<Course*>::iterator it = _subscribedCourse.begin(); it != _subscribedCourse.end(); ++it)
+	{
+		if (*it == p_course)
+			return (*it);
+	}
+	return (NULL);
 }
 
-void Student::addCourse(Course* p_course);
+void Student::addCourse(Course* p_course)
 {
 	if (!p_course)
 	{
@@ -25,6 +30,7 @@ void Student::addCourse(Course* p_course);
 		return;
 	}
 	_subscribedCourse.push_back(p_course);
+	LOG_DBUG("Student: " + this->getName() + " subscribed to course " + p_course->getName());
 }
 
 /*Getters and Setters*/
