@@ -11,8 +11,9 @@ void CourseFinishedForm::execute(Headmaster *hm)
 		LOG_WARNING("CourseFinishedForm: p_course is null, can not execute");
 	else
 	{
-		hm->removeCourse(p_course);
-		LOG_ACTION("CourseFinishedForm: course" + p_course->getName() + "was finished");
+		p_course->setFinished();
+		//TODO maybe course should unsubscribe students or/and removed from vector
+		LOG_ACTION("CourseFinishedForm: course " + p_course->getName() + " was finished");
 	}
 }
 /*Getters and Setters*/

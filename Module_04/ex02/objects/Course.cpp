@@ -53,6 +53,13 @@ int Course::getMaxStudents()
 {
 	return (_maximumNumberOfStudent);
 }
+
+void Course::setFinished()
+{
+	//TODO unsubscribe students
+	LOG_ACTION("Course " + getName() + "is finished");
+}
+
 /*Constructors*/
 Course::Course(std::string p_name, int numberOfClassToGraduate, int maxNumberOfStudents) 
 	: _name(p_name), _responsable(NULL), _numberOfClassToGraduate(numberOfClassToGraduate), _maximumNumberOfStudent(maxNumberOfStudents)

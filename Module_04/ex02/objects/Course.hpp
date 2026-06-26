@@ -31,6 +31,7 @@ public:
 	int			getNumberOfStudents();
 	int			getNumberOfClasses();
 	int			getMaxStudents();
+	void		setFinished();
 };
 
 std::ostream& operator<<(std::ostream &output_stream, Course& src);

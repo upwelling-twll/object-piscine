@@ -37,52 +37,8 @@ void Headmaster::execute(Form* p_form)
 		LOG_WARNING("Headmaster won't execute anapproved form");
 }
 
-void Headmaster::addCourse(Course* p_course)
-{
-	if (p_course)
-	{
-		for (std::vector<Course*>::iterator it = _courses.begin(); it != _courses.end(); ++it)
-		{
-			if (*it == p_course)
-			{
-				LOG_WARNING("Headmaster: course is already added to list");
-				return;
-			}
-		}
-		_courses.push_back(p_course);
-	}
-	else
-		LOG_WARNING("Headmaster: null course can not be added to list");
-}
-
-void Headmaster::removeCourse(Course* p_course)
-{
-	LOG_DBUG("Headmaster remove(): method started");
-	LOG_DBUG("Headmaster remove(): coourse name to be removed is" + p_course->getName());
-
-	if (p_course)
-	{
-		for (std::vector<Course*>::iterator it = _courses.begin(); it != _courses.end(); ++it)
-		{
-			if (*it == p_course)
-			{
-				LOG_DBUG("Headmaster remove(): found p_course in vector");
-				_courses.erase(it);
-				break;
-			}
-			if (it == _courses.end())
-				LOG_WARNING("Headmaster: course is not found in the list");
-		}
-	}
-	else
-		LOG_WARNING("Headmaster: course is null, can not be removed");
-}
-
 /*Getters and Setters*/
-std::vector<Course*> Headmaster::getCourses()
-{
-	return (_courses);
-}
+
 
 /*Constructors*/
 Headmaster::Headmaster(std::string name) : Staff(name)

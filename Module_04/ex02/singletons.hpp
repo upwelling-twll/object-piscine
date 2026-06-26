@@ -25,12 +25,15 @@ class SingleList
 				for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
 				{
 					if (*it == item)
-						throw std::runtime_error("Item already exists in the list");
+					{
+						LOG_WARNING("SingleList: Item already exists in the list");
+						return ;
+					}
 				}
 				_items.push_back(item);
 			}
 			else
-				throw (std::runtime_error("Cannot add item which does not exist"));
+				LOG_WARNING("SingleList: Cannot add item which does not exist");
 		}
 
 		void	remove(T* item)
@@ -47,7 +50,26 @@ class SingleList
 				}
 			}
 			else
-				throw (std::runtime_error("Cannot add item which does not exist"));
+				LOG_WARNING("SingleList: Cannot add item which does not exist");
+		}
+
+		T*	find(T* item)
+		{
+			if (item)
+			{
+				for (typename std::vector<T*>::iterator it = _items.begin(); it != _items.end(); ++it)
+				{
+					if (*it == item)
+					{
+						return (it);
+					}
+				}
+			}
+			else
+			{
+				LOG_WARNING("SingleList: Item not found");
+				return (NULL);
+			}
 		}
 
 		T*  get(int i)
@@ -68,7 +90,6 @@ class SingleList
 		SingleList(const SingleList&) = delete;
 		void operator=(const SingleList) = delete;
 };
-
 
 // std::ostream& operator<<(std::ostream &output_stream, Professor& src)
 // {

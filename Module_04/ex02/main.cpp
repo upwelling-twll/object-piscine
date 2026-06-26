@@ -102,16 +102,12 @@ void testCommand()
     Headmaster hm("Dumbledor");
     hm.sign(f);
     hm.execute(f);
-    std::vector<Course*> c = hm.getCourses();
-    std::cout << "hm has " << c.size() << " courses in vector" <<  std::endl;
-    
 
     std::cout << "\n --- Course Finished Form --- " << std::endl;
     Form* finishForm = sec.createForm(FormType::CourseFinished, et);
     CourseFinishedForm* ff = dynamic_cast<CourseFinishedForm*>(finishForm);
-    std::vector<Course*> cc = hm.getCourses();
 
-    ff->setCourse(cc[0]);
+    ff->setCourse(CourseList::getSingleList().get(0));
     
     LOG_INFO(*ff);
     hm.sign(ff);

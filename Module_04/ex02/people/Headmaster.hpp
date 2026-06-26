@@ -16,7 +16,6 @@ class Headmaster : public Staff
 {
 private:
     std::vector<Form*> _formToValidate;
-	std::vector<Course*> _courses;
 
 public:
 	/*Member functions*/
@@ -24,12 +23,7 @@ public:
     void sign(Form* p_form);
     void execute(Form* p_form);
 
-    void addCourse(Course* p_course);
-    void removeCourse(Course* p_course);
-
-
 	/*Getters and Setters*/
-    std::vector<Course*> getCourses();
 
 
 	/*Constructors*/

@@ -1,14 +1,17 @@
 #include "NeedCourseCreationForm.hpp"
 #include "../Debug.hpp"
+#include "../singletons.hpp"
 
 /*Member functions*/
 void NeedCourseCreationForm::execute(Headmaster *hm)
 {
+    if (!hm)
+        return;
+    LOG_ACTION("NeedCourseCreationForm: executed by headmaster " + hm->getName());
     Course* newCourse = new Course(courseName, classesToGraduate, maxNumberOfStudents);
     if (newCourse)
     {
-        hm->addCourse(newCourse);
-        // std::cout << "hm has " << c.size() << " courses in vector" <<  std::endl;
+        CourseList::getSingleList().add(newCourse);
         LOG_ACTION("NeedCourseCreationForm: created course");
     }    
     else 
