@@ -136,8 +136,7 @@ void testCommand()
 
 int main()
 {
-    // testSingleton();
-    // testFactory();
+    testFactory();
     testCommand();
     return (0);
 }
