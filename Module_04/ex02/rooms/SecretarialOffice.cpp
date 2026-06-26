@@ -14,7 +14,7 @@
 //     }
 // }
 /*Constructors*/
-SecretarialOffice::SecretarialOffice(int ID) : Room(ID)
+SecretarialOffice::SecretarialOffice()
 {
 	LOG_CTOR("SecretarialOffice parameterized constructor is called");
 }

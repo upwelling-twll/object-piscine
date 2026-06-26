@@ -14,7 +14,7 @@ private:
 
 public:
 
-	Classroom(int id);
+	Classroom();
 	~Classroom(void);
 
 	void	assignCourse(Course* p_course);

@@ -6,7 +6,7 @@
 /*Getters and Setters*/
 
 /*Constructors*/
-Courtyard::Courtyard(int ID) : Room(ID)
+Courtyard::Courtyard()
 {
 	LOG_CTOR("Courtyard parameterized constructor is called");
 }

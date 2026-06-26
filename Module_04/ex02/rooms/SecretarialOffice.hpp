@@ -18,7 +18,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    SecretarialOffice(int ID);
+    SecretarialOffice();
 
 	/*Destructors*/
     ~SecretarialOffice( void );

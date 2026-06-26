@@ -15,7 +15,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    Courtyard(int ID);
+    Courtyard();
 
 	/*Destructors*/
     ~Courtyard( void );

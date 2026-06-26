@@ -15,7 +15,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    StaffRestRoom(int ID);
+    StaffRestRoom();
 
 	/*Destructors*/
     ~StaffRestRoom( void );

@@ -6,7 +6,7 @@
 /*Getters and Setters*/
 
 /*Constructors*/
-StaffRestRoom::StaffRestRoom(int ID) : Room(ID)
+StaffRestRoom::StaffRestRoom()
 {
 	LOG_CTOR("StaffRestRoom parameterized constructor is called");
 }

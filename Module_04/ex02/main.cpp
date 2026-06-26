@@ -25,12 +25,12 @@ void testSingleton()
     Course transfiguration("Transfiguration", 50, 20);
     Course herbology("Herbology", 50, 15);
 
-    HeadmasterOffice hmoffice(1);
-    SecretarialOffice soffice(2);
-    Classroom   potionsClass(3);
-    Classroom   transfigurationClass(4);
-    Classroom   greenhouse(5);
-    Room        roomofrequirement(6);
+    HeadmasterOffice hmoffice;
+    SecretarialOffice soffice;
+    Classroom   potionsClass;
+    Classroom   transfigurationClass;
+    Classroom   greenhouse;
+    Room        roomofrequirement;
 
     SingleList<Student>& students = SingleList<Student>::getSingleList();
     SingleList<Course>& courses = SingleList<Course>::getSingleList();
@@ -69,9 +69,9 @@ void testSingleton()
     // std::cout << *(courses.get(1)) << std::endl;
     // std::cout << *(courses.get(2)) << std::endl;
 
-    // std::cout << *(rooms.get(0)) << std::endl;
-    // std::cout << *(rooms.get(1)) << std::endl;
-    // std::cout << *(rooms.get(2)) << std::endl;
+    std::cout << *(rooms.get(0)) << std::endl;
+    std::cout << *(rooms.get(1)) << std::endl;
+    std::cout << *(rooms.get(2)) << std::endl;
 }
 
 void testFactory()

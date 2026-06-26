@@ -20,7 +20,7 @@ Course* Classroom::getAssignedCourse()
 }
 
 /*Constructors*/
-Classroom::Classroom(int id) : Room(id)
+Classroom::Classroom()
 {
 	LOG_CTOR("Classroom default constructor is called");
 }

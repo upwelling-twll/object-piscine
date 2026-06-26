@@ -2,6 +2,7 @@
 #include "../people/Person.hpp"
 #include "../Debug.hpp"
 
+long long Room::_nextID = 0;
 /*Member functions*/
 bool Room::canEnter(Person* person)
 {
@@ -58,8 +59,10 @@ std::vector<Person*> Room::getOccupants()
 }
 
 /*Constructors*/
-Room::Room(int id) : 	ID(id)
+Room::Room()
 {
+	ID = _nextID;
+	Room::_nextID++;
 	LOG_CTOR("Room parameterized constructor is called");
 }
 

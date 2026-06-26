@@ -10,12 +10,14 @@ class Room
 {
 private:
 
+
 	long long ID;
+	static long long _nextID;
 	std::vector<Person*> _occupants;
 
 public:
 
-	Room(int id);
+	Room();
 	~Room();
 	bool canEnter(Person*);
 	void enter(Person*);

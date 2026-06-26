@@ -14,7 +14,7 @@ public:
 	/*Getters and Setters*/
 
 	/*Constructors*/
-    HeadmasterOffice(int ID);
+    HeadmasterOffice();
 
 	/*Destructors*/
     ~HeadmasterOffice( void );

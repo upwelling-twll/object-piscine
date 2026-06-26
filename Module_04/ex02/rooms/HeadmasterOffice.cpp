@@ -6,7 +6,7 @@
 /*Getters and Setters*/
 
 /*Constructors*/
-HeadmasterOffice::HeadmasterOffice(int ID) : Room(ID)
+HeadmasterOffice::HeadmasterOffice()
 {
 	LOG_CTOR("HeadmasterOffice parameterized constructor is called");
 }
