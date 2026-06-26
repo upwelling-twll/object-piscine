@@ -12,6 +12,7 @@ void NeedCourseCreationForm::execute(Headmaster *hm)
     if (newCourse)
     {
         CourseList::getSingleList().add(newCourse);
+		this->_execStatus = true;
         LOG_ACTION("NeedCourseCreationForm: created course");
     }    
     else 

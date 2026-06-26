@@ -1,11 +1,26 @@
 #include "SubscriptionToCourseForm.hpp"
 #include "../Debug.hpp"
+#include "../people/Student.hpp"
+#include "../objects/Course.hpp"
+
 
 /*Member functions*/
 void SubscriptionToCourseForm::execute(Headmaster *hm)
 {
-    (void)hm;
-    // Method implementation
+   if (!hm)
+		LOG_WARNING("SubscriptionToCourseForm: headmaster is null, can not execute");
+	else if (!p_course)
+		LOG_WARNING("SubscriptionToCourseForm: p_course is null, can not execute");
+	else if (!p_course)
+		LOG_WARNING("SubscriptionToCourseForm: p_student is null, can not execute");
+    else
+	{
+		p_course->addStudent();
+        p_student->addCourse();
+		this->_execStatus = true;
+		//TODO maybe course should unsubscribe students or/and removed from vector
+		LOG_ACTION("SubscriptionToCourseForm: student " + p_student->getName() + " subscribed to " p_course->getName());
+	}
 }
 
 /*Getters and Setters*/

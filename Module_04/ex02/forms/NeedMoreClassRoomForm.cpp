@@ -1,11 +1,26 @@
 #include "NeedMoreClassRoomForm.hpp"
 #include "../Debug.hpp"
+#include "../rooms/Classroom.hpp"
+#include "../singletons.hpp"
+
+
+
 
 /*Member functions*/
 void NeedMoreClassRoomForm::execute(Headmaster *hm)
 {
-    (void)hm;
-    // Method implementation
+    if (!hm)
+        return;
+    LOG_ACTION("NeedMoreClassRoomForm: executed by headmaster " + hm->getName());
+    Classroom* newRoom = new Classroom();
+    if (newRoom)
+    {
+        RoomList::getSingleList().add(newRoom);
+		this->_execStatus = true;
+        LOG_ACTION("NeedMoreClassRoomForm: created room with ID " + std::to_string(newRoom->getRoomNumber()));
+    }
+    else 
+        LOG_WARNING("NeedMoreClassRoomForm:room was not created");
 }
 
 /*Getters and Setters*/

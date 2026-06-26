@@ -2,10 +2,30 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
-// void Student::method()
-// {
-//     // Method implementation
-// }
+Course*	Student::findCourse(Course* p_course)
+{
+	if (! p_course)
+	{
+		LOG_WARNING("Student: can not find null course");
+		return (NULL);
+	}
+	for (std::vector<Course*>::iterator it = )
+}
+
+void Student::addCourse(Course* p_course);
+{
+	if (!p_course)
+	{
+		LOG_WARNING("Student: can not add null course");
+		return;
+	}
+	else if (findCourse(p_course))
+	{
+		LOG_WARNING("Student: already subscribed to " + p_course->getName());
+		return;
+	}
+	_subscribedCourse.push_back(p_course);
+}
 
 /*Getters and Setters*/
 const std::vector<Course*> Student::getCourses() const

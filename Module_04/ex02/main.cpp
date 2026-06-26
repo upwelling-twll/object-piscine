@@ -98,7 +98,6 @@ void testCommand()
     NeedCourseCreationForm* f = dynamic_cast<NeedCourseCreationForm*>(newForm);
     f->setCourseName("Transfiguration");    
     LOG_INFO(*f);
-    
     Headmaster hm("Dumbledor");
     hm.sign(f);
     hm.execute(f);
@@ -106,13 +105,22 @@ void testCommand()
     std::cout << "\n --- Course Finished Form --- " << std::endl;
     Form* finishForm = sec.createForm(FormType::CourseFinished, et);
     CourseFinishedForm* ff = dynamic_cast<CourseFinishedForm*>(finishForm);
-
     ff->setCourse(CourseList::getSingleList().get(0));
-    
     LOG_INFO(*ff);
     hm.sign(ff);
     hm.execute(ff);
 
+    std::cout << "\n --- Need Room Form --- " << std::endl;
+    Form* roomForm = sec.createForm(FormType::NeedMoreClassRoom, et);
+    NeedMoreClassRoomForm* rf = dynamic_cast<NeedMoreClassRoomForm*>(roomForm);
+    LOG_INFO(*rf);
+    hm.sign(rf);
+    hm.execute(rf);
+    LOG_INFO(*(RoomList::getSingleList().get(0)));
+
+    std::cout << "\n --- Subscribe Student To Course Form --- " << std::endl;
+
+    
 }
 
 int main()

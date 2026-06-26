@@ -12,6 +12,7 @@ void CourseFinishedForm::execute(Headmaster *hm)
 	else
 	{
 		p_course->setFinished();
+		this->_execStatus = true;
 		//TODO maybe course should unsubscribe students or/and removed from vector
 		LOG_ACTION("CourseFinishedForm: course " + p_course->getName() + " was finished");
 	}

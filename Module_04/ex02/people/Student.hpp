@@ -21,6 +21,7 @@ public:
     void attendClass(Classroom* p_classroom);
 	void exitClass();
 	void graduate(Course* p_course);
+	void addCourse(Course* p_course);
 
 	/*Getters and Setters*/
 	const std::vector<Course*> getCourses() const;
