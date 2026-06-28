@@ -16,6 +16,7 @@ class Headmaster : public Staff
 {
 private:
     std::vector<Form*> _formToValidate;
+    Secretary* p_secretary;
 
 public:
 	/*Member functions*/
@@ -33,6 +34,7 @@ public:
     Form* finishCourse();
 
 	/*Getters and Setters*/
+    void    setSecretary(Secretary* s);
 
 
 	/*Constructors*/

@@ -57,29 +57,41 @@ void Headmaster::launchCourses()
 //requests from staff & students
 Form* Headmaster::needCourse()
 {
+	if (!p_secretary)
+		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	return (p_secretary.createForm<NeedCourseCreation>());
 }
 
 Form* Headmaster::subscribeToCourse()
 {
+	if (!p_secretary)
+		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	return (p_secretary.createForm<SubscriptionToCourse>());
 }
 
 Form* Headmaster::needRoom()
-{
+{	
+	if (!p_secretary)
+		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	return (p_secretary.createForm<NeedMoreClassRoom>());
 }
 
 Form* Headmaster::finishCourse()
 {
+	if (!p_secretary)
+		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	return (p_secretary.createForm<CourseFinished>());
 }
 
 /*Getters and Setters*/
+void Headmaster::setSecretary(Secretary* s)
+{
+	p_secretary = s;
+}
 
 
 /*Constructors*/
-Headmaster::Headmaster(std::string name) : Staff(name)
+Headmaster::Headmaster(std::string name) : Staff(name), p_secretary(NULL)
 {
 	LOG_CTOR("Headmaster parameterized constructor is called");
 }
