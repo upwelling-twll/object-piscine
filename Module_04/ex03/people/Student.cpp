@@ -2,6 +2,24 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
+void	Student::addAttendance(Course* p_course)
+{
+	if (findCourse(p_course))
+	{
+		auto it = _attendance.find(p_course);
+		if (it != _attendance.end())
+		{
+			it->second ++;
+			LOG_DBUG("Student addAttendace(): adding attendance for course");
+		}
+		else
+		{
+			_attendance.insert({p_course, 1});
+			LOG_DBUG("Student addAttendace(): adding first attendance for course");
+		}
+	}
+}
+
 Course*	Student::findCourse(Course* p_course)
 {
 	if (! p_course)
@@ -16,6 +34,16 @@ Course*	Student::findCourse(Course* p_course)
 	}
 	return (NULL);
 }
+
+void Student::attendClass(Classroom* p_classroom)
+{
+	if (p_classroom)
+	{
+		if ()
+	}
+
+}
+
 
 void Student::addCourse(Course* p_course)
 {
@@ -50,6 +78,21 @@ Student::~Student( void )
 {
 	LOG_DTOR("Student destructor is called");
 }
+
+int	Student::getAttendance(Course* p_course)
+{
+	if (findCourse(p_course))
+	{
+		auto it = _attendance.find(p_course);
+		if (it != _attendance.end())
+			return (it->second);
+		else
+			return (0);
+	}
+	else
+		return (-1);
+}
+
 
 /*Overload operators*/
 

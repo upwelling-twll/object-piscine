@@ -2,6 +2,8 @@
 #include "Headmaster.hpp"
 #include "../Debug.hpp"
 #include "../objects/Course.hpp"
+#include <typeinfo>
+#include "../singletons.hpp"
 
 
 /*Member functions*/
@@ -35,6 +37,42 @@ void Headmaster::execute(Form* p_form)
 		p_form->execute(this);
 	else
 		LOG_WARNING("Headmaster won't execute anapproved form");
+}
+
+void Headmaster::launchCourses()
+{
+	int size = StaffList::getSingleList().getSize();
+	for (int i = 0; i != size; ++i)
+	{
+		Staff* s = StaffList::getSingleList().get(i);
+		if (typeid(*s) == typeid(Professor))
+		{
+			Professor* p = dynamic_cast<Professor*>(s);
+			LOG_DBUG("Headmaster:found professor " + p->getName());
+			p->doClass();
+		}
+	}
+}
+
+//requests from staff & students
+Form* Headmaster::needCourse()
+{
+	return (p_secretary.createForm<NeedCourseCreation>());
+}
+
+Form* Headmaster::subscribeToCourse()
+{
+	return (p_secretary.createForm<SubscriptionToCourse>());
+}
+
+Form* Headmaster::needRoom()
+{
+	return (p_secretary.createForm<NeedMoreClassRoom>());
+}
+
+Form* Headmaster::finishCourse()
+{
+	return (p_secretary.createForm<CourseFinished>());
 }
 
 /*Getters and Setters*/

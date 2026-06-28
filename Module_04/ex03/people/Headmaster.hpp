@@ -23,6 +23,15 @@ public:
     void sign(Form* p_form);
     void execute(Form* p_form);
 
+    void launchCourses();
+
+    //requests from staff & students
+    Form* needCourse();
+    // Form* graduateFromCourse();
+    Form* subscribeToCourse();
+    Form* needRoom();
+    Form* finishCourse();
+
 	/*Getters and Setters*/
 
 

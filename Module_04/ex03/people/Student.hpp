@@ -3,6 +3,8 @@
 
 # include <iostream>
 # include <vector>
+# include <map>
+
 
 # include "Person.hpp"
 # include "../objects/Course.hpp"
@@ -14,7 +16,7 @@ class Student : public Person
 {
 private:
     std::vector<Course*> _subscribedCourse;
-
+	std::map<Course*, int> _attendance;
 
 public:
 	/*Member functions*/
@@ -24,9 +26,11 @@ public:
 	void addCourse(Course* p_course);
 
 	Course* findCourse(Course* p_course);
+	void	addAttendance(Course* p_course);
 
 	/*Getters and Setters*/
-	const std::vector<Course*> getCourses() const;
+	const std::vector<Course*>	getCourses() const;
+	int							getAttendance(Course* p_course);
 
 	/*Constructors*/
     Student(std::string name);

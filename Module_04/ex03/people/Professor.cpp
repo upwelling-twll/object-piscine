@@ -17,11 +17,12 @@ void Professor::doClass()
 {
 	if (_currentCourse)
 	{
-		LOG_ACTION("Professor is teaching "+ _currentCourse->getName());
+		LOG_ACTION("Professor " + this->getName() + "  is teaching "+ _currentCourse->getName());
+		
 		// _currentCourse.doCourseClass();
 	}
 	else
-		LOG_INFO("Professor : no course to do");
+		LOG_INFO("Professor " + this->getName() + " : no course to do");
 }
 
 void Professor::closeCourse()
