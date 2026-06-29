@@ -7,7 +7,7 @@
 
 class Student;
 class Professor;
-
+class Classroom;
 class Course
 {
 private:
@@ -17,6 +17,7 @@ private:
 	std::vector<Student*>	_students;
 	int 					_numberOfClassToGraduate;
 	int						_maximumNumberOfStudent;
+	Classroom*				_currentRoom;
 
 public:
 
@@ -32,7 +33,9 @@ public:
 	int			getNumberOfStudents();
 	int			getNumberOfClasses();
 	int			getMaxStudents();
+	Classroom*	getClassroom();
 	void		setFinished();
+	void		setClassroom(Classroom* p_classroom);
 };
 
 std::ostream& operator<<(std::ostream &output_stream, Course& src);

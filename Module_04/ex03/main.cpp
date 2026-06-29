@@ -145,6 +145,8 @@ void testMediator()
     // Staff hagrid("Rubeus");
     Professor mcGonagall("Minerva");
     Headmaster dumblerode("Albus");
+    Secretary sec("Percy Weasley");
+    dumblerode.setSecretary(&sec);
 
     Course potions("Potions", 100, 30);
     Course transfiguration("Transfiguration", 50, 20);
@@ -202,6 +204,7 @@ void testMediator()
 
     LOG_DBUG("Staff list size: " + std::to_string(StaffList::getSingleList().getSize()));
     mcGonagall.assignCourse(&transfiguration);
+    harry.addCourse(&transfiguration);
     dumblerode.launchCourses();
 
 } 

@@ -38,10 +38,15 @@ Course*	Student::findCourse(Course* p_course)
 void Student::attendClass(Classroom* p_classroom)
 {
 	if (p_classroom)
-	{
-		if ()
+	{	
+		Course* c = p_classroom->getAssignedCourse(); 
+		if (c && this->findCourse(c))
+		{
+			addAttendance(c);
+			return;
+		}
 	}
-
+	LOG_WARNING("Student " + getName() + " can not attend course ");
 }
 
 

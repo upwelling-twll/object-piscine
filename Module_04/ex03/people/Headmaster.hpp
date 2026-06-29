@@ -11,6 +11,7 @@
 // class Staff;
 // class Form;
 class Course;
+class Secretary;
 
 class Headmaster : public Staff
 {

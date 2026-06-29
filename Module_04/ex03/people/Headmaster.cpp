@@ -1,9 +1,11 @@
 // #include "Staff.hpp"
+#include <typeinfo>
 #include "Headmaster.hpp"
 #include "../Debug.hpp"
 #include "../objects/Course.hpp"
-#include <typeinfo>
 #include "../singletons.hpp"
+#include "../FormType.hpp"
+
 
 
 /*Member functions*/
@@ -59,28 +61,32 @@ Form* Headmaster::needCourse()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
-	return (p_secretary.createForm<NeedCourseCreation>());
+	time_t et = time(0) + (3600 * 24); //24 hours from now
+	return (p_secretary->createForm(FormType::NeedCourseCreation, et));
 }
 
 Form* Headmaster::subscribeToCourse()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
-	return (p_secretary.createForm<SubscriptionToCourse>());
+	time_t et = time(0) + (3600 * 24); //24 hours from now
+	return (p_secretary->createForm(FormType::SubscriptionToCourse, et));
 }
 
 Form* Headmaster::needRoom()
 {	
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
-	return (p_secretary.createForm<NeedMoreClassRoom>());
+	time_t et = time(0) + (3600 * 24); //24 hours from now
+	return (p_secretary->createForm(FormType::NeedMoreClassRoom, et));
 }
 
 Form* Headmaster::finishCourse()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
-	return (p_secretary.createForm<CourseFinished>());
+	time_t et = time(0) + (3600 * 24); //24 hours from now
+	return (p_secretary->createForm(FormType::CourseFinished, et));
 }
 
 /*Getters and Setters*/

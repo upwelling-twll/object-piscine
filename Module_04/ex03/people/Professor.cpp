@@ -15,14 +15,18 @@ void Professor::assignCourse(Course* p_course)
 
 void Professor::doClass()
 {
-	if (_currentCourse)
+	if (!_currentCourse)
 	{
-		LOG_ACTION("Professor " + this->getName() + "  is teaching "+ _currentCourse->getName());
-		
-		// _currentCourse.doCourseClass();
-	}
-	else
 		LOG_INFO("Professor " + this->getName() + " : no course to do");
+		return;
+	}
+	if (! _currentCourse->getClassroom())
+	{
+		LOG_DBUG("Professor " + this->getName() + " has course but no room");
+		//TODO : request classroom through headmaster !!!
+	}
+	LOG_ACTION("Professor " + this->getName() + "  is teaching "+ _currentCourse->getName());
+	_currentCourse.holdClass();
 }
 
 void Professor::closeCourse()

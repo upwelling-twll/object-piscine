@@ -43,6 +43,35 @@ Student* Course::findStudent(Student* p_student)
 	return (NULL);
 }
 
+void	Course::holdClass()
+{
+	if (! _responsable)
+	{
+		LOG_WARNING("Course " + getName() + " has no responsable professor!");
+		return;
+	}
+	if (! _currentRoom)
+	{
+		LOG_WARNING("Course " + getName() + " has no room!");
+		return;
+	}
+	if (_students.empty())
+	{
+		LOG_WARNING("Course " + getName() + " has no subscribed students!");
+		return;
+	}
+	else
+	{
+		for (std::vector<Student*>::iterator it = _students.begin(); it != _students.end(); ++it)
+		{
+			if (*it)
+			{
+				(*it)->attendClass(_currentRoom);
+			}
+		}
+	}
+}
+
 /*Getters and Setters*/
 std::string Course::getName()
 {
@@ -74,6 +103,16 @@ void Course::setFinished()
 	//TODO unsubscribe students
 	LOG_ACTION("Course " + getName() + "is finished");
 }
+
+void Course::setClassroom(Classroom* p_classroom)
+{
+	//TODO unsubscribe students
+	if (!p_classroom)
+		LOG_WARNING("Course " + getName() + "received null room");
+	else
+		_currentRoom = p_classroom;
+}
+
 
 /*Constructors*/
 Course::Course(std::string p_name, int numberOfClassToGraduate, int maxNumberOfStudents) 

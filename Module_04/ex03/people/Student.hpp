@@ -8,9 +8,10 @@
 
 # include "Person.hpp"
 # include "../objects/Course.hpp"
+# include "../rooms/Classroom.hpp"
 
 // class Course;
-class Classroom;
+// class Classroom;
 
 class Student : public Person
 {
