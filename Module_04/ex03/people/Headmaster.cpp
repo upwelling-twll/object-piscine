@@ -44,6 +44,7 @@ void Headmaster::execute(Form* p_form)
 void Headmaster::launchCourses()
 {
 	int size = StaffList::getSingleList().getSize();
+	LOG_DBUG("Headmaster: staff list size = " + std::to_string(size));
 	for (int i = 0; i != size; ++i)
 	{
 		Staff* s = StaffList::getSingleList().get(i);

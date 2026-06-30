@@ -26,7 +26,7 @@ void Professor::doClass()
 		//TODO : request classroom through headmaster !!!
 	}
 	LOG_ACTION("Professor " + this->getName() + "  is teaching "+ _currentCourse->getName());
-	_currentCourse.holdClass();
+	_currentCourse->holdClass();
 }
 
 void Professor::closeCourse()

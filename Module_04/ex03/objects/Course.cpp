@@ -1,6 +1,8 @@
 #include "Course.hpp"
 #include "../Debug.hpp"
 # include "../people/Professor.hpp"
+# include "../people/Student.hpp"
+
 
 /*Member functions*/
 void Course::assign(Professor* p_professor)
@@ -62,10 +64,12 @@ void	Course::holdClass()
 	}
 	else
 	{
+		LOG_DBUG("Course : iterating through students. Course has " + std::to_string(_students.size()) + " subscribed students");
 		for (std::vector<Student*>::iterator it = _students.begin(); it != _students.end(); ++it)
 		{
 			if (*it)
 			{
+				LOG_DBUG("Course : asking student " + (*it)->getName() + " to attend class");
 				(*it)->attendClass(_currentRoom);
 			}
 		}
@@ -98,6 +102,11 @@ int Course::getMaxStudents()
 	return (_maximumNumberOfStudent);
 }
 
+Classroom*	Course::getClassroom()
+{
+	return (_currentRoom);
+}
+
 void Course::setFinished()
 {
 	//TODO unsubscribe students
@@ -110,7 +119,10 @@ void Course::setClassroom(Classroom* p_classroom)
 	if (!p_classroom)
 		LOG_WARNING("Course " + getName() + "received null room");
 	else
+	{
+		LOG_ACTION("Course " + getName() + "have got classroom number " + std::to_string(p_classroom->getRoomNumber()));
 		_currentRoom = p_classroom;
+	}
 }
 
 
@@ -136,10 +148,14 @@ std::ostream& operator<<(std::ostream& output_stream, Course& src)
 	if (src.getResponsable() == NULL)
 		output_stream << " Professor assigned : null" << std::endl;
 	else
-		output_stream << "Professor assigned : " << (src.getResponsable())->getName() << std::endl;
+		output_stream << " Professor assigned : " << (src.getResponsable())->getName() << std::endl;
 	output_stream << " Number of students currently assigned : " << src.getNumberOfStudents() << std::endl;
 	output_stream << " Number of class to graduate : " << src.getNumberOfClasses() << std::endl;
 	output_stream << " Maxnumber of students : " << src.getMaxStudents()<< std::endl;
+	if (!src.getClassroom())
+		output_stream << " Classroom : null" << std::endl;
+	else
+		output_stream << " Classroom : " << (src.getClassroom())->getRoomNumber() << std::endl;
 
 	return output_stream;
 }

@@ -6,11 +6,14 @@
 void Classroom::assignCourse(Course* p_course)
 {
 	if (!p_course)
-		throw (std::invalid_argument("Classromm: null course can not be assigned"));
+		LOG_WARNING("Classromm: null course can not be assigned");
     if (!_currentCourse)
+	{
+		LOG_ACTION("Classroom #" + std::to_string(this->getRoomNumber()) + " got course " + p_course->getName());
 		_currentCourse = p_course;
+	}
 	else
-		std::cout << "Classroom: this room is already used for other course" << std::endl;
+		LOG_WARNING("Classroom: this room is already used for other course");
 }
 
 /*Getters and Setters*/

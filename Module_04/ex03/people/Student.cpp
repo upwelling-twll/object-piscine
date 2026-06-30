@@ -37,8 +37,13 @@ Course*	Student::findCourse(Course* p_course)
 
 void Student::attendClass(Classroom* p_classroom)
 {
-	if (p_classroom)
+	if (!p_classroom)
 	{	
+		LOG_WARNING("Student " + getName() + " can not attend course with null classroom");
+		return;
+	}
+	else
+	{
 		Course* c = p_classroom->getAssignedCourse(); 
 		if (c && this->findCourse(c))
 		{
@@ -46,7 +51,7 @@ void Student::attendClass(Classroom* p_classroom)
 			return;
 		}
 	}
-	LOG_WARNING("Student " + getName() + " can not attend course ");
+	
 }
 
 
