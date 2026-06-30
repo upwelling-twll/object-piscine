@@ -3,21 +3,29 @@
 
 # include <iostream>
 # include "Staff.hpp"
-# include "../objects/Course.hpp"
+# include "../courses/Course.hpp"
+
+class Headmaster;
 class Course;
+class Room;
 class Professor : public Staff
 {
 private:
     // Add member variables here
-	Course* _currentCourse;
+	Course*			_currentCourse;
+	Headmaster*		_hm;
 
 public:
 	/*Member functions*/
     void assignCourse(Course* p_course);
 	void doClass();
 	void closeCourse();
+	void studentHadEnoughClasses(Student* p_student, Course* p_course);
+	Classroom*	findFreeClassroom();
 
 	/*Getters and Setters*/
+	void setHeadmaster(Headmaster* p_hm);
+	Headmaster*	getHeadmaster();
 
 	/*Constructors*/
     Professor(std::string name);

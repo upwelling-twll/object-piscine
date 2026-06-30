@@ -13,6 +13,7 @@ private:
 	Course* _currentCourse;
 
 public:
+	void	setFree();
 
 	Classroom();
 	~Classroom(void);

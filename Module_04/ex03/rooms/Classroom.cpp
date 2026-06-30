@@ -1,5 +1,5 @@
 #include "Classroom.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 #include "../Debug.hpp"
 
 /*Member functions*/
@@ -22,8 +22,14 @@ Course* Classroom::getAssignedCourse()
 	return (_currentCourse);
 }
 
+void	Classroom::setFree()
+{
+	_currentCourse = NULL;
+}
+
+
 /*Constructors*/
-Classroom::Classroom()
+Classroom::Classroom() : _currentCourse(NULL)
 {
 	LOG_CTOR("Classroom default constructor is called");
 }

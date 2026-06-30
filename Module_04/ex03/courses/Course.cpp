@@ -70,7 +70,10 @@ void	Course::holdClass()
 			if (*it)
 			{
 				LOG_DBUG("Course : asking student " + (*it)->getName() + " to attend class");
-				(*it)->attendClass(_currentRoom);
+				if ((*it)->getAttendance(this) >= _numberOfClassToGraduate)
+					_responsable->studentHadEnoughClasses(*it, this);
+				else
+					(*it)->attendClass(_currentRoom);
 			}
 		}
 	}
@@ -117,10 +120,10 @@ void Course::setClassroom(Classroom* p_classroom)
 {
 	//TODO unsubscribe students
 	if (!p_classroom)
-		LOG_WARNING("Course " + getName() + "received null room");
+		LOG_DBUG("Course setClassroom() " + getName() + " received null room");
 	else
 	{
-		LOG_ACTION("Course " + getName() + "have got classroom number " + std::to_string(p_classroom->getRoomNumber()));
+		LOG_ACTION("Course setClassroom() " + getName() + " have got classroom number " + std::to_string(p_classroom->getRoomNumber()));
 		_currentRoom = p_classroom;
 	}
 }
@@ -128,7 +131,8 @@ void Course::setClassroom(Classroom* p_classroom)
 
 /*Constructors*/
 Course::Course(std::string p_name, int numberOfClassToGraduate, int maxNumberOfStudents) 
-	: _name(p_name), _responsable(NULL), _numberOfClassToGraduate(numberOfClassToGraduate), _maximumNumberOfStudent(maxNumberOfStudents)
+	: _name(p_name), _responsable(NULL), _numberOfClassToGraduate(numberOfClassToGraduate), _maximumNumberOfStudent(maxNumberOfStudents),
+	_currentRoom(NULL)
 {
     LOG_CTOR("Course parameterized constructor is called");
 }

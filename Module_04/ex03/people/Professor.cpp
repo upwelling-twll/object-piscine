@@ -1,4 +1,9 @@
 #include "Professor.hpp"
+#include "Headmaster.hpp"
+#include "Student.hpp"
+#include "../singletons.hpp"
+
+
 
 /*Member functions*/
 void Professor::assignCourse(Course* p_course)
@@ -13,20 +18,54 @@ void Professor::assignCourse(Course* p_course)
 	_currentCourse = p_course;
 }
 
+Classroom*	Professor::findFreeClassroom()
+{
+	int size = RoomList::getSingleList().getSize();
+	LOG_DBUG("Professor: rooms list size = " + std::to_string(size));	
+	for (int i = 0; i != size; ++i)
+	{
+		Room* r = RoomList::getSingleList().get(i);
+		if (typeid(*r) == typeid(Classroom))
+		{
+			Classroom* cr = dynamic_cast<Classroom*>(r);
+			if (cr->getAssignedCourse() == NULL)
+			{
+				LOG_DBUG("Professor: found free room");
+				return (cr);
+			}
+		}
+	}
+	return (NULL);
+}
+
 void Professor::doClass()
 {
 	if (!_currentCourse)
 	{
 		LOG_INFO("Professor " + this->getName() + " : no course to do");
+		//TODO: request course fro
 		return;
 	}
 	if (! _currentCourse->getClassroom())
 	{
-		LOG_DBUG("Professor " + this->getName() + " has course but no room");
-		//TODO : request classroom through headmaster !!!
+		LOG_DBUG("Professor " + this->getName() + " has " + _currentCourse->getName() +  " course but no room to do class");
+		Classroom* cr = findFreeClassroom();
+		if (! cr)
+		{
+			LOG_DBUG("Professor " + this->getName() + " did not find free room for  " + _currentCourse->getName() + ". Requesting to HM");
+			//TODO : request classroom through headmaster !!!
+		}
+		else
+		{
+			_currentCourse->setClassroom(cr);
+			cr->assignCourse(_currentCourse);
+		}
+
 	}
-	LOG_ACTION("Professor " + this->getName() + "  is teaching "+ _currentCourse->getName());
+	LOG_ACTION("Professor " + this->getName() + "  is ready for teaching "+ _currentCourse->getName());
 	_currentCourse->holdClass();
+	(_currentCourse->getClassroom())->setFree();
+	_currentCourse->setClassroom(NULL);
 }
 
 void Professor::closeCourse()
@@ -38,10 +77,62 @@ void Professor::closeCourse()
 		LOG_ACTION("Professor : closed course");
 }
 
+void Professor::studentHadEnoughClasses(Student* p_student, Course* p_course)
+{
+	if (! p_course || !p_student)
+	{
+		LOG_WARNING("Professor: received null argument(s)");
+		return;
+	}
+	if (p_course != _currentCourse)
+	{
+		LOG_WARNING("Professor: " + this->getName() + " is not responsable for this course "
+			 + p_course->getName() + " to graduate " + p_student->getName());
+		return ;
+	}
+	if (!p_student->findCourse(p_course))
+	{
+		LOG_WARNING("Professor " + this->getName() + " : student "
+				 + p_student->getName() + " was not subscribed for " + p_course ->getName() + ", unable to graduate");
+		return ;
+	}
+	if (!_hm)
+	{
+		LOG_WARNING("Professor " + this->getName() + " : has no headmaster, unable to graduate");
+		return ;
+	}
+	else
+	{
+		LOG_ACTION("Professor " + this->getName() + " : requesting to graduate student "
+				 + p_student->getName() + " from " + p_course ->getName());
+		
+		//_hm->GraduateStudent();
+	}
+}
+
+
 /*Getters and Setters*/
+void Professor::setHeadmaster(Headmaster* p_hm)
+{
+	if (! p_hm)
+	{
+		LOG_WARNING("Professor: " + this->getName() + " received null headmaster");
+		return ;
+	}
+	else 
+	{
+		_hm = p_hm;
+		LOG_DBUG("Professor: " + this->getName() + " received headmaster " + _hm->getName());		
+	}
+}
+
+Headmaster* Professor::getHeadmaster()
+{
+	return (_hm);
+}
 
 /*Constructors*/
-Professor::Professor(std::string name) : Staff(name)
+Professor::Professor(std::string name) : Staff(name), _currentCourse(NULL), _hm(NULL)
 {
 	LOG_CTOR("Professor parameterized constructor is called");
 }
@@ -64,7 +155,10 @@ std::ostream& operator<<(std::ostream& output_stream, Professor& src)
 		output_stream << "Current Room: null" << std::endl;
 	else
 		output_stream << "Current Room: " << currentRoom->getRoomNumber() << std::endl;
-  
+	if (src.getHeadmaster() == NULL)
+		output_stream << "Headmaster: null" << std::endl;
+	else
+		output_stream << "Headmaster: " << src.getHeadmaster()->getName() << std::endl;
 	return output_stream;
 }
 

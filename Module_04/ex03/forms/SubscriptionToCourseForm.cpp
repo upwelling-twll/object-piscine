@@ -1,7 +1,7 @@
 #include "SubscriptionToCourseForm.hpp"
 #include "../Debug.hpp"
 #include "../people/Student.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 
 
 /*Member functions*/

@@ -7,7 +7,7 @@
 
 
 # include "Person.hpp"
-# include "../objects/Course.hpp"
+# include "../courses/Course.hpp"
 # include "../rooms/Classroom.hpp"
 
 // class Course;

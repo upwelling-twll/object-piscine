@@ -68,7 +68,7 @@ void Student::addCourse(Course* p_course)
 		return;
 	}
 	_subscribedCourse.push_back(p_course);
-	LOG_DBUG("Student: " + this->getName() + " subscribed to course " + p_course->getName());
+	LOG_ACTION("Student: " + this->getName() + " subscribed to course " + p_course->getName());
 }
 
 /*Getters and Setters*/

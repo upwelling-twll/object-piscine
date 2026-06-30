@@ -18,7 +18,7 @@ private:
 public:
 
 	Room();
-	~Room();
+	virtual ~Room();
 	bool canEnter(Person*);
 	void enter(Person*);
 	void exit(Person*);

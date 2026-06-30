@@ -1,5 +1,5 @@
 #include "FormType.hpp"
-#include "objects/Course.hpp"
+#include "courses/Course.hpp"
 #include "forms/forms.hpp"
 #include "people/people.hpp"
 #include "rooms/rooms.hpp"
@@ -23,7 +23,7 @@ void testMediator()
     dumblerode.setSecretary(&sec);
 
     Course potions("Potions", 100, 30);
-    Course transfiguration("Transfiguration", 50, 20);
+    Course transfiguration("Transfiguration", 1, 20);
     Course herbology("Herbology", 50, 15);
 
     HeadmasterOffice hmoffice;
@@ -31,7 +31,7 @@ void testMediator()
     Classroom   potionsClass;
     Classroom*   transfigurationClass = new Classroom();
     Classroom   greenhouse;
-    Room        roomofrequirement;
+    // Room        roomofrequirement;
 
     SingleList<Student>& students = SingleList<Student>::getSingleList();
     SingleList<Course>& courses = SingleList<Course>::getSingleList();
@@ -56,7 +56,7 @@ void testMediator()
     rooms.add(&potionsClass);
     rooms.add(transfigurationClass);
     rooms.add(&greenhouse);
-    rooms.add(&roomofrequirement);
+    // rooms.add(&roomofrequirement);
 
     LOG_INFO(*(students.get(0)));
     // std::cout << *(students.get(1)) << std::endl;
@@ -77,22 +77,29 @@ void testMediator()
     std::cout << "=== Test Meadiator ===" << std::endl;
 
     LOG_DBUG("Staff list size: " + std::to_string(StaffList::getSingleList().getSize()));
+    mcGonagall.setHeadmaster(&dumblerode);
     mcGonagall.assignCourse(&transfiguration);
     transfiguration.assign(&mcGonagall);
     harry.addCourse(&transfiguration);
+    hermione.addCourse(&transfiguration);
+    
     transfiguration.subscribe(&harry);
-    transfiguration.setClassroom(transfigurationClass);
-    transfigurationClass->assignCourse(&transfiguration);
+    transfiguration.subscribe(&hermione);
+
+    // transfiguration.setClassroom(transfigurationClass);
+    // transfigurationClass->assignCourse(&transfiguration);
     LOG_INFO(transfiguration);
     dumblerode.launchCourses();
+
+    LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
+    dumblerode.launchCourses();
+    // dumblerode.launchCourses();
+    LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
 
 } 
 
 int main()
 {
-    // testSingleton();
-    // testFactory();
-    // testCommand();
     testMediator();
     return (0);
 }

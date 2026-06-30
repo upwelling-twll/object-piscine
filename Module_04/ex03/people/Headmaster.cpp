@@ -2,7 +2,7 @@
 #include <typeinfo>
 #include "Headmaster.hpp"
 #include "../Debug.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 #include "../singletons.hpp"
 #include "../FormType.hpp"
 
@@ -45,6 +45,7 @@ void Headmaster::launchCourses()
 {
 	int size = StaffList::getSingleList().getSize();
 	LOG_DBUG("Headmaster: staff list size = " + std::to_string(size));
+	LOG_ACTION("Headmaster: launching courses");
 	for (int i = 0; i != size; ++i)
 	{
 		Staff* s = StaffList::getSingleList().get(i);
