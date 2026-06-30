@@ -1,7 +1,50 @@
 #include "Student.hpp"
 #include "../Debug.hpp"
+#include "../singletons.hpp"
+#include "../forms/SubscriptionToCourseForm.hpp"
+#include "Headmaster.hpp"
 
 /*Member functions*/
+
+Course* Student::findUniqueCourse()
+{
+	int size = CourseList::getSingleList().getSize();
+	for (int i = 0; i != size; ++i)
+	{
+		Course* c = CourseList::getSingleList().get(i);
+		auto it = _attendance.find(c);
+		if (it != _attendance.end())
+			continue; //means that course was already attended
+		else
+		{
+			if (c->getMaxStudents() > c->getNumberOfStudents()) //TODO : move this check to Headmaster, reject form signing if false
+				return (c); //course is unique for this student AND has free spots
+		}
+	}
+	return (NULL);
+}
+
+void	Student::prepareForClass(Headmaster* hm)
+{
+	LOG_DBUG("Student " + getName() + " is checking subscribed courses");
+	if (! _subscribedCourse.empty())
+		return;
+	else
+	{
+		LOG_DBUG("Student " + getName() + " will search for new course");
+		Course* c = findUniqueCourse();
+		if (!c)
+		{
+			LOG_DBUG("Student " + getName() + " already graduated or subscribed to all possible courses");
+			return;
+		}
+		SubscriptionToCourseForm* f = hm->subscribeToCourse();
+		f->setStudent(this);
+		f->setCourse(c);
+		hm->receiveForm(f);
+	}
+}
+
 void	Student::addAttendance(Course* p_course)
 {
 	if (findCourse(p_course))
@@ -117,14 +160,9 @@ Student::~Student( void )
 
 int	Student::getAttendance(Course* p_course)
 {
-	if (findCourse(p_course))
-	{
-		auto it = _attendance.find(p_course);
-		if (it != _attendance.end())
-			return (it->second);
-		else
-			return (0);
-	}
+	auto it = _attendance.find(p_course);
+	if (it != _attendance.end())
+		return (it->second);
 	else
 		return (-1);
 }

@@ -42,7 +42,7 @@ Classroom*	Professor::findFreeClassroom()
 	return (NULL);
 }
 
-void Professor::doClass()
+void	Professor::prepareForClass()
 {
 	if (!_currentCourse)
 	{
@@ -81,9 +81,13 @@ void Professor::doClass()
 		cr->assignCourse(_currentCourse);
 	}
 	LOG_ACTION("Professor " + this->getName() + "  is ready for teaching "+ _currentCourse->getName());
+}
+
+void Professor::doClass()
+{
 	_currentCourse->holdClass();
 
-	// *** after finishing course we must reset course & class to default state ***
+	// *** after finishing class we must reset course & class to default state ***
 	(_currentCourse->getClassroom())->setFree();
 	_currentCourse->setClassroom(NULL);
 }

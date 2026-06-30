@@ -17,10 +17,11 @@ private:
 
 public:
 	/*Member functions*/
-    void assignCourse(Course* p_course);
-	void doClass();
-	void closeCourse();
-	void studentHadEnoughClasses(Student* p_student, Course* p_course);
+    void 	assignCourse(Course* p_course);
+	void	prepareForClass();
+	void 	doClass();
+	void 	closeCourse();
+	void 	studentHadEnoughClasses(Student* p_student, Course* p_course);
 	Classroom*	findFreeClassroom();
 
 	/*Getters and Setters*/

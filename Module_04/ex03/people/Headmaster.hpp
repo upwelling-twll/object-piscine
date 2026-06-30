@@ -12,6 +12,8 @@
 // class Form;
 class NeedCourseCreationForm;
 class NeedMoreClassRoomForm;
+class SubscriptionToCourseForm;
+class CourseFinishedForm;
 class Course;
 class Secretary;
 
@@ -31,10 +33,10 @@ public:
 
     //requests from staff & students
     // Form* graduateFromCourse();
-    NeedMoreClassRoomForm*  needRoom();
-    NeedCourseCreationForm* needCourse();
-    Form*                   subscribeToCourse();
-    CourseFinishedForm*     graduateStudent();
+    NeedMoreClassRoomForm*      needRoom();
+    NeedCourseCreationForm*     needCourse();
+    SubscriptionToCourseForm*   subscribeToCourse();
+    CourseFinishedForm*         graduateStudent();
 
 	/*Getters and Setters*/
     void    setSecretary(Secretary* s);

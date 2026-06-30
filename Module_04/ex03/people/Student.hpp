@@ -12,6 +12,7 @@
 
 // class Course;
 // class Classroom;
+class Headmaster;
 
 class Student : public Person
 {
@@ -27,7 +28,9 @@ public:
 	void addCourse(Course* p_course);
 
 	Course* findCourse(Course* p_course);
+	Course* findUniqueCourse();
 	void	addAttendance(Course* p_course);
+	void	prepareForClass(Headmaster* hm);
 
 	/*Getters and Setters*/
 	const std::vector<Course*>	getCourses() const;

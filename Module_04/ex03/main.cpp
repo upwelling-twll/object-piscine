@@ -22,9 +22,9 @@ void testMediator()
     Secretary sec("Percy Weasley");
     dumblerode.setSecretary(&sec);
 
-    Course potions("Potions", 100, 30);
-    Course transfiguration("Transfiguration", 1, 20);
-    Course herbology("Herbology", 50, 15);
+    Course potions("Potions", 100, 0);
+    Course transfiguration("Transfiguration", 1, 0);
+    Course herbology("Herbology", 50, 0);
 
     HeadmasterOffice hmoffice;
     SecretarialOffice soffice;
@@ -81,23 +81,23 @@ void testMediator()
     potionsClass.assignCourse(&potions);
     greenhouse.assignCourse(&herbology);
     mcGonagall.setHeadmaster(&dumblerode);
-    mcGonagall.assignCourse(&transfiguration);
-    transfiguration.assign(&mcGonagall);
-    harry.addCourse(&transfiguration);
-    hermione.addCourse(&transfiguration);
+    // mcGonagall.assignCourse(&transfiguration);
+    // transfiguration.assign(&mcGonagall);
+    // harry.addCourse(&transfiguration);
+    // hermione.addCourse(&transfiguration);
     
-    transfiguration.subscribe(&harry);
-    transfiguration.subscribe(&hermione);
+    // transfiguration.subscribe(&harry);
+    // transfiguration.subscribe(&hermione);
 
     // transfiguration.setClassroom(transfigurationClass);
     // transfigurationClass->assignCourse(&transfiguration);
     LOG_INFO(transfiguration);
     dumblerode.conductClasses();
 
-    LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
-    dumblerode.conductClasses();
+    // LOG_INFO("Harry attended dancing " + std::to_string(harry.getAttendance(&)) + " times");
     // dumblerode.conductClasses();
-    LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
+    // dumblerode.conductClasses();
+    // LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
 
 } 
 
