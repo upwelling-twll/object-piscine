@@ -59,12 +59,12 @@ void Headmaster::launchCourses()
 }
 
 //requests from staff & students
-Form* Headmaster::needCourse()
+NeedCourseCreationForm* Headmaster::needCourse()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (p_secretary->createForm(FormType::NeedCourseCreation, et));
+	return (dynamic_cast<NeedCourseCreationForm*>(p_secretary->createForm(FormType::NeedCourseCreation, et)));
 }
 
 Form* Headmaster::subscribeToCourse()

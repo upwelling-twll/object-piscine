@@ -46,9 +46,19 @@ void Professor::doClass()
 {
 	if (!_currentCourse)
 	{
-		LOG_INFO("Professor " + this->getName() + " : no course to do");
-		//TODO: request course fro
-		return;
+		LOG_INFO("Professor " + this->getName() + " : does not have a course to do");
+		NeedCourseCreationForm* f = _hm->needCourse();
+		if (f)
+		{
+			//TODO: list of random unique course names
+			f->setCourseName("Dancing");
+			f->setClassesToGraduate(10);
+			f->setNumberOfStudents(20);
+			f->setResponsable(this);
+			_hm->receiveForm(f);
+		}
+		else
+			return;
 	}
 	if (! _currentCourse->getClassroom())
 	{
@@ -56,7 +66,7 @@ void Professor::doClass()
 		Classroom* cr = findFreeClassroom();
 		if (! cr)
 		{
-			//if no free room found, request new room creation through Headmaster
+			// *** if no free room found, request new room creation through Headmaster ***
 			LOG_DBUG("Professor " + this->getName() + " did not find free room for  " + _currentCourse->getName() + ". Requesting to HM");
 			NeedMoreClassRoomForm* f = _hm->needRoom();
 			_hm->receiveForm(f);

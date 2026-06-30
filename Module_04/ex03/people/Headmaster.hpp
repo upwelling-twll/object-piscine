@@ -10,6 +10,7 @@
 
 // class Staff;
 // class Form;
+class NeedCourseCreationForm;
 class NeedMoreClassRoomForm;
 class Course;
 class Secretary;
@@ -31,7 +32,7 @@ public:
     //requests from staff & students
     // Form* graduateFromCourse();
     NeedMoreClassRoomForm*  needRoom();
-    Form*                   needCourse();
+    NeedCourseCreationForm* needCourse();
     Form*                   subscribeToCourse();
     Form*                   finishCourse();
 

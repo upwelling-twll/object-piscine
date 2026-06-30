@@ -13,6 +13,7 @@ private:
     std::string	courseName;
 	int			classesToGraduate;
 	int			maxNumberOfStudents;
+	Professor*	p_responsable;
 
 public:
 	/*Member functions*/
@@ -22,6 +23,7 @@ public:
 	void	setCourseName(std::string name);
 	void	setClassesToGraduate(int classes);
 	void	setNumberOfStudents(int number);
+	void	setResponsable(Professor* p);
 
 
 	/*Constructors*/

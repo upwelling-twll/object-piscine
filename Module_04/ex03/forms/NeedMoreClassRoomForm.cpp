@@ -9,7 +9,7 @@
 /*Member functions*/
 void NeedMoreClassRoomForm::execute(Headmaster *hm)
 {
-    if (!hm)
+    if (!hm || _execStatus)
         return;
     LOG_ACTION("NeedMoreClassRoomForm: executed by headmaster " + hm->getName());
     Classroom* newRoom = new Classroom();
