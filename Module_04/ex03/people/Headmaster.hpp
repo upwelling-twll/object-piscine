@@ -34,7 +34,7 @@ public:
     NeedMoreClassRoomForm*  needRoom();
     NeedCourseCreationForm* needCourse();
     Form*                   subscribeToCourse();
-    Form*                   finishCourse();
+    CourseFinishedForm*     graduateStudent();
 
 	/*Getters and Setters*/
     void    setSecretary(Secretary* s);

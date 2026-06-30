@@ -28,6 +28,7 @@ public:
 	void	subscribe(Student* p_student);
 	Student* findStudent(Student* p_student);
 	void	holdClass();
+	void	unsubscribeStudent(Student* p_student);
 
 	std::string getName();
 	Professor*	getResponsable();

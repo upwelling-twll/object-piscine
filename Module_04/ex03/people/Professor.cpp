@@ -125,8 +125,10 @@ void Professor::studentHadEnoughClasses(Student* p_student, Course* p_course)
 	{
 		LOG_ACTION("Professor " + this->getName() + " : requesting to graduate student "
 				 + p_student->getName() + " from " + p_course ->getName());
-		
-		//_hm->GraduateStudent();
+		CourseFinishedForm* f = _hm->graduateStudent();
+		f->setStudent(p_student);
+		f->setCourse(p_course);
+		_hm->receiveForm(f);
 	}
 }
 

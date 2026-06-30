@@ -54,6 +54,32 @@ void Student::attendClass(Classroom* p_classroom)
 	
 }
 
+void Student::graduate(Course* p_course)
+{
+	if (!p_course)
+	{
+		LOG_WARNING("Student graduate(): can not graduate null course");
+		return;
+	}
+	if (!this->findCourse(p_course))
+	{
+		LOG_WARNING("Student graduate(): was not subscribed to course");
+		return;
+	}
+	else
+	{
+		for (std::vector<Course*>::iterator it = _subscribedCourse.begin(); it != _subscribedCourse.end(); ++it)
+		{
+			if ((*it) == p_course)
+			{
+				_subscribedCourse.erase(it);
+				LOG_DBUG("Student  graduate(): " + getName() + " unsubscribed from " + p_course->getName());
+				break;
+			}
+		}
+	}
+}
+
 
 void Student::addCourse(Course* p_course)
 {

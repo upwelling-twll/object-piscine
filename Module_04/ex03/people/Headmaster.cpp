@@ -83,12 +83,12 @@ NeedMoreClassRoomForm* Headmaster::needRoom()
 	return (dynamic_cast<NeedMoreClassRoomForm*>(p_secretary->createForm(FormType::NeedMoreClassRoom, et)));
 }
 
-Form* Headmaster::finishCourse()
+CourseFinishedForm* Headmaster::graduateStudent()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (p_secretary->createForm(FormType::CourseFinished, et));
+	return (dynamic_cast<CourseFinishedForm*>(p_secretary->createForm(FormType::CourseFinished, et)));
 }
 
 /*Getters and Setters*/

@@ -79,6 +79,32 @@ void	Course::holdClass()
 	}
 }
 
+void	Course::unsubscribeStudent(Student* p_student)
+{
+	if (! p_student)
+	{
+		LOG_WARNING("Course unsubscribeStudent() : student is null");
+		return;
+	}
+	if (!this->findStudent(p_student))
+	{
+		LOG_WARNING("Course unsubscribeStudent() : student " + p_student->getName() + " was not subscribed");
+		return;
+	}
+	else
+	{
+		for (std::vector<Student*>::iterator it = _students.begin(); it != _students.end(); ++it)
+		{
+			if ((*it) == p_student)
+			{
+				_students.erase(it);
+				LOG_DBUG("Course unsubscribeStudent() : student " + p_student->getName() + " was unsubscribed");
+			}
+		}	
+	}
+}
+
+
 /*Getters and Setters*/
 std::string Course::getName()
 {

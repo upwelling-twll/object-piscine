@@ -81,8 +81,8 @@ void testMediator()
     potionsClass.assignCourse(&potions);
     greenhouse.assignCourse(&herbology);
     mcGonagall.setHeadmaster(&dumblerode);
-    // mcGonagall.assignCourse(&transfiguration);
-    // transfiguration.assign(&mcGonagall);
+    mcGonagall.assignCourse(&transfiguration);
+    transfiguration.assign(&mcGonagall);
     harry.addCourse(&transfiguration);
     hermione.addCourse(&transfiguration);
     
