@@ -41,11 +41,12 @@ void Headmaster::execute(Form* p_form)
 		LOG_WARNING("Headmaster won't execute anapproved form");
 }
 
-void Headmaster::launchCourses()
+void Headmaster::conductClasses()
 {
 	int size = StaffList::getSingleList().getSize();
 	LOG_DBUG("Headmaster: staff list size = " + std::to_string(size));
 	LOG_ACTION("Headmaster: launching courses");
+	
 	for (int i = 0; i != size; ++i)
 	{
 		Staff* s = StaffList::getSingleList().get(i);

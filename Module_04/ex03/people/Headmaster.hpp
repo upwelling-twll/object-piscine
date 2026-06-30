@@ -27,7 +27,7 @@ public:
     void sign(Form* p_form);
     void execute(Form* p_form);
 
-    void launchCourses();
+    void conductClasses();
 
     //requests from staff & students
     // Form* graduateFromCourse();

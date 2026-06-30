@@ -92,11 +92,11 @@ void testMediator()
     // transfiguration.setClassroom(transfigurationClass);
     // transfigurationClass->assignCourse(&transfiguration);
     LOG_INFO(transfiguration);
-    dumblerode.launchCourses();
+    dumblerode.conductClasses();
 
     LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
-    dumblerode.launchCourses();
-    // dumblerode.launchCourses();
+    dumblerode.conductClasses();
+    // dumblerode.conductClasses();
     LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
 
 } 
