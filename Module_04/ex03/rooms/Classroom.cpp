@@ -45,11 +45,15 @@ Classroom::~Classroom( void )
 std::ostream& operator<<(std::ostream& output_stream, Classroom& src)
 {
 	output_stream << "* Classroom Class info*" << std::endl;
+	(void)src;
+	output_stream << "Room number: " << std::to_string(src.getRoomNumber()) << std::endl;
+	
 	Course* ac;
 	ac = src.getAssignedCourse();
 	if (!ac)
 		output_stream << "Assigned course: null" << std::endl;
-	output_stream << "Assigned course: " << ac->getName() << std::endl;
+	else
+		output_stream << "Assigned course: " << ac->getName() << std::endl;
 	return output_stream;
 }
 

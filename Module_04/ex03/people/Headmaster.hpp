@@ -5,11 +5,12 @@
 # include <vector>
 
 # include "Staff.hpp"
-# include "../forms/Form.hpp"
+# include "../forms/forms.hpp"
 
 
 // class Staff;
 // class Form;
+class NeedMoreClassRoomForm;
 class Course;
 class Secretary;
 
@@ -28,11 +29,11 @@ public:
     void launchCourses();
 
     //requests from staff & students
-    Form* needCourse();
     // Form* graduateFromCourse();
-    Form* subscribeToCourse();
-    Form* needRoom();
-    Form* finishCourse();
+    NeedMoreClassRoomForm*  needRoom();
+    Form*                   needCourse();
+    Form*                   subscribeToCourse();
+    Form*                   finishCourse();
 
 	/*Getters and Setters*/
     void    setSecretary(Secretary* s);

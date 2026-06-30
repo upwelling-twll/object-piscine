@@ -6,8 +6,6 @@
 #include "../singletons.hpp"
 #include "../FormType.hpp"
 
-
-
 /*Member functions*/
 void Headmaster::receiveForm(Form* p_form)
 {
@@ -25,6 +23,8 @@ void Headmaster::receiveForm(Form* p_form)
 		}
 		_formToValidate.push_back(p_form);
 	}
+	sign(p_form);
+	execute(p_form);
 }
 
 void Headmaster::sign(Form* p_form)
@@ -75,12 +75,12 @@ Form* Headmaster::subscribeToCourse()
 	return (p_secretary->createForm(FormType::SubscriptionToCourse, et));
 }
 
-Form* Headmaster::needRoom()
+NeedMoreClassRoomForm* Headmaster::needRoom()
 {	
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (p_secretary->createForm(FormType::NeedMoreClassRoom, et));
+	return (dynamic_cast<NeedMoreClassRoomForm*>(p_secretary->createForm(FormType::NeedMoreClassRoom, et)));
 }
 
 Form* Headmaster::finishCourse()

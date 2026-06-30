@@ -118,7 +118,6 @@ void Course::setFinished()
 
 void Course::setClassroom(Classroom* p_classroom)
 {
-	//TODO unsubscribe students
 	if (!p_classroom)
 		LOG_DBUG("Course setClassroom() " + getName() + " received null room");
 	else

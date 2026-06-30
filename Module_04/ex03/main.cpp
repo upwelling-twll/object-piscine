@@ -29,7 +29,7 @@ void testMediator()
     HeadmasterOffice hmoffice;
     SecretarialOffice soffice;
     Classroom   potionsClass;
-    Classroom*   transfigurationClass = new Classroom();
+    // Classroom*   transfigurationClass = new Classroom();
     Classroom   greenhouse;
     // Room        roomofrequirement;
 
@@ -54,7 +54,7 @@ void testMediator()
     rooms.add(&hmoffice);
     rooms.add(&soffice);
     rooms.add(&potionsClass);
-    rooms.add(transfigurationClass);
+    // rooms.add(transfigurationClass);
     rooms.add(&greenhouse);
     // rooms.add(&roomofrequirement);
 
@@ -77,6 +77,9 @@ void testMediator()
     std::cout << "=== Test Meadiator ===" << std::endl;
 
     LOG_DBUG("Staff list size: " + std::to_string(StaffList::getSingleList().getSize()));
+    
+    potionsClass.assignCourse(&potions);
+    greenhouse.assignCourse(&herbology);
     mcGonagall.setHeadmaster(&dumblerode);
     mcGonagall.assignCourse(&transfiguration);
     transfiguration.assign(&mcGonagall);

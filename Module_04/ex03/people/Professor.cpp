@@ -2,6 +2,9 @@
 #include "Headmaster.hpp"
 #include "Student.hpp"
 #include "../singletons.hpp"
+#include "../forms/forms.hpp"
+#include "../rooms/Room.hpp"
+
 
 
 
@@ -20,6 +23,7 @@ void Professor::assignCourse(Course* p_course)
 
 Classroom*	Professor::findFreeClassroom()
 {
+	LOG_DBUG("Professor: findFreeClassroom()");
 	int size = RoomList::getSingleList().getSize();
 	LOG_DBUG("Professor: rooms list size = " + std::to_string(size));	
 	for (int i = 0; i != size; ++i)
@@ -30,7 +34,7 @@ Classroom*	Professor::findFreeClassroom()
 			Classroom* cr = dynamic_cast<Classroom*>(r);
 			if (cr->getAssignedCourse() == NULL)
 			{
-				LOG_DBUG("Professor: found free room");
+				LOG_DBUG("Professor: found free room #" + std::to_string(cr->getRoomNumber()));
 				return (cr);
 			}
 		}
@@ -52,18 +56,24 @@ void Professor::doClass()
 		Classroom* cr = findFreeClassroom();
 		if (! cr)
 		{
+			//if no free room found, request new room creation through Headmaster
 			LOG_DBUG("Professor " + this->getName() + " did not find free room for  " + _currentCourse->getName() + ". Requesting to HM");
-			//TODO : request classroom through headmaster !!!
+			NeedMoreClassRoomForm* f = _hm->needRoom();
+			_hm->receiveForm(f);
+			cr = findFreeClassroom();
+			if (! cr)
+			{
+				LOG_WARNING("Professor doClass() failed to find free room after requesting the form");
+				return;
+			}
 		}
-		else
-		{
-			_currentCourse->setClassroom(cr);
-			cr->assignCourse(_currentCourse);
-		}
-
+		_currentCourse->setClassroom(cr);
+		cr->assignCourse(_currentCourse);
 	}
 	LOG_ACTION("Professor " + this->getName() + "  is ready for teaching "+ _currentCourse->getName());
 	_currentCourse->holdClass();
+
+	// *** after finishing course we must reset course & class to default state ***
 	(_currentCourse->getClassroom())->setFree();
 	_currentCourse->setClassroom(NULL);
 }
