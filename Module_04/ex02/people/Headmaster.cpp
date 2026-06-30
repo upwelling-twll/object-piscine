@@ -1,7 +1,7 @@
 // #include "Staff.hpp"
 #include "Headmaster.hpp"
 #include "../Debug.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 
 
 /*Member functions*/

@@ -1,5 +1,5 @@
 #include "Classroom.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 
 /*Member functions*/
 void Classroom::assignCourse(Course* p_course)

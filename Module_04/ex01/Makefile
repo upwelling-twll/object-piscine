@@ -1,7 +1,7 @@
 SRCS	=	main.cpp \
 			$(wildcard rooms/*cpp) \
 			$(wildcard people/*cpp) \
-			$(wildcard objects/*cpp) 
+			$(wildcard courses/*cpp) 
 
 NAME	=	Hogwarts
 

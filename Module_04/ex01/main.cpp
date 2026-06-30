@@ -1,5 +1,5 @@
 #include "people/people.hpp"
-#include "objects/Course.hpp"
+#include "courses/Course.hpp"
 #include "rooms/rooms.hpp"
 #include "singletons.hpp"
 #include "Debug.hpp"

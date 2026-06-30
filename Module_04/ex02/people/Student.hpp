@@ -5,7 +5,7 @@
 # include <vector>
 
 # include "Person.hpp"
-# include "../objects/Course.hpp"
+# include "../courses/Course.hpp"
 
 // class Course;
 class Classroom;

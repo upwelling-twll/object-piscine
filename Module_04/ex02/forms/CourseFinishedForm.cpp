@@ -1,5 +1,5 @@
 #include "CourseFinishedForm.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 #include "../people/Headmaster.hpp"
 
 /*Member functions*/

@@ -1,5 +1,5 @@
 #include "Classroom.hpp"
-#include "../objects/Course.hpp"
+#include "../courses/Course.hpp"
 #include "../Debug.hpp"
 
 /*Member functions*/

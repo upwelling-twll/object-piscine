@@ -1,6 +1,6 @@
 #ifndef SINGLETONS_HPP
 #define SINGLETONS_HPP
-#include "objects/Course.hpp"
+#include "courses/Course.hpp"
 #include "forms/forms.hpp"
 #include "people/people.hpp"
 #include "rooms/rooms.hpp"

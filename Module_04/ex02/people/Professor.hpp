@@ -3,7 +3,7 @@
 
 # include <iostream>
 # include "Staff.hpp"
-# include "../objects/Course.hpp"
+# include "../courses/Course.hpp"
 class Course;
 class Professor : public Staff
 {
