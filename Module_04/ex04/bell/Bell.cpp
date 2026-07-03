@@ -5,7 +5,9 @@ bool Bell::findObserver(IPerson* obs)
 {
 	if (!obs)
 		return (false);
-    for (std::list<IPerson*>::iterator it = _observers.start(); it != _observers.end(); ++it)
+	if (!_observers.empty())
+		return (false);
+    for (std::list<IPerson*>::iterator it = _observers.begin(); it != _observers.end(); ++it)
 	{
 		if ((*it) == obs)
 		{
@@ -15,11 +17,11 @@ bool Bell::findObserver(IPerson* obs)
 	return (false);
 }
 
-void Bell::notify()
+void Bell::notify(Break _break)
 {
-    for (std::list<IPerson*>::iterator it = _observers.start(); it != _observers.end(); ++it)
+    for (std::list<IPerson*>::iterator it = _observers.begin(); it != _observers.end(); ++it)
 	{
-		(*it)->update(message);
+		(*it)->update(_break);
 	}
 }
 
@@ -27,6 +29,7 @@ void Bell::attach(IPerson* observer)
 {
 	if (observer && !findObserver(observer))
 	{
+		LOG_DBUG("Bell: " + observer->getName() + " has attached to bell");
 		_observers.push_back(observer);
 	}
 }
@@ -35,23 +38,28 @@ void Bell::detach(IPerson* observer)
 {
 	if (observer && findObserver(observer))
 	{
+		LOG_DBUG("Bell: " + observer->getName() + " has detached from bell");
 		_observers.remove(observer);
 	}
 }
 
-void doEvent(Event _eventType)
+void Bell::doEvent(Event _eventType)
 {
 	if (_eventType == Event::RingBell)
 	{
-		if (_breakTime)
+		if (_breakTime == true)
 		{
-			_message = "Brake is over. Comeback to classes"
-			notify();
+			_message = "Brake is over. Comeback to classes";
+			LOG_INFO(_message);
+			notify(Break::BreakEnded);
+			_breakTime = false;
 		}
 		else
 		{
-			_message = "Time to take a break. Leave classes"
-			notify();
+			_message = "Time to take a break. Leave classes";
+			LOG_INFO(_message);
+			notify(Break::BreakStarted);
+			_breakTime = true;
 		}
 	}
 }

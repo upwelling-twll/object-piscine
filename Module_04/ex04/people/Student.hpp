@@ -26,6 +26,7 @@ public:
 	void exitClass();
 	void graduate(Course* p_course);
 	void addCourse(Course* p_course);
+	void update(Break _break);
 
 	Course* findCourse(Course* p_course);
 	Course* findUniqueCourse();

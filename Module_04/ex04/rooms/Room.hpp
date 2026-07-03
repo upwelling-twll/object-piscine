@@ -19,9 +19,9 @@ public:
 
 	Room();
 	virtual ~Room();
-	bool canEnter(IPerson*);
-	void enter(IPerson*);
-	void exit(IPerson*);
+	bool canEnter(IPerson* p);
+	void enter(IPerson* p);
+	void exit(IPerson* p);
 	
 	void printOccupant();
 

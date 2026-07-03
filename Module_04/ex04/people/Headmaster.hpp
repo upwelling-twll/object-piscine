@@ -6,6 +6,7 @@
 
 # include "Staff.hpp"
 # include "../forms/forms.hpp"
+# include "../bell/Bell.hpp"
 
 
 // class Staff;
@@ -28,8 +29,10 @@ public:
     void receiveForm(Form* p_form);
     void sign(Form* p_form);
     void execute(Form* p_form);
+	void update(Break _break);
 
     void conductClasses();
+    void ringBell(Bell* bell);
 
     //requests from staff & students
     // Form* graduateFromCourse();

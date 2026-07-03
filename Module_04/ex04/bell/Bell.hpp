@@ -3,10 +3,10 @@
 
 # include <iostream>
 # include "ISubject.hpp"
-# include "../Event.hpp"
+# include "../Events.hpp"
 # include "../people/IPerson.hpp"
 
-class Bell : ISubject
+class Bell : public ISubject
 {
 private:
     std::list<IPerson*> _observers;
@@ -14,12 +14,16 @@ private:
 	bool				_breakTime;
 	
 	
-	public:
+public:
 	/*Member functions*/
-    void notify(Event _eventType);
+    void notify(Break _break);
 	void attach(IPerson* observer);
 	void detach(IPerson* observer);
 	bool obeserver(IPerson* obs);
+	bool findObserver(IPerson* obs);
+	void doEvent(Event _eventType);
+
+
 	
 	// void doEvent(Event _eventType);
 

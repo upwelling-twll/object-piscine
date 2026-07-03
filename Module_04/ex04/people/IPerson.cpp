@@ -1,6 +1,8 @@
 #include "IPerson.hpp"
 #include "../Debug.hpp"
 
+/*Observer method*/
+
 /*Getters and Setters*/
 Room* IPerson::getCurrentRoom()
 {
@@ -13,7 +15,7 @@ std::string IPerson::getName()
 }
 
 /*Constructors*/
-IPerson::IPerson(std::string name) : _name(name), _currentRoom(NULL)
+IPerson::IPerson(std::string name) : _name(name), _currentRoom(NULL), _previousRoom(NULL)
 {
 	LOG_CTOR("IPerson parameterized constructor is called");
 }

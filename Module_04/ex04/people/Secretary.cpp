@@ -4,6 +4,30 @@
 #include "../Debug.hpp"
 
 /*Member functions*/
+void Secretary::update(Break _break)
+{
+	LOG_DBUG(this->getName() + " received the bell signal");
+    switch (_break)
+    {
+        case Break::BreakStarted:
+		{
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
+            break;
+		}
+
+        case Break::BreakEnded:
+		{
+			if (_previousRoom != NULL)
+				_previousRoom->enter(this);
+			_currentRoom = _previousRoom;
+			break;
+		}
+    }
+}
+
 Form* Secretary::createForm(FormType p_formType, time_t expiration)
 {
 	if (p_formType == FormType::CourseFinished)

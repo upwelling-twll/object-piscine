@@ -4,12 +4,12 @@
 
 long long Room::_nextID = 0;
 /*Member functions*/
-bool Room::canEnter(IPerson* IPerson)
+bool Room::canEnter(IPerson* p)
 {
-	if (!IPerson)
+	if (!p)
 		throw (std::invalid_argument("Room: null persom can not enter"));
 	Room* currentRoom;
-	currentRoom = IPerson->getCurrentRoom();
+	currentRoom = p->getCurrentRoom();
 	if (currentRoom == NULL)
 		return (true);
 	if (currentRoom == this)
@@ -17,27 +17,29 @@ bool Room::canEnter(IPerson* IPerson)
 	return (false);
 }
 
-void Room::enter(IPerson* IPerson)
+void Room::enter(IPerson* p)
 {
-	if (!IPerson)
+	if (!p)
 		throw (std::invalid_argument("Room: null persom can not enter"));
-	if (canEnter(IPerson))
+	if (canEnter(p))
 	{
-		_occupants.push_back(IPerson);
+		_occupants.push_back(p);
+		LOG_ACTION("Room: " + p->getName() + " entered room #" + std::to_string(ID));
 	}
 }
 
-void Room::exit(IPerson* IPerson)
+void Room::exit(IPerson* p)
 {
-	if (!IPerson)
+	if (!p)
 		throw (std::invalid_argument("Room: null persom can not enter"));
-	if (IPerson->getCurrentRoom() == this)
+	if (p->getCurrentRoom() == this)
 	{
 		for (std::vector<IPerson*>::iterator it = _occupants.begin(); it != _occupants.end(); ++it)
 		{
-			if (*it == IPerson)
+			if (*it == p)
 			{
 				_occupants.erase(it);
+				LOG_ACTION("Room: " + p->getName() + " left room #" + std::to_string(ID));
 				break;
 			}
 		}

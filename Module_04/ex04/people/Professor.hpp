@@ -23,6 +23,7 @@ public:
 	void 	closeCourse();
 	void 	studentHadEnoughClasses(Student* p_student, Course* p_course);
 	Classroom*	findFreeClassroom();
+	void update(Break _break);
 
 	/*Getters and Setters*/
 	void setHeadmaster(Headmaster* p_hm);

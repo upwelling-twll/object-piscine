@@ -4,7 +4,32 @@
 #include "../forms/SubscriptionToCourseForm.hpp"
 #include "Headmaster.hpp"
 
+
+
 /*Member functions*/
+void Student::update(Break _break)
+{
+	LOG_DBUG(this->getName() + " received the bell signal");
+    switch (_break)
+    {
+        case Break::BreakStarted:
+		{
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
+            break;
+		}
+
+        case Break::BreakEnded:
+		{
+			if (_previousRoom != NULL)
+				_previousRoom->enter(this);
+			_currentRoom = _previousRoom;
+			break;
+		}
+    }
+}
 
 Course* Student::findUniqueCourse()
 {
@@ -90,6 +115,12 @@ void Student::attendClass(Classroom* p_classroom)
 		Course* c = p_classroom->getAssignedCourse(); 
 		if (c && this->findCourse(c))
 		{
+			Room* r = c->getClassroom();
+			if (r)
+			{
+				r->enter(this);
+				_currentRoom = r;
+			}
 			addAttendance(c);
 			return;
 		}

@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-void testMediator()
+void testObserver()
 {
     Student harry("Harry");
     Student hermione("Hermione");
@@ -62,14 +62,6 @@ void testMediator()
     // std::cout << *(students.get(1)) << std::endl;
     // std::cout << *(students.get(2)) << std::endl;
 
-    // std::cout << *(staff.get(0)) << std::endl;
-    // std::cout << *(staff.get(1)) << std::endl;
-    // std::cout << *(staff.get(2)) << std::endl;
-
-    // std::cout << *(courses.get(0)) << std::endl;
-    // std::cout << *(courses.get(1)) << std::endl;
-    // std::cout << *(courses.get(2)) << std::endl;
-
     std::cout << *(rooms.get(0)) << std::endl;
     std::cout << *(rooms.get(1)) << std::endl;
     std::cout << *(rooms.get(2)) << std::endl;
@@ -81,28 +73,24 @@ void testMediator()
     potionsClass.assignCourse(&potions);
     greenhouse.assignCourse(&herbology);
     mcGonagall.setHeadmaster(&dumblerode);
-    // mcGonagall.assignCourse(&transfiguration);
-    // transfiguration.assign(&mcGonagall);
-    // harry.addCourse(&transfiguration);
-    // hermione.addCourse(&transfiguration);
-    
-    // transfiguration.subscribe(&harry);
-    // transfiguration.subscribe(&hermione);
-
-    // transfiguration.setClassroom(transfigurationClass);
-    // transfigurationClass->assignCourse(&transfiguration);
     LOG_INFO(transfiguration);
     dumblerode.conductClasses();
+    
+    Bell bell;
+    bell.attach(&harry);
+    bell.attach(&hermione);
+    bell.attach(&ron);
+    bell.attach(&dumblerode);
+    bell.attach(&mcGonagall);
+    
 
-    // LOG_INFO("Harry attended dancing " + std::to_string(harry.getAttendance(&)) + " times");
-    // dumblerode.conductClasses();
-    // dumblerode.conductClasses();
-    // LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
+    dumblerode.ringBell(&bell);
+    dumblerode.ringBell(&bell);
 
 } 
 
 int main()
 {
-    testMediator();
+    testObserver();
     return (0);
 }
