@@ -72,11 +72,28 @@ void	Professor::prepareForClass()
 		NeedCourseCreationForm* f = _hm->needCourse();
 		if (f)
 		{
-			//TODO: list of random unique course names
-			f->setCourseName("Dancing");
-			f->setClassesToGraduate(10);
-			f->setNumberOfStudents(20);
-			f->setResponsable(this);
+			Course* c = NULL;
+			int size = CourseList::getSingleList().getSize();
+			for (int i = 0; i != size; ++i)
+			{
+				c = CourseList::getSingleList().get(i);
+				if (!c->getResponsable())
+					break;
+			}
+			if (c)
+			{
+				f->setCourseName(c->getName());
+				f->setClassesToGraduate(c->getNumberOfClasses());
+				f->setNumberOfStudents(c->getMaxStudents());
+				f->setResponsable(this);
+			}
+			else
+			{
+				f->setCourseName("Dancing");
+				f->setClassesToGraduate(10);
+				f->setNumberOfStudents(20);
+				f->setResponsable(this);
+			}
 			_hm->receiveForm(f);
 		}
 		else

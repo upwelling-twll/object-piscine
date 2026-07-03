@@ -23,32 +23,60 @@ void testObserver()
     students.add(&hermione);
     students.add(&ron);
 
-    Headmaster dumblerode("Albus");
+    Headmaster hm("Albus Dumblerode");
     Secretary sec("Percy Weasley");
-    dumblerode.setSecretary(&sec);
-    Professor mcGonagall("Minerva");
+    hm.setSecretary(&sec);
+
+    Professor p1("Minerva McGonagall");
+    Professor p2("Severus Snape");
+    Professor p3("Filius Flitwick");
+    Professor p4("Pomona Sprout");
+    Professor p5("Remus Lupin");
+    Professor p6("Rubeus Hagrid");
+
+    p1.setHeadmaster(&hm);
+    p2.setHeadmaster(&hm);
+    p3.setHeadmaster(&hm);
+    p4.setHeadmaster(&hm);
+    p5.setHeadmaster(&hm);
+    p6.setHeadmaster(&hm);
+
+    staff.add(&hm);
+    staff.add(&p1);
+    staff.add(&p2);
+    staff.add(&p3);
+    staff.add(&p4);
+    staff.add(&p5);
+    staff.add(&p6);
+
     
-    staff.add(&dumblerode);
-    staff.add(&mcGonagall);
+    Course c1("Transfiguration", 100, 10);
+    Course c2("Potions", 100, 10);
+    Course c3("Charms", 100, 10);
+    Course c4("Herbology", 50, 10);
+    Course c5("Defense Against the Dark Arts", 100, 10);
+    Course c6("Care of Magical Creatures", 50, 10);
+
     
-    Course potions("Potions", 100, 10);
-    Course transfiguration("Transfiguration", 1, 10);
-    Course herbology("Herbology", 50, 10);
-    
-    courses.add(&potions);
-    courses.add(&transfiguration);
-    courses.add(&herbology);
+    courses.add(&c1);
+    courses.add(&c2);
+    courses.add(&c3);
+    courses.add(&c4);
+    courses.add(&c5);
+    courses.add(&c6);
+
     
     HeadmasterOffice hmoffice;
     SecretarialOffice soffice;
-    Classroom   potionsClass;
-    Classroom   greenhouse;
+    Classroom   cr1;
+    Classroom   cr2;
+    
     // Classroom*   transfigurationClass = new Classroom();
     
     rooms.add(&hmoffice);
     rooms.add(&soffice);
-    rooms.add(&potionsClass);
-    rooms.add(&greenhouse);
+    rooms.add(&cr1);
+    rooms.add(&cr2);
     // rooms.add(transfigurationClass);
     
     // LOG_INFO(*(students.get(0)));
@@ -63,23 +91,28 @@ void testObserver()
 
     LOG_DBUG("Staff list size: " + std::to_string(StaffList::getSingleList().getSize()));
     
-    potionsClass.assignCourse(&potions);
-    greenhouse.assignCourse(&herbology);
-    mcGonagall.setHeadmaster(&dumblerode);
-    LOG_INFO(transfiguration);
+    cr1.assignCourse(&c1);
+    cr2.assignCourse(&c2);
+    LOG_INFO(c1);
     
     Bell bell;
     bell.attach(&harry);
     bell.attach(&hermione);
     bell.attach(&ron);
-    bell.attach(&dumblerode);
-    bell.attach(&mcGonagall);
-    dumblerode.ringBell(&bell);
-    
-    dumblerode.conductClasses();
+    bell.attach(&hm);
+    bell.attach(&p1);
+    bell.attach(&p2);
+    bell.attach(&p3);
+    bell.attach(&p4);
+    bell.attach(&p5);
+    bell.attach(&p6);
 
-    dumblerode.ringBell(&bell);
-    dumblerode.ringBell(&bell);
+    hm.ringBell(&bell);
+    
+    hm.conductClasses();
+
+    hm.ringBell(&bell);
+    hm.ringBell(&bell);
 
 
 } 
