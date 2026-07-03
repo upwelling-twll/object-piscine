@@ -74,7 +74,6 @@ void testObserver()
     greenhouse.assignCourse(&herbology);
     mcGonagall.setHeadmaster(&dumblerode);
     LOG_INFO(transfiguration);
-    dumblerode.conductClasses();
     
     Bell bell;
     bell.attach(&harry);
@@ -82,10 +81,13 @@ void testObserver()
     bell.attach(&ron);
     bell.attach(&dumblerode);
     bell.attach(&mcGonagall);
+    dumblerode.ringBell(&bell);
     
+    dumblerode.conductClasses();
 
     dumblerode.ringBell(&bell);
     dumblerode.ringBell(&bell);
+
 
 } 
 

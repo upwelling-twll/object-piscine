@@ -107,6 +107,12 @@ void	Professor::prepareForClass()
 
 void Professor::doClass()
 {
+	Room* r = _currentCourse->getClassroom();
+	if (r)
+	{
+		r->enter(this);
+		_currentRoom = r;
+	}
 	_currentCourse->holdClass();
 
 	// *** after finishing class we must reset course & class to default state ***
