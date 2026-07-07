@@ -17,7 +17,7 @@ void NeedCourseCreationForm::execute(Headmaster *hm)
 		this->_execStatus = true;
         LOG_ACTION("NeedCourseCreationForm: created course");
         LOG_INFO(*newCourse);
-    }    
+    }
     else 
         LOG_WARNING("NeedCourseCreationForm:course was not created");
 }   

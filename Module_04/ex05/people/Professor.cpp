@@ -4,6 +4,7 @@
 #include "../singletons.hpp"
 #include "../forms/forms.hpp"
 #include "../rooms/Room.hpp"
+#include "../courses/CourseBlueprint.hpp"
 
 /*Member functions*/
 
@@ -64,6 +65,18 @@ Classroom*	Professor::findFreeClassroom()
 	return (NULL);
 }
 
+bool Professor::findUninstatinatedCourse(std::string name)
+{
+	int size = CourseList::getSingleList().getSize();
+	for (int i = 0; i != size; ++i)
+	{
+		Course* c = CourseList::getSingleList().get(i);
+		if (c->getName() == name) 
+			return (false); //course with this name already exists
+	}
+	return (true);
+}
+
 void	Professor::prepareForClass()
 {
 	if (!_currentCourse)
@@ -72,32 +85,38 @@ void	Professor::prepareForClass()
 		NeedCourseCreationForm* f = _hm->needCourse();
 		if (f)
 		{
-			Course* c = NULL;
-			int size = CourseList::getSingleList().getSize();
-			for (int i = 0; i != size; ++i)
+			CourseBlueprint c;
+			int totalCourses = HogwartsCourses.size();
+			for (int i = 0; i != totalCourses; ++i)
 			{
-				c = CourseList::getSingleList().get(i);
-				if (!c->getResponsable())
+				c = HogwartsCourses[i];
+				if (findUninstatinatedCourse(c.name))
+				{
+					LOG_DBUG("Professor " + this->getName() + " : found that course " + c.name + " is free for creation");
+					{
+						f->setCourseName(c.name);
+						f->setClassesToGraduate(c.classesToGraduate);
+						f->setNumberOfStudents(c.maxStudents);
+						f->setResponsable(this);
+					}
 					break;
-			}
-			if (c)
-			{
-				f->setCourseName(c->getName());
-				f->setClassesToGraduate(c->getNumberOfClasses());
-				f->setNumberOfStudents(c->getMaxStudents());
-				f->setResponsable(this);
-			}
-			else
-			{
-				f->setCourseName("Dancing");
-				f->setClassesToGraduate(10);
-				f->setNumberOfStudents(20);
-				f->setResponsable(this);
+				}
+				if (i == totalCourses-1)
+				{
+					LOG_DBUG("Professor " + this->getName() + " : found no free course. Time to open free dancing classes!");
+					f->setCourseName("Dancing");
+					f->setClassesToGraduate(10);
+					f->setNumberOfStudents(10);
+					f->setResponsable(this);
+				}
 			}
 			_hm->receiveForm(f);
 		}
 		else
+		{
+			LOG_WARNING("Professor " + this->getName() + " failed to receive CourseCreationForm");
 			return;
+		}
 	}
 	if (! _currentCourse->getClassroom())
 	{
