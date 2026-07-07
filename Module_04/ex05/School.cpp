@@ -1,7 +1,7 @@
 #include "School.hpp"
 
 /*Member functions*/
-void School::method()
+void School::runDayRoutine()
 {
     // Method implementation
 }
