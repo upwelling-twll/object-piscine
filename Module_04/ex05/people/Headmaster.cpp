@@ -72,37 +72,33 @@ void Headmaster::execute(Form* p_form)
 		LOG_WARNING("Headmaster won't execute anapproved form");
 }
 
-void Headmaster::conductClasses()
+void Headmaster::conductClasses(std::vector<Professor*> professors, std::vector<Student*> students, std::vector<Course*> courses)
 {
-	int size_p = StaffList::getSingleList().getSize();
-	LOG_DBUG("Headmaster: staff list size = " + std::to_string(size_p));
+	LOG_DBUG("Headmaster: professors list size = " + std::to_string(professors.size()));
 	LOG_ACTION("Headmaster: gives command to attend classes");
-	
-	for (int i = 0; i != size_p; ++i)
+	for (std::vector<Professor*>::iterator it = professors.begin(); it != professors.end(); ++it)
 	{
-		Staff* s = StaffList::getSingleList().get(i);
-		if (typeid(*s) == typeid(Professor))
+		if (*it)
 		{
-			Professor* p = dynamic_cast<Professor*>(s);
-			LOG_DBUG("Headmaster:found professor who should prepare for class - " + p->getName());
-			p->prepareForClass();
+			LOG_DBUG("Headmaster:found professor who should prepare for class - " + (*it)->getName());
+			(*it)->prepareForClass();
 		}
 	}
-	int size_s = StudentList::getSingleList().getSize();
-	LOG_DBUG("Headmaster: students list size = " + std::to_string(size_s));
-	for (int j = 0; j != size_s; ++j)
+	LOG_DBUG("Headmaster: students list size = " + std::to_string(students.size()));
+	for (std::vector<Student*>::iterator it = students.begin(); it != students.end(); ++it)
 	{
-		Student* st = StudentList::getSingleList().get(j);
-		st->prepareForClass(this);
-	}
-	for (int i = 0; i != size_p; ++i)
-	{
-		Staff* s = StaffList::getSingleList().get(i);
-		if (typeid(*s) == typeid(Professor))
+		if (*it)
 		{
-			Professor* p = dynamic_cast<Professor*>(s);
-			LOG_DBUG("Headmaster:found professor who should start class - " + p->getName());
-			p->doClass();
+			LOG_DBUG("Headmaster:found student who should prepare for class - " + (*it)->getName());
+			(*it)->prepareForClass(this);
+		}
+	}
+	for (std::vector<Professor*>::iterator it = professors.begin(); it != professors.end(); ++it)
+	{
+		if (*it)
+		{
+			LOG_DBUG("Headmaster:found professor who should start class - " + (*it)->getName());
+			(*it)->doClass();
 		}
 	}
 }
