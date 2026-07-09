@@ -14,15 +14,18 @@
 // class Course;
 // class Classroom;
 class Headmaster;
+class Courtyard;
 
 class Student : public IPerson
 {
 private:
-    std::vector<Course*> _subscribedCourse;
-	std::map<Course*, int> _attendance;
+    std::vector<Course*>	_subscribedCourse;
+	std::map<Course*, int>	_attendance;
+	int						_level;
 
 public:
 	/*Member functions*/
+	Room* findRecreationSpace();
     void attendClass(Classroom* p_classroom);
 	void exitClass();
 	void graduate(Course* p_course);

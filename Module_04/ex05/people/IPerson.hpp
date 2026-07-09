@@ -10,8 +10,9 @@
 # include <list>
 
 
-class Room;
 
+class Room;
+class GreatHall;
 class IPerson
 {
 protected:
@@ -24,7 +25,10 @@ public:
 	/*Getters and Setters*/
 	Room*			getCurrentRoom();
 	std::string		getName();
-	virtual void update(Break _break) = 0;
+	virtual void 	update(Break _break) = 0;
+	virtual Room* findRecreationSpace() = 0;
+
+	Room* findDinningRoom();
 	
 	/*Constructors*/
 	IPerson(std::string name);

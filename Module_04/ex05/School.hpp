@@ -4,6 +4,8 @@
 # include <iostream>
 
 #include "FormType.hpp"
+#include "Events.hpp"
+
 #include "courses/Course.hpp"
 #include "bell/Bell.hpp"
 #include "forms/forms.hpp"

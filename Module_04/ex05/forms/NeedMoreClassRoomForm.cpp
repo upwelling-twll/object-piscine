@@ -2,6 +2,8 @@
 #include "../Debug.hpp"
 #include "../rooms/Classroom.hpp"
 #include "../singletons.hpp"
+#include "../singletonTypedefs.hpp"
+
 
 
 

@@ -7,5 +7,7 @@
 #include "Room.hpp"
 #include "SecretarialOffice.hpp"
 #include "StaffRestRoom.hpp"
+#include "GreatHall.hpp"
+
 
 #endif

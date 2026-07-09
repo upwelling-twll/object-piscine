@@ -1,6 +1,9 @@
 #include "NeedCourseCreationForm.hpp"
 #include "../Debug.hpp"
 #include "../singletons.hpp"
+#include "../people/Professor.hpp"
+#include "../singletonTypedefs.hpp"
+
 
 /*Member functions*/
 void NeedCourseCreationForm::execute(Headmaster *hm)

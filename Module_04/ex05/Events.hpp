@@ -3,13 +3,16 @@
 
 enum class Event
 {
-	RingBell
+	RingBell,
+	LunchTime
 };
 
 enum class Break
 {
 	BreakStarted,
-	BreakEnded
+	BreakEnded,
+	LunchStarted,
+	LunchEnded
 };
 
 #endif

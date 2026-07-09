@@ -1,8 +1,74 @@
 #include "Staff.hpp"
 #include "../Debug.hpp"
+#include "../singletonTypedefs.hpp"
 
 /*Member functions*/
+Room* Staff::findRecreationSpace()
+{
+	int size = RoomList::getSingleList().getSize();
+	for (int i = 0; i != size; ++i)
+	{
+		Room* r = RoomList::getSingleList().get(i);
+		if (typeid(*r) == typeid(StaffRestRoom))
+		{
+			StaffRestRoom* srr = dynamic_cast<StaffRestRoom*>(r);
+				return (srr);
+		}
+	}
+	return (NULL);
+}
 
+void Staff::update(Break _break)
+{
+	LOG_DBUG(this->getName() + " received the bell signal");
+    switch (_break)
+    {
+        case Break::BreakStarted:
+		{
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			Room* r = findRecreationSpace();
+			if (!r)
+				_currentRoom = NULL;
+			else
+			{
+				r->enter(this);
+				_currentRoom = r;
+			}
+            break;
+		}
+        case Break::BreakEnded:
+		{
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
+			break;
+		}
+		case Break::LunchStarted:
+		{
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			Room* r = findDinningRoom();
+			if (!r)
+				_currentRoom = NULL;
+			else
+			{
+				r->enter(this);
+				_currentRoom = r;
+			}
+            break;
+		}
+        case Break::LunchEnded:
+		{
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
+			break;
+		}
+    }
+}
 
 /*Getters and Setters*/
 

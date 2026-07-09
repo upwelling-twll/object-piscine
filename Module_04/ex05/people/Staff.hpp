@@ -5,7 +5,7 @@
 # include "IPerson.hpp"
 
 
-// class Form;
+class StaffRestRoom;
 
 class Staff : public IPerson
 {
@@ -14,6 +14,8 @@ private:
 
 public:
 	/*Member functions*/
+	Room* findRecreationSpace();
+	void update(Break _break);
 
 	/*Getters and Setters*/
 

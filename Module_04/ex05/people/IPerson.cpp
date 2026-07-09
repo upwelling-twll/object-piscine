@@ -1,9 +1,25 @@
 #include "IPerson.hpp"
 #include "../Debug.hpp"
+#include "../singletonTypedefs.hpp"
 
 /*Observer method*/
 
 /*Getters and Setters*/
+Room* IPerson::findDinningRoom()
+{
+	int size = RoomList::getSingleList().getSize();
+	for (int i = 0; i != size; ++i)
+	{
+		Room* r = RoomList::getSingleList().get(i);
+		if (typeid(*r) == typeid(GreatHall))
+		{
+			GreatHall* dr = dynamic_cast<GreatHall*>(r);
+				return (dr);
+		}
+	}
+	return (NULL);
+}
+
 Room* IPerson::getCurrentRoom()
 {
 	return (_currentRoom);

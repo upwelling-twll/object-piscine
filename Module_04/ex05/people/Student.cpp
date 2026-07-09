@@ -3,10 +3,25 @@
 #include "../singletons.hpp"
 #include "../forms/SubscriptionToCourseForm.hpp"
 #include "Headmaster.hpp"
-
+#include "../singletonTypedefs.hpp"
 
 
 /*Member functions*/
+Room* Student::findRecreationSpace()
+{
+	int size = RoomList::getSingleList().getSize();
+	for (int i = 0; i != size; ++i)
+	{
+		Room* r = RoomList::getSingleList().get(i);
+		if (typeid(*r) == typeid(Courtyard))
+		{
+			Courtyard* cr = dynamic_cast<Courtyard*>(r);
+				return (cr);
+		}
+	}
+	return (NULL);
+}
+
 void Student::update(Break _break)
 {
 	LOG_DBUG(this->getName() + " received the bell signal");
@@ -17,15 +32,43 @@ void Student::update(Break _break)
 			_previousRoom = _currentRoom;
 			if (_currentRoom != NULL)
 				_currentRoom->exit(this);
-			_currentRoom = NULL;
+			Room* r = findRecreationSpace();
+			if (!r)
+				_currentRoom = NULL;
+			else
+			{
+				r->enter(this);
+				_currentRoom = r;
+			}
             break;
 		}
-
         case Break::BreakEnded:
 		{
-			if (_previousRoom != NULL)
-				_previousRoom->enter(this);
-			_currentRoom = _previousRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
+			break;
+		}
+		case Break::LunchStarted:
+		{
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			Room* r = findDinningRoom();
+			if (!r)
+				_currentRoom = NULL;
+			else
+			{
+				r->enter(this);
+				_currentRoom = r;
+			}
+            break;
+		}
+        case Break::LunchEnded:
+		{
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
 			break;
 		}
     }
@@ -164,6 +207,7 @@ void Student::graduate(Course* p_course)
 			if ((*it) == p_course)
 			{
 				_subscribedCourse.erase(it);
+				_level++;
 				LOG_DBUG("Student  graduate(): " + getName() + " unsubscribed from " + p_course->getName());
 				break;
 			}
@@ -195,7 +239,7 @@ const std::vector<Course*> Student::getCourses() const
 }
 
 /*Constructors*/
-Student::Student(std::string name) : IPerson(name)
+Student::Student(std::string name) : IPerson(name), _level(0)
 {
 	LOG_CTOR("Student parameterized constructor is called");
 }

@@ -23,7 +23,7 @@ public:
 	void 	closeCourse();
 	void 	studentHadEnoughClasses(Student* p_student, Course* p_course);
 	Classroom*	findFreeClassroom();
-	void update(Break _break);
+	// void update(Break _break);
 	bool findUninstatinatedCourse(std::string name);
 
 

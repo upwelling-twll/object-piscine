@@ -1,17 +1,13 @@
 #include "School.hpp"
+#include "singletonTypedefs.hpp"
+#
 
 /*Member functions*/
 void School::runDayRoutine()
 {
 	LOG_ACTION("School: " + _schoolName + " is running a day routine");
     launchClasses();
-
-    _hm->ringBell(&_bell);
-    
-    launchClasses();
-
-    _hm->ringBell(&_bell);
-    _hm->ringBell(&_bell);
+	requestRingBell();
 }
 
 void School::launchClasses()
@@ -21,6 +17,11 @@ void School::launchClasses()
 	std::vector<Student*> v_students = getStudents();
 
 	_hm->conductClasses(v_profs, v_students);
+}
+
+void School::requestRingBell()
+{
+	_hm->ringBell(&_bell);
 }
 
 void School::recruteProfessor(Professor* p)
@@ -103,8 +104,15 @@ School::School(std::string name) : _schoolName(name)
 
     HeadmasterOffice* hmoffice = new HeadmasterOffice();
     SecretarialOffice* soffice = new SecretarialOffice();
+	GreatHall* greatHall = new GreatHall();
+	Courtyard* cortyard = new Courtyard();
+	StaffRestRoom* staffRR = new StaffRestRoom();
 	RoomList::getSingleList().add(hmoffice);
 	RoomList::getSingleList().add(soffice);
+	RoomList::getSingleList().add(greatHall);
+	RoomList::getSingleList().add(cortyard);
+	RoomList::getSingleList().add(staffRR);
+
 	std::cout << "School parameterized constructor is called" << std::endl;
 }
 

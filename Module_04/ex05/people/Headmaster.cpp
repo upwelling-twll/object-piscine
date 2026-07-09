@@ -1,6 +1,10 @@
 // #include "Staff.hpp"
 #include <typeinfo>
 #include "Headmaster.hpp"
+#include "Secretary.hpp"
+#include "Professor.hpp"
+#include "Student.hpp"
+
 #include "../Debug.hpp"
 #include "../courses/Course.hpp"
 #include "../singletons.hpp"
@@ -32,6 +36,28 @@ void Headmaster::update(Break _break)
 			if (_previousRoom != NULL)
 				_previousRoom->enter(this);
 			_currentRoom = _previousRoom;
+			break;
+		}
+		case Break::LunchStarted:
+		{
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			Room* r = findDinningRoom();
+			if (!r)
+				_currentRoom = NULL;
+			else
+			{
+				r->enter(this);
+				_currentRoom = r;
+			}
+            break;
+		}
+        case Break::LunchEnded:
+		{
+			if (_currentRoom != NULL)
+				_currentRoom->exit(this);
+			_currentRoom = NULL;
 			break;
 		}
     }

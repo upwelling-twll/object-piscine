@@ -2,8 +2,13 @@
 #define SINGLETONS_HPP
 #include "courses/Course.hpp"
 #include "forms/forms.hpp"
-#include "people/people.hpp"
 #include "rooms/rooms.hpp"
+
+// Forward declarations to break circular dependency
+class Student;
+class Staff;
+class Professor;
+class IPerson;
 
 template <typename T>
 class SingleList
@@ -108,12 +113,5 @@ class SingleList
 // 		std::cout << *it << std::endl;
 // 	}
 // }
-
-typedef SingleList<Student> StudentList;
-typedef SingleList<Staff> StaffList;
-typedef SingleList<Professor> ProfessorList;
-typedef SingleList<Course> CourseList;
-typedef SingleList<Room> RoomList;
-
 
 #endif

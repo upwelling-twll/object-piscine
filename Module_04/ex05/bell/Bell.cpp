@@ -62,6 +62,23 @@ void Bell::doEvent(Event _eventType)
 			_breakTime = true;
 		}
 	}
+	if (_eventType == Event::LunchTime)
+	{
+		if (_breakTime == true)
+		{
+			_message = "Lunch is over. Comeback to classes";
+			LOG_INFO(_message);
+			notify(Break::BreakEnded);
+			_breakTime = false;
+		}
+		else
+		{
+			_message = "Time to have a lunch. Leave classes";
+			LOG_INFO(_message);
+			notify(Break::BreakStarted);
+			_breakTime = true;
+		}
+	}
 }
 
 void Bell::createMessage(std::string message)
@@ -77,7 +94,7 @@ void Bell::displayObserversNumber()
 /*Getters and Setters*/
 
 /*Constructors*/
-Bell::Bell() : _breakTime(true)
+Bell::Bell() : _breakTime(false)
 {
 	_message = "Hello it is Bell"; 
     std::cout << "Bell default constructor is called" << std::endl;
