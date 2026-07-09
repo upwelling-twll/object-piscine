@@ -76,9 +76,15 @@ class SingleList
 			}
 		}
 
+
 		T*  get(int i)
 		{
 			return (_items[i]);
+		}
+
+		std::vector<T*>  getVector()
+		{
+			return (_items);
 		}
 
 		int	getSize()
@@ -105,6 +111,7 @@ class SingleList
 
 typedef SingleList<Student> StudentList;
 typedef SingleList<Staff> StaffList;
+typedef SingleList<Professor> ProfessorList;
 typedef SingleList<Course> CourseList;
 typedef SingleList<Room> RoomList;
 

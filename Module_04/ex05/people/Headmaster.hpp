@@ -31,7 +31,7 @@ public:
     void execute(Form* p_form);
 	void update(Break _break);
 
-    void conductClasses();
+    void conductClasses(std::vector<Professor*> professors, std::vector<Student*> students);
     void ringBell(Bell* bell);
 
     //requests from staff & students

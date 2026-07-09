@@ -46,12 +46,13 @@ void Professor::assignCourse(Course* p_course)
 
 Classroom*	Professor::findFreeClassroom()
 {
-	LOG_DBUG("Professor: findFreeClassroom()");
 	int size = RoomList::getSingleList().getSize();
 	LOG_DBUG("Professor: rooms list size = " + std::to_string(size));	
 	for (int i = 0; i != size; ++i)
 	{
 		Room* r = RoomList::getSingleList().get(i);
+		if (!r)
+			return (NULL);
 		if (typeid(*r) == typeid(Classroom))
 		{
 			Classroom* cr = dynamic_cast<Classroom*>(r);
@@ -61,7 +62,9 @@ Classroom*	Professor::findFreeClassroom()
 				return (cr);
 			}
 		}
+		r = NULL;
 	}
+	LOG_DBUG("Professor findFreeClassroom(): no free class room found, returning null" );
 	return (NULL);
 }
 

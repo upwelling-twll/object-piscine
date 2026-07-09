@@ -72,7 +72,7 @@ void Headmaster::execute(Form* p_form)
 		LOG_WARNING("Headmaster won't execute anapproved form");
 }
 
-void Headmaster::conductClasses(std::vector<Professor*> professors, std::vector<Student*> students, std::vector<Course*> courses)
+void Headmaster::conductClasses(std::vector<Professor*> professors, std::vector<Student*> students)
 {
 	LOG_DBUG("Headmaster: professors list size = " + std::to_string(professors.size()));
 	LOG_ACTION("Headmaster: gives command to attend classes");

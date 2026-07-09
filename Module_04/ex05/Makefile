@@ -1,4 +1,4 @@
-SRCS	=	main.cpp \
+SRCS	=	main.cpp School.cpp\
 			$(wildcard rooms/*cpp) \
 			$(wildcard people/*cpp) \
 			$(wildcard courses/*cpp) \
