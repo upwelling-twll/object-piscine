@@ -40,6 +40,7 @@ public:
 	/*Getters and Setters*/
 	const std::vector<Course*>	getCourses() const;
 	int							getAttendance(Course* p_course);
+	int							getLevel();
 
 	/*Constructors*/
     Student(std::string name);

@@ -29,7 +29,8 @@ public:
 	Student* findStudent(Student* p_student);
 	void	holdClass();
 	void	unsubscribeStudent(Student* p_student);
-
+	void	checkGraduatingStudents();
+	
 	std::string getName();
 	Professor*	getResponsable();
 	int			getNumberOfStudents();

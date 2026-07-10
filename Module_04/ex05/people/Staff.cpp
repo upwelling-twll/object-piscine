@@ -18,6 +18,12 @@ Room* Staff::findRecreationSpace()
 	return (NULL);
 }
 
+void Staff::freeCurrentRoom()
+{
+	_currentRoom->exit(this);
+}
+
+
 void Staff::update(Break _break)
 {
 	LOG_DBUG(this->getName() + " received the bell signal");
@@ -27,7 +33,7 @@ void Staff::update(Break _break)
 		{
 			_previousRoom = _currentRoom;
 			if (_currentRoom != NULL)
-				_currentRoom->exit(this);
+				freeCurrentRoom();
 			Room* r = findRecreationSpace();
 			if (!r)
 				_currentRoom = NULL;

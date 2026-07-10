@@ -16,6 +16,7 @@ public:
 	/*Member functions*/
 	Room* findRecreationSpace();
 	void update(Break _break);
+	void freeCurrentRoom();
 
 	/*Getters and Setters*/
 

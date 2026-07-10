@@ -9,7 +9,7 @@ struct CourseBlueprint {
 
     static const std::vector<CourseBlueprint> HogwartsCourses = {
         
-        {"Transfiguration", 30, 20},
+        {"Transfiguration", 1, 20},
         {"Charms", 28, 25},
         {"Potions", 32, 15}, // Snape prefers smaller, safer groups!
         {"History of Magic", 20, 50}, // Large lecture hall style

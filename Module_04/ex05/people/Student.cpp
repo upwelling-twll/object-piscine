@@ -24,7 +24,7 @@ Room* Student::findRecreationSpace()
 
 void Student::update(Break _break)
 {
-	LOG_DBUG(this->getName() + " received the bell signal");
+	LOG_DBUG("Student: " + this->getName() + " received the bell signal");
     switch (_break)
     {
         case Break::BreakStarted:
@@ -51,6 +51,7 @@ void Student::update(Break _break)
 		}
 		case Break::LunchStarted:
 		{
+			LOG_DBUG("Student: " + this->getName() + " signal for lunch");
 			_previousRoom = _currentRoom;
 			if (_currentRoom != NULL)
 				_currentRoom->exit(this);
@@ -259,6 +260,10 @@ int	Student::getAttendance(Course* p_course)
 		return (-1);
 }
 
+int Student::getLevel()
+{
+	return (_level);
+}
 
 /*Overload operators*/
 
@@ -283,6 +288,7 @@ std::ostream& operator<<(std::ostream& output_stream, Student& src)
 			output_stream << "	- " << (*it)->getName() << std::endl;
 		}
 	}
+	output_stream << "Level: " << std::to_string(src.getLevel()) << std::endl;
 	return output_stream;
 }
 

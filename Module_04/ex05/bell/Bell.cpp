@@ -62,20 +62,20 @@ void Bell::doEvent(Event _eventType)
 			_breakTime = true;
 		}
 	}
-	if (_eventType == Event::LunchTime)
+	else if (_eventType == Event::LunchTime)
 	{
 		if (_breakTime == true)
 		{
 			_message = "Lunch is over. Comeback to classes";
 			LOG_INFO(_message);
-			notify(Break::BreakEnded);
+			notify(Break::LunchEnded);
 			_breakTime = false;
 		}
 		else
 		{
 			_message = "Time to have a lunch. Leave classes";
 			LOG_INFO(_message);
-			notify(Break::BreakStarted);
+			notify(Break::LunchStarted);
 			_breakTime = true;
 		}
 	}

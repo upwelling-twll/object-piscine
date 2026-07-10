@@ -45,6 +45,24 @@ Student* Course::findStudent(Student* p_student)
 	return (NULL);
 }
 
+void	Course::checkGraduatingStudents()
+{
+	LOG_DBUG("Course : iterating through students to find graduates. Course has " + std::to_string(_students.size()) + " subscribed students");
+	std::vector<Student*> c_students = _students;
+	for (std::vector<Student*>::iterator it = c_students.begin(); it != c_students.end(); ++it)
+	{
+		if (*it)
+		{
+			LOG_DBUG("Course : checking student " + (*it)->getName() + " attendance");
+			if ((*it)->getAttendance(this) >= _numberOfClassToGraduate)
+			{
+				_responsable->studentHadEnoughClasses(*it, this);
+				LOG_DBUG("Course : asked hm to graduate student");
+			}
+		}
+	}
+}
+
 void	Course::holdClass()
 {
 	if (! _responsable)
@@ -64,19 +82,17 @@ void	Course::holdClass()
 	}
 	else
 	{
-		LOG_DBUG("Course : iterating through students. Course has " + std::to_string(_students.size()) + " subscribed students");
+		LOG_DBUG("Course : iterating through students to call for attendance. Course has " + std::to_string(_students.size()) + " subscribed students");
 		for (std::vector<Student*>::iterator it = _students.begin(); it != _students.end(); ++it)
 		{
 			if (*it)
 			{
 				LOG_DBUG("Course : asking student " + (*it)->getName() + " to attend class");
-				if ((*it)->getAttendance(this) >= _numberOfClassToGraduate)
-					_responsable->studentHadEnoughClasses(*it, this);
-				else
-					(*it)->attendClass(_currentRoom);
+				(*it)->attendClass(_currentRoom);
 			}
 		}
 	}
+	LOG_DBUG("Course : finished checking students and asking them to attend the class");
 }
 
 void	Course::unsubscribeStudent(Student* p_student)
@@ -99,6 +115,7 @@ void	Course::unsubscribeStudent(Student* p_student)
 			{
 				_students.erase(it);
 				LOG_DBUG("Course unsubscribeStudent() : student " + p_student->getName() + " was unsubscribed");
+				return;
 			}
 		}	
 	}

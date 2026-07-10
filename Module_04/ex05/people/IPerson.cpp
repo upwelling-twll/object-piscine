@@ -8,13 +8,18 @@
 Room* IPerson::findDinningRoom()
 {
 	int size = RoomList::getSingleList().getSize();
+	LOG_DBUG("IPerson: searching for dinning room in a list of " + std::to_string(size));
 	for (int i = 0; i != size; ++i)
 	{
 		Room* r = RoomList::getSingleList().get(i);
 		if (typeid(*r) == typeid(GreatHall))
 		{
 			GreatHall* dr = dynamic_cast<GreatHall*>(r);
+			{
+				LOG_DBUG("IPerson: found dinning room #" + std::to_string(r->getRoomNumber()));
 				return (dr);
+			}
+			LOG_DBUG("IPerson: found dinning room #" + std::to_string(r->getRoomNumber()) + " but could not cast");
 		}
 	}
 	return (NULL);

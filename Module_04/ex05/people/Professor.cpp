@@ -33,6 +33,18 @@
 //     }
 // }
 
+void	Professor::freeCurrentRoom()
+{
+	if (!_currentRoom)
+		return;
+	if (typeid(_currentRoom) != typeid(GreatHall) || typeid(_currentRoom) != typeid(StaffRestRoom))
+	{
+		(_currentCourse->getClassroom())->setFree();
+		_currentCourse->setClassroom(NULL);
+		_currentRoom->exit(this);
+	}
+}
+
 void Professor::assignCourse(Course* p_course)
 {
 	if (!p_course)
@@ -142,6 +154,10 @@ void	Professor::prepareForClass()
 		_currentCourse->setClassroom(cr);
 		cr->assignCourse(_currentCourse);
 	}
+	if (_currentCourse->getNumberOfStudents() > 0)
+	{
+		_currentCourse->checkGraduatingStudents();
+	}
 	LOG_ACTION("Professor " + this->getName() + "  is ready for teaching "+ _currentCourse->getName());
 }
 
@@ -154,10 +170,6 @@ void Professor::doClass()
 		_currentRoom = r;
 	}
 	_currentCourse->holdClass();
-
-	// *** after finishing class we must reset course & class to default state ***
-	(_currentCourse->getClassroom())->setFree();
-	_currentCourse->setClassroom(NULL);
 }
 
 void Professor::closeCourse()

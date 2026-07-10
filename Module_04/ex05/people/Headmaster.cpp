@@ -27,7 +27,7 @@ void Headmaster::update(Break _break)
 			_previousRoom = _currentRoom;
 			if (_currentRoom != NULL)
 				_currentRoom->exit(this);
-			_currentRoom = NULL;
+			_currentRoom = findRecreationSpace();
             break;
 		}
 
@@ -82,6 +82,7 @@ void Headmaster::receiveForm(Form* p_form)
 	}
 	sign(p_form);
 	execute(p_form);
+	LOG_DBUG("Headmaster: finished signing and executing form");
 }
 
 void Headmaster::sign(Form* p_form)

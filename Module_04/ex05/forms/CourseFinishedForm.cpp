@@ -17,6 +17,7 @@ void CourseFinishedForm::execute(Headmaster *hm)
 	else
 	{
 		p_course->unsubscribeStudent(p_student);
+		LOG_DBUG(*p_course);
 		p_student->graduate(p_course);
 		this->_execStatus = true;
 		//TODO maybe course should unsubscribe students or/and removed from vector

@@ -8,8 +8,10 @@ void School::runDayRoutine()
 	LOG_ACTION("School: " + _schoolName + " is running a day routine");
     launchClasses();
 	requestRingBell(Event::RingBell);
+	LOG_INFO(*((getStudents())[0]));
 	requestRingBell(Event::RingBell);
 	launchClasses();
+	LOG_INFO(*((getStudents())[0]));
 	requestRingBell(Event::LunchTime);
 	requestRingBell(Event::LunchTime);
 	launchClasses();
@@ -113,11 +115,11 @@ School::School(std::string name) : _schoolName(name)
 	GreatHall* greatHall = new GreatHall();
 	Courtyard* cortyard = new Courtyard();
 	StaffRestRoom* staffRR = new StaffRestRoom();
-	RoomList::getSingleList().add(hmoffice);
-	RoomList::getSingleList().add(soffice);
-	RoomList::getSingleList().add(greatHall);
-	RoomList::getSingleList().add(cortyard);
-	RoomList::getSingleList().add(staffRR);
+	RoomList::getSingleList().add(hmoffice); //0
+	RoomList::getSingleList().add(soffice); //1 
+	RoomList::getSingleList().add(greatHall); //2
+	RoomList::getSingleList().add(cortyard); //3
+	RoomList::getSingleList().add(staffRR); //4
 
 	std::cout << "School parameterized constructor is called" << std::endl;
 }

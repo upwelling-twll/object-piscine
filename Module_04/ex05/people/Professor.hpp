@@ -25,7 +25,7 @@ public:
 	Classroom*	findFreeClassroom();
 	// void update(Break _break);
 	bool findUninstatinatedCourse(std::string name);
-
+	void freeCurrentRoom();
 
 	/*Getters and Setters*/
 	void setHeadmaster(Headmaster* p_hm);

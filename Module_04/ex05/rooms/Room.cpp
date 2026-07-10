@@ -7,20 +7,26 @@ long long Room::_nextID = 0;
 bool Room::canEnter(IPerson* p)
 {
 	if (!p)
-		throw (std::invalid_argument("Room: null persom can not enter"));
+		throw (std::invalid_argument("Room: null person can not enter"));
 	Room* currentRoom;
 	currentRoom = p->getCurrentRoom();
 	if (currentRoom == NULL)
+	{
+		LOG_DBUG("Room canEnter(): person can enter this room");
 		return (true);
-	if (currentRoom == this)
+	}
+	else if (currentRoom == this)
+	{
+		LOG_DBUG("Room canEnter(): person is already in this room");
 		return (false);
-	return (false);
+	}
+	return (true);
 }
 
 void Room::enter(IPerson* p)
 {
 	if (!p)
-		throw (std::invalid_argument("Room: null persom can not enter"));
+		throw (std::invalid_argument("Room: null person can not enter"));
 	if (canEnter(p))
 	{
 		_occupants.push_back(p);
@@ -31,7 +37,7 @@ void Room::enter(IPerson* p)
 void Room::exit(IPerson* p)
 {
 	if (!p)
-		throw (std::invalid_argument("Room: null persom can not enter"));
+		throw (std::invalid_argument("Room: null person can not enter"));
 	if (p->getCurrentRoom() == this)
 	{
 		for (std::vector<IPerson*>::iterator it = _occupants.begin(); it != _occupants.end(); ++it)
