@@ -32,7 +32,7 @@ public:
 	void update(Break _break);
 
     void conductClasses(std::vector<Professor*> professors, std::vector<Student*> students);
-    void ringBell(Bell* bell);
+    void ringBell(Bell* bell, Event eventType);
 
     //requests from staff & students
     // Form* graduateFromCourse();

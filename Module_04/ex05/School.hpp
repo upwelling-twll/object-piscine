@@ -33,7 +33,7 @@ public:
 	/*Member functions*/
     void runDayRoutine(); //execute the school day routine
 	void launchClasses(); //Make the headmaster ask the students and professors to attend them classes
-	void requestRingBell(); //Make the headmaster ring the bell
+	void requestRingBell(Event eventType); //Make the headmaster ring the bell
 	void recruteProfessor(Professor* p); //Add a new professor to the school
 	void recruteStudent(Student* s); // Add a new student to the school
 	void graduationCeremony(); //launch the graduation of every student that can graduate at a desired moment

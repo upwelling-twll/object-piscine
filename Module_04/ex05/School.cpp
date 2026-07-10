@@ -7,7 +7,13 @@ void School::runDayRoutine()
 {
 	LOG_ACTION("School: " + _schoolName + " is running a day routine");
     launchClasses();
-	requestRingBell();
+	requestRingBell(Event::RingBell);
+	requestRingBell(Event::RingBell);
+	launchClasses();
+	requestRingBell(Event::LunchTime);
+	requestRingBell(Event::LunchTime);
+	launchClasses();
+
 }
 
 void School::launchClasses()
@@ -19,9 +25,9 @@ void School::launchClasses()
 	_hm->conductClasses(v_profs, v_students);
 }
 
-void School::requestRingBell()
+void School::requestRingBell(Event eventType)
 {
-	_hm->ringBell(&_bell);
+	_hm->ringBell(&_bell, eventType);
 }
 
 void School::recruteProfessor(Professor* p)

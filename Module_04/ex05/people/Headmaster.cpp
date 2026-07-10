@@ -11,10 +11,10 @@
 #include "../FormType.hpp"
 
 
-void Headmaster::ringBell(Bell* bell)
+void Headmaster::ringBell(Bell* bell, Event eventType)
 {
 	LOG_ACTION("Headmaster is ringing a bell");
-	bell->doEvent(Event::RingBell);
+	bell->doEvent(eventType);
 }
 
 void Headmaster::update(Break _break)
