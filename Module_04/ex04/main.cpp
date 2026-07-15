@@ -88,7 +88,26 @@ void testObserver()
     dumblerode.ringBell(&bell);
     dumblerode.ringBell(&bell);
 
+    int rsize = RoomList::getSingleList().getSize();
+	for (int i = 0; i != rsize; i++)
+	{
+		Room* r = RoomList::getSingleList().get(0);
+		RoomList::getSingleList().remove(r);
+		// LOG_DBUG("DELETE: ");
+		// LOG_DBUG((r));
 
+		delete r;
+	}
+	int csize = CourseList::getSingleList().getSize();
+	for (int i = 0; i != csize; i++)
+	{
+		Course* c = CourseList::getSingleList().get(0);
+		CourseList::getSingleList().remove(c);
+		// LOG_DBUG("DELETE: ");
+		// LOG_DBUG((r));
+
+		delete c;
+	}
 } 
 
 int main()

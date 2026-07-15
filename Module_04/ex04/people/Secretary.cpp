@@ -2,6 +2,8 @@
 #include "Secretary.hpp"
 #include "../forms/forms.hpp"
 #include "../Debug.hpp"
+#include "../singletons.hpp"
+
 
 /*Member functions*/
 void Secretary::update(Break _break)
@@ -41,10 +43,45 @@ Form* Secretary::createForm(FormType p_formType, time_t expiration)
     return (NULL);
 }
 
-// void Secretary::archiveForm()
-// {
+void Secretary::archiveForm(Form* p_form)
+{
+	if (!p_form)
+		std::invalid_argument("Secretary archiveForm() received null form");
+	else
+	{
+		sendFormToArchive(p_form);
+	}
 
-// }
+}
+
+void Secretary::sendFormToArchive(Form* p_form)
+{
+	int size = RoomList::getSingleList().getSize();
+	SecretarialOffice* sr = NULL;
+	for (int i = 0; i < size; ++i)
+	{
+		Room* r = RoomList::getSingleList().get(i);
+		if (typeid(*r) == typeid(SecretarialOffice))
+		{
+			sr = dynamic_cast<SecretarialOffice*>(r);
+			break;
+		}
+	}
+	if (sr)
+	{
+		if (sr->canEnter(this) || this->getCurrentRoom() == sr)
+		{
+			sr->enter(this);
+			sr->addToArchive(p_form);
+			sr->exit(this);
+			return;
+		}
+		else
+			LOG_WARNING("Secretary could not enter office");
+	}
+	else
+		LOG_WARNING("Secretary could not find archive");
+}
 
 /*Getters and Setters*/
 
