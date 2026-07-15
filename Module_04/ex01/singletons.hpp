@@ -65,8 +65,8 @@ class SingleList
 			_items.clear();
 		}
 
-		Singleton(const SingleList&) = delete;
-		void operator=(const SingleLis) = delete;
+		SingleList(const SingleList&) = delete;
+		void operator=(const SingleList) = delete;
 };
 
 
