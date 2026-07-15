@@ -98,7 +98,7 @@ void	Professor::prepareForClass()
 	if (!_currentCourse)
 	{
 		LOG_INFO("Professor " + this->getName() + " : does not have a course to do");
-		NeedCourseCreationForm* f = _hm->needCourse();
+		auto f = _hm->needCourse();
 		if (f)
 		{
 			CourseBlueprint c;
@@ -126,7 +126,7 @@ void	Professor::prepareForClass()
 					f->setResponsable(this);
 				}
 			}
-			_hm->receiveForm(f);
+			    _hm->receiveForm(std::move(f));
 		}
 		else
 		{
@@ -142,8 +142,8 @@ void	Professor::prepareForClass()
 		{
 			// *** if no free room found, request new room creation through Headmaster ***
 			LOG_DBUG("Professor " + this->getName() + " did not find free room for  " + _currentCourse->getName() + ". Requesting to HM");
-			NeedMoreClassRoomForm* f = _hm->needRoom();
-			_hm->receiveForm(f);
+			auto f = _hm->needRoom();
+			_hm->receiveForm(std::move(f));
 			cr = findFreeClassroom();
 			if (! cr)
 			{
@@ -210,10 +210,13 @@ void Professor::studentHadEnoughClasses(Student* p_student, Course* p_course)
 	{
 		LOG_ACTION("Professor " + this->getName() + " : requesting to graduate student "
 				 + p_student->getName() + " from " + p_course ->getName());
-		CourseFinishedForm* f = _hm->graduateStudent();
-		f->setStudent(p_student);
-		f->setCourse(p_course);
-		_hm->receiveForm(f);
+		auto f = _hm->graduateStudent();
+		if (f)
+		{
+			f->setStudent(p_student);
+			f->setCourse(p_course);
+			_hm->receiveForm(std::move(f));
+		}
 	}
 }
 

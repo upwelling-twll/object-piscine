@@ -64,24 +64,40 @@ void Headmaster::update(Break _break)
 }
 
 /*Member functions*/
-void Headmaster::receiveForm(Form* p_form)
+void Headmaster::receiveForm(std::unique_ptr<Form> p_form)
 {
-    if (! p_form)
+	if (! p_form)
 		throw(std::invalid_argument("Headmaster: null form can not be received."));
 	else
 	{
-		for (std::vector<Form*>::iterator it = _formToValidate.begin(); it != _formToValidate.end(); ++it)
+		for (std::vector<std::unique_ptr<Form>>::iterator it = _formToValidate.begin(); it != _formToValidate.end(); ++it)
 		{
-			if (*it == p_form)
+			if (it->get() == p_form.get())
 			{
 				std::cout << "Headmaster: form is already received." << std::endl;
 				return;
 			}
 		}
-		_formToValidate.push_back(p_form);
+		_formToValidate.push_back(std::move(p_form));
 	}
-	sign(p_form);
-	execute(p_form);
+
+	// operate on the last received form
+	Form* raw = _formToValidate.back().get();
+	sign(raw);
+	execute(raw);
+
+	// move to secretary archive
+	if (p_secretary)
+	{
+		auto toArchive = std::move(_formToValidate.back());
+		_formToValidate.pop_back();
+		p_secretary->archiveForm(std::move(toArchive));
+	}
+	else
+	{
+		LOG_WARNING("Headmaster: no secretary to archive the form");
+	}
+
 	LOG_DBUG("Headmaster: finished signing and executing form");
 }
 
@@ -98,12 +114,12 @@ void Headmaster::execute(Form* p_form)
 	if (p_form->getSignStatus())
 	{
 		p_form->execute(this);
-		p_secretary->archiveForm(p_form);
+		// archiving is handled by receiveForm after execution
 	}
 	else
 	{
 		LOG_WARNING("Headmaster won't execute anapproved form");
-		_formToValidate.push_back(p_form);
+		// keep form for later approval
 	}
 
 }
@@ -141,36 +157,64 @@ void Headmaster::conductClasses(std::vector<Professor*> professors, std::vector<
 }
 
 //requests from staff & students
-NeedCourseCreationForm* Headmaster::needCourse()
+std::unique_ptr<NeedCourseCreationForm> Headmaster::needCourse()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (dynamic_cast<NeedCourseCreationForm*>(p_secretary->createForm(FormType::NeedCourseCreation, et)));
+	auto base = p_secretary->createForm(FormType::NeedCourseCreation, et);
+	if (!base)
+		return nullptr;
+	NeedCourseCreationForm* raw = dynamic_cast<NeedCourseCreationForm*>(base.get());
+	if (!raw)
+		return nullptr;
+	base.release();
+	return std::unique_ptr<NeedCourseCreationForm>(raw);
 }
 
-SubscriptionToCourseForm* Headmaster::subscribeToCourse()
+std::unique_ptr<SubscriptionToCourseForm> Headmaster::subscribeToCourse()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (dynamic_cast<SubscriptionToCourseForm*>(p_secretary->createForm(FormType::SubscriptionToCourse, et)));
+	auto base = p_secretary->createForm(FormType::SubscriptionToCourse, et);
+	if (!base)
+		return nullptr;
+	SubscriptionToCourseForm* raw = dynamic_cast<SubscriptionToCourseForm*>(base.get());
+	if (!raw)
+		return nullptr;
+	base.release();
+	return std::unique_ptr<SubscriptionToCourseForm>(raw);
 }
 
-NeedMoreClassRoomForm* Headmaster::needRoom()
-{	
-	if (!p_secretary)
-		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
-	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (dynamic_cast<NeedMoreClassRoomForm*>(p_secretary->createForm(FormType::NeedMoreClassRoom, et)));
-}
-
-CourseFinishedForm* Headmaster::graduateStudent()
+std::unique_ptr<NeedMoreClassRoomForm> Headmaster::needRoom()
 {
 	if (!p_secretary)
 		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
 	time_t et = time(0) + (3600 * 24); //24 hours from now
-	return (dynamic_cast<CourseFinishedForm*>(p_secretary->createForm(FormType::CourseFinished, et)));
+	auto base = p_secretary->createForm(FormType::NeedMoreClassRoom, et);
+	if (!base)
+		return nullptr;
+	NeedMoreClassRoomForm* raw = dynamic_cast<NeedMoreClassRoomForm*>(base.get());
+	if (!raw)
+		return nullptr;
+	base.release();
+	return std::unique_ptr<NeedMoreClassRoomForm>(raw);
+}
+
+std::unique_ptr<CourseFinishedForm> Headmaster::graduateStudent()
+{
+	if (!p_secretary)
+		LOG_WARNING("Headmaster " + this->getName() + " has no secretery. Can not proceed with the request");
+	time_t et = time(0) + (3600 * 24); //24 hours from now
+	auto base = p_secretary->createForm(FormType::CourseFinished, et);
+	if (!base)
+		return nullptr;
+	CourseFinishedForm* raw = dynamic_cast<CourseFinishedForm*>(base.get());
+	if (!raw)
+		return nullptr;
+	base.release();
+	return std::unique_ptr<CourseFinishedForm>(raw);
 }
 
 /*Getters and Setters*/
@@ -190,11 +234,7 @@ Headmaster::Headmaster(std::string name) : Staff(name), p_secretary(NULL)
 Headmaster::~Headmaster( void )
 {
 	LOG_DTOR("Headmaster destructor is called");
-
-	for (std::vector<Form*>::iterator it = _formToValidate.begin(); it != _formToValidate.end(); ++it)
-	{
-		delete(*it);
-	}
+	// unique_ptr in _formToValidate will clean up automatically
 	_formToValidate.clear();
 }
 

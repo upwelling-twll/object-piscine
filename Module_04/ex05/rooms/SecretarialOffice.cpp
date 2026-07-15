@@ -4,15 +4,14 @@
 #include <algorithm>
 
 /*Member functions*/
-void SecretarialOffice::addToArchive(Form* p_form)
+void SecretarialOffice::addToArchive(std::unique_ptr<Form> p_form)
 {
 	if (!p_form)
 		std::invalid_argument("SecretarialOffice addToArchive() received null form");
-	else if (std::find(_archivedForms.begin(), _archivedForms.end(), p_form) != _archivedForms.end())
-		LOG_WARNING("SecretarialOffice: Form is already stored in archive");
 	else
 	{
-		_archivedForms.push_back(p_form);
+		// don't check duplicate by pointer (unique ownership), just store
+		_archivedForms.push_back(std::move(p_form));
 		LOG_ACTION("SecretarialOffice: form was archived");
 	}
 }
@@ -33,11 +32,7 @@ SecretarialOffice::~SecretarialOffice( void )
 {
 	LOG_DTOR("SecretarialOffice destructor is called");
 	LOG_DBUG("SecretarialOffice has " + std::to_string(_archivedForms.size()) + " archived forms");
-	for (std::vector<Form*>::iterator it = _archivedForms.begin(); it != _archivedForms.end(); ++it)
-	{
-		LOG_DBUG("SecretarialOffice has " + std::to_string(_archivedForms.size()) + " archived forms");
-		delete(*it);
-	}
+	// unique_ptr will delete forms automatically
 	_archivedForms.clear();
 }
 

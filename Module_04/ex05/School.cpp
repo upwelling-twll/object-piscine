@@ -8,14 +8,14 @@ void School::runDayRoutine()
 	LOG_ACTION("School: " + _schoolName + " is running a day routine");
     launchClasses();
 	LOG_DBUG("School: runDayRoutine finished");
-	// requestRingBell(Event::RingBell);
+	requestRingBell(Event::RingBell);
 	// // LOG_INFO(*((getStudents())[0]));
-	// requestRingBell(Event::RingBell);
-	// launchClasses();
+	requestRingBell(Event::RingBell);
+	launchClasses();
 	// // LOG_INFO(*((getStudents())[0]));
-	// requestRingBell(Event::LunchTime);
-	// requestRingBell(Event::LunchTime);
-	// launchClasses();
+	requestRingBell(Event::LunchTime);
+	requestRingBell(Event::LunchTime);
+	launchClasses();
 
 }
 

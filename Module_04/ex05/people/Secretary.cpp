@@ -4,6 +4,7 @@
 #include "../Debug.hpp"
 #include "../rooms/SecretarialOffice.hpp"
 #include "../singletonTypedefs.hpp"
+#include <memory>
 
 /*Member functions*/
 // void Secretary::update(Break _break)
@@ -31,31 +32,31 @@
 // }
 
 
-Form* Secretary::createForm(FormType p_formType, time_t expiration)
+std::unique_ptr<Form> Secretary::createForm(FormType p_formType, time_t expiration)
 {
 	if (p_formType == FormType::CourseFinished)
-		return (new CourseFinishedForm(p_formType, expiration));
+		return std::make_unique<CourseFinishedForm>(p_formType, expiration);
 	if (p_formType == FormType::NeedMoreClassRoom)
-		return (new NeedMoreClassRoomForm(p_formType, expiration));
+		return std::make_unique<NeedMoreClassRoomForm>(p_formType, expiration);
 	if (p_formType == FormType::NeedCourseCreation)
-		return (new NeedCourseCreationForm(p_formType, expiration));
+		return std::make_unique<NeedCourseCreationForm>(p_formType, expiration);
 	if (p_formType == FormType::SubscriptionToCourse)
-		return (new SubscriptionToCourseForm(p_formType, expiration));
-    return (NULL);
+		return std::make_unique<SubscriptionToCourseForm>(p_formType, expiration);
+	return (NULL);
 }
 
-void Secretary::archiveForm(Form* p_form)
+void Secretary::archiveForm(std::unique_ptr<Form> p_form)
 {
 	if (!p_form)
 		std::invalid_argument("Secretary archiveForm() received null form");
 	else
 	{
-		sendFormToArchive(p_form);
+		sendFormToArchive(std::move(p_form));
 	}
 
 }
 
-void Secretary::sendFormToArchive(Form* p_form)
+void Secretary::sendFormToArchive(std::unique_ptr<Form> p_form)
 {
 	int size = RoomList::getSingleList().getSize();
 	SecretarialOffice* sr = NULL;
@@ -73,7 +74,7 @@ void Secretary::sendFormToArchive(Form* p_form)
 		if (sr->canEnter(this) || this->getCurrentRoom() == sr)
 		{
 			sr->enter(this);
-			sr->addToArchive(p_form);
+			sr->addToArchive(std::move(p_form));
 			sr->exit(this);
 			return;
 		}

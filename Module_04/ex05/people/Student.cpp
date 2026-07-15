@@ -124,10 +124,13 @@ void	Student::prepareForClass(Headmaster* hm)
 			LOG_DBUG("Student " + getName() + " already graduated or subscribed to all possible courses");
 			return;
 		}
-		SubscriptionToCourseForm* f = hm->subscribeToCourse();
-		f->setStudent(this);
-		f->setCourse(c);
-		hm->receiveForm(f);
+		auto f = hm->subscribeToCourse();
+		if (f)
+		{
+			f->setStudent(this);
+			f->setCourse(c);
+			hm->receiveForm(std::move(f));
+		}
 	}
 }
 

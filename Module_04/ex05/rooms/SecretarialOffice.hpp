@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <vector>
+# include <memory>
 
 # include "Room.hpp"
 
@@ -11,11 +12,11 @@ class Form;
 class SecretarialOffice : public Room
 {
 private:
-   	std::vector<Form*> _archivedForms;
+	std::vector<std::unique_ptr<Form>> _archivedForms;
 
 public:
 	/*Member functions*/
-	void addToArchive(Form* p_form);
+	void addToArchive(std::unique_ptr<Form> p_form);
 
 	/*Getters and Setters*/
 	int getArchivedForms();
