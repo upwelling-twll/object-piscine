@@ -88,15 +88,24 @@ void Headmaster::receiveForm(Form* p_form)
 void Headmaster::sign(Form* p_form)
 {
 	p_form->beSigned();
-	LOG_ACTION("Form signed by " + this->getName());   
+	LOG_ACTION("Headmaster " + this->getName() + ": signed form");   
 }
 
 void Headmaster::execute(Form* p_form)
 {
+	if (!p_form)
+		std::invalid_argument("Headmaster execute() recevied null form");
 	if (p_form->getSignStatus())
+	{
 		p_form->execute(this);
+		p_secretary->archiveForm(p_form);
+	}
 	else
+	{
 		LOG_WARNING("Headmaster won't execute anapproved form");
+		_formToValidate.push_back(p_form);
+	}
+
 }
 
 void Headmaster::conductClasses(std::vector<Professor*> professors, std::vector<Student*> students)
@@ -128,6 +137,7 @@ void Headmaster::conductClasses(std::vector<Professor*> professors, std::vector<
 			(*it)->doClass();
 		}
 	}
+	LOG_DBUG("Headmaster: conductClasses finished");
 }
 
 //requests from staff & students
@@ -180,6 +190,12 @@ Headmaster::Headmaster(std::string name) : Staff(name), p_secretary(NULL)
 Headmaster::~Headmaster( void )
 {
 	LOG_DTOR("Headmaster destructor is called");
+
+	for (std::vector<Form*>::iterator it = _formToValidate.begin(); it != _formToValidate.end(); ++it)
+	{
+		delete(*it);
+	}
+	_formToValidate.clear();
 }
 
 /*Overload operators*/

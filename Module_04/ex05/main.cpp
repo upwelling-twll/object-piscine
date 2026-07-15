@@ -22,15 +22,15 @@ void testFacade()
     // Student ron("Ron");
 
     hogwarts->recruteStudent(&harry);
-    // hogwarts->recruteStudent(&hermione);
-    // hogwarts->recruteStudent(&ron);
+//     // hogwarts->recruteStudent(&hermione);
+//     // hogwarts->recruteStudent(&ron);
 
     Professor p1("Minerva McGonagall");
-    // Professor p2("Severus Snape");
-    // Professor p3("Filius Flitwick");
-    // Professor p4("Pomona Sprout");
-    // Professor p5("Remus Lupin");
-    // Professor p6("Rubeus Hagrid");
+//     Professor p2("Severus Snape");
+//     Professor p3("Filius Flitwick");
+//     Professor p4("Pomona Sprout");
+//     Professor p5("Remus Lupin");
+//     Professor p6("Rubeus Hagrid");
 
    hogwarts->recruteProfessor(&p1);
 //    hogwarts->recruteProfessor(&p2);
@@ -40,10 +40,13 @@ void testFacade()
 //    hogwarts->recruteProfessor(&p6);
 
    hogwarts->runDayRoutine();
+    delete hogwarts;
 } 
 
 int main()
 {
     testFacade();
+
+
     return (0);
 }

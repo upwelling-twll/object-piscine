@@ -11,11 +11,12 @@ class Secretary : public Staff
 {
 private:
     // Add member variables here
+	void sendFormToArchive(Form* p_form);
 
 public:
 	/*Member functions*/
 	Form* createForm(FormType p_formType, time_t expiration);
-	// void archiveForm();
+	void archiveForm(Form* p_form);
 	// void update(Break _break);
 
 	/*Getters and Setters*/

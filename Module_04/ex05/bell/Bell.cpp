@@ -96,14 +96,14 @@ void Bell::displayObserversNumber()
 /*Constructors*/
 Bell::Bell() : _breakTime(false)
 {
+    LOG_CTOR("Bell constructor is called");
 	_message = "Hello it is Bell"; 
-    std::cout << "Bell default constructor is called" << std::endl;
 }
 
 /*Destructors*/
 Bell::~Bell( void )
 {
-    std::cout << "Bell destructor is called" << std::endl;
+    LOG_DTOR("Bell destructor is called");
 }
 
 /*Overload operators*/

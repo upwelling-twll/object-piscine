@@ -2,6 +2,8 @@
 # define DEBUG_HPP
 
 # include <iostream>
+# include <string>
+
 
 /* Colors */
 
@@ -10,7 +12,7 @@
 #define GREEN   "\033[32m"
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
-#define CYAN    "\033[36m"
+#define CYAN    "\e[1;36m"
 #define GREY    "\033[90m"
 #define PINK    "\033[95m"
 
@@ -20,7 +22,7 @@
 
 #ifdef DEBUG_CTOR
 # define LOG_CTOR(msg) \
-    std::cout << GREEN << "[CONSTR] " << RESET << msg << std::endl
+    std::cout << GREEN << "[CONSTR] " << msg << RESET << std::endl
 #else
 # define LOG_CTOR(msg)
 #endif
@@ -29,7 +31,7 @@
 
 #ifdef DEBUG_DTOR
 # define LOG_DTOR(msg) \
-    std::cout << RED << "[DESTRUC] " << RESET << msg << std::endl
+    std::cout << RED << "[DESTRUC] " << msg  << RESET << std::endl
 #else
 # define LOG_DTOR(msg)
 #endif
@@ -38,7 +40,7 @@
 
 #ifdef DEBUG_ACTION
 # define LOG_ACTION(msg) \
-    std::cout << CYAN << "[ACTION] " << RESET << msg << std::endl
+    std::cout << CYAN << "[ACTION] " << msg  << RESET << std::endl
 #else
 # define LOG_ACTION(msg)
 #endif
@@ -61,7 +63,7 @@
 
 #ifdef DEBUG_DBUG
 # define LOG_DBUG(msg) \
-    std::cout << GREY << "[DEBUG] " << RESET << msg << std::endl
+    std::cout << GREY << "[DEBUG] " << msg  << RESET << std::endl
 #else
 # define LOG_DBUG(msg)
 #endif

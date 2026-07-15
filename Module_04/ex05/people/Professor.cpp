@@ -37,7 +37,7 @@ void	Professor::freeCurrentRoom()
 {
 	if (!_currentRoom)
 		return;
-	if (typeid(_currentRoom) != typeid(GreatHall) || typeid(_currentRoom) != typeid(StaffRestRoom))
+	if (typeid(_currentRoom) == typeid(Classroom))
 	{
 		(_currentCourse->getClassroom())->setFree();
 		_currentCourse->setClassroom(NULL);
@@ -170,6 +170,7 @@ void Professor::doClass()
 		_currentRoom = r;
 	}
 	_currentCourse->holdClass();
+	LOG_DBUG("Professor: doClass finished");
 }
 
 void Professor::closeCourse()

@@ -1,20 +1,21 @@
 #include "School.hpp"
 #include "singletonTypedefs.hpp"
-#
+
 
 /*Member functions*/
 void School::runDayRoutine()
 {
 	LOG_ACTION("School: " + _schoolName + " is running a day routine");
     launchClasses();
-	requestRingBell(Event::RingBell);
-	LOG_INFO(*((getStudents())[0]));
-	requestRingBell(Event::RingBell);
-	launchClasses();
-	LOG_INFO(*((getStudents())[0]));
-	requestRingBell(Event::LunchTime);
-	requestRingBell(Event::LunchTime);
-	launchClasses();
+	LOG_DBUG("School: runDayRoutine finished");
+	// requestRingBell(Event::RingBell);
+	// // LOG_INFO(*((getStudents())[0]));
+	// requestRingBell(Event::RingBell);
+	// launchClasses();
+	// // LOG_INFO(*((getStudents())[0]));
+	// requestRingBell(Event::LunchTime);
+	// requestRingBell(Event::LunchTime);
+	// launchClasses();
 
 }
 
@@ -23,8 +24,19 @@ void School::launchClasses()
 	LOG_ACTION("School: " + _schoolName + " is launching classes");
 	std::vector<Professor*> v_profs = getProfessors();
 	std::vector<Student*> v_students = getStudents();
-
-	_hm->conductClasses(v_profs, v_students);
+	if (v_profs.empty())
+	{
+		LOG_WARNING("School: cannot launch classes with 0 professors");
+		return;
+	}
+	if (v_students.empty())
+	{
+		LOG_WARNING("School: cannot launch classes with 0 students");
+		return;
+	}
+	else
+		_hm->conductClasses(v_profs, v_students);
+	LOG_DBUG("School: launchClasses finished");
 }
 
 void School::requestRingBell(Event eventType)
@@ -56,6 +68,11 @@ void School::recruteStudent(Student* s)
 		_bell.attach(s);
 		StudentList::getSingleList().add(s);
 	}
+}
+
+void School::graduationCeremony()
+{
+	// requestRingBell(GraduationTime);
 }
 
 /*Getters and Setters*/
@@ -100,36 +117,55 @@ std::vector<Course*>	School::getCourses()
 /*Constructors*/
 School::School(std::string name) : _schoolName(name)
 {
+	LOG_CTOR("School constructor is called");
 	_hm = new Headmaster("Albus Dumbledore");
 	_sec = new Secretary("Percy Weasley");
     _hm->setSecretary(_sec);
-	// students = SingleList<Student>::getSingleList();
-    // SingleList<Course>& courses = SingleList<Course>::getSingleList();
-    // SingleList<Staff>& staff = SingleList<Staff>::getSingleList();
-    // SingleList<Professor>& professors = SingleList<Professor>::getSingleList();
-    // SingleList<Room>& rooms = SingleList<Room>::getSingleList();
-	
+	_bell.attach(_hm);
+	_bell.attach(_sec);
 
     HeadmasterOffice* hmoffice = new HeadmasterOffice();
     SecretarialOffice* soffice = new SecretarialOffice();
 	GreatHall* greatHall = new GreatHall();
 	Courtyard* cortyard = new Courtyard();
 	StaffRestRoom* staffRR = new StaffRestRoom();
+	Classroom* cl = new Classroom();
 	RoomList::getSingleList().add(hmoffice); //0
 	RoomList::getSingleList().add(soffice); //1 
 	RoomList::getSingleList().add(greatHall); //2
 	RoomList::getSingleList().add(cortyard); //3
 	RoomList::getSingleList().add(staffRR); //4
+	RoomList::getSingleList().add(cl); //4
 
-	std::cout << "School parameterized constructor is called" << std::endl;
 }
 
 /*Destructors*/
 School::~School( void )
 {
+    LOG_DTOR("School destructor is called");
 	delete _hm;
 	delete _sec;
-    std::cout << "School destructor is called" << std::endl;
+
+	int rsize = RoomList::getSingleList().getSize();
+	for (int i = 0; i != rsize; i++)
+	{
+		Room* r = RoomList::getSingleList().get(0);
+		RoomList::getSingleList().remove(r);
+		// LOG_DBUG("DELETE: ");
+		// LOG_DBUG((r));
+
+		delete r;
+	}
+	int csize = CourseList::getSingleList().getSize();
+	for (int i = 0; i != csize; i++)
+	{
+		Course* c = CourseList::getSingleList().get(0);
+		CourseList::getSingleList().remove(c);
+		// LOG_DBUG("DELETE: ");
+		// LOG_DBUG((r));
+
+		delete c;
+	}
 }
 
 /*Overload operators*/

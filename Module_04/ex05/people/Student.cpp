@@ -183,6 +183,7 @@ void Student::attendClass(Classroom* p_classroom)
 				_currentRoom = r;
 			}
 			addAttendance(c);
+			LOG_ACTION("Student: " + _name + " is learning ✨" + c->getName() + "✨");
 			return;
 		}
 	}
