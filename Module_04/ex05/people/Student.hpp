@@ -22,6 +22,7 @@ private:
     std::vector<Course*>	_subscribedCourse;
 	std::map<Course*, int>	_attendance;
 	int						_level;
+	bool					_isGraduate;
 
 public:
 	/*Member functions*/
@@ -41,6 +42,9 @@ public:
 	const std::vector<Course*>	getCourses() const;
 	int							getAttendance(Course* p_course);
 	int							getLevel();
+	void						setGraduate();
+	bool						isGraduate();
+
 
 	/*Constructors*/
     Student(std::string name);

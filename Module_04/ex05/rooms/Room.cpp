@@ -12,12 +12,12 @@ bool Room::canEnter(IPerson* p)
 	currentRoom = p->getCurrentRoom();
 	if (currentRoom == NULL)
 	{
-		LOG_DBUG("Room canEnter(): person can enter this room");
+		LOG_DBUG("Room canEnter(): person " + p->getName() + " can enter this room");
 		return (true);
 	}
 	else if (currentRoom == this)
 	{
-		LOG_DBUG("Room canEnter(): person is already in this room");
+		LOG_DBUG("Room canEnter(): person " + p->getName() + " is already in this room");
 		return (false);
 	}
 	return (true);
@@ -30,7 +30,7 @@ void Room::enter(IPerson* p)
 	if (canEnter(p))
 	{
 		_occupants.push_back(p);
-		LOG_ACTION("Room: " + p->getName() + " entered room #" + std::to_string(ID));
+		LOG_DBUG("Room: " + p->getName() + " entered room #" + std::to_string(ID));
 	}
 }
 
@@ -45,7 +45,7 @@ void Room::exit(IPerson* p)
 			if (*it == p)
 			{
 				_occupants.erase(it);
-				LOG_ACTION("Room: " + p->getName() + " left room #" + std::to_string(ID));
+				LOG_DBUG("Room: " + p->getName() + " left room #" + std::to_string(ID));
 				break;
 			}
 		}

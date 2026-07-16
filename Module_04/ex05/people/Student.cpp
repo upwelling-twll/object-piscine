@@ -51,7 +51,7 @@ void Student::update(Break _break)
 		}
 		case Break::LunchStarted:
 		{
-			LOG_DBUG("Student: " + this->getName() + " signal for lunch");
+			LOG_DBUG("Student: " + this->getName() + " received signal for lunch");
 			_previousRoom = _currentRoom;
 			if (_currentRoom != NULL)
 				_currentRoom->exit(this);
@@ -71,6 +71,45 @@ void Student::update(Break _break)
 				_currentRoom->exit(this);
 			_currentRoom = NULL;
 			break;
+		}
+		case Break::GraduationCeremonyStart:
+		{
+			LOG_DBUG("Student: " + this->getName() + " received signal for graduation ceremony start");
+			Room* dr = findDinningRoom();
+			if (!dr)
+			{
+				LOG_DBUG("Student: " + this->getName() + " can not attend graduation ceremony beacuse there is no room");
+				break;
+			}
+			_previousRoom = _currentRoom;
+			if (_currentRoom == NULL || _currentRoom != dr)
+			{
+				_currentRoom->exit(this);
+				dr->enter(this);
+				_currentRoom = dr;
+			}
+			LOG_ACTION("Student: " + this->getName() + " arrived to graduation ceremony");
+            break;
+		}
+		case Break::GraduationCeremonyEnd:
+		{
+			LOG_DBUG("Student: " + this->getName() + " received signal for graduation ceremony end");
+			Room* dr = findDinningRoom();
+			if (!dr)
+			{
+				break;
+			}
+			if (_currentRoom != NULL && _currentRoom == dr)
+				_currentRoom->exit(this);
+			LOG_ACTION("Student: " + this->getName() + " left graduation ceremony");
+			if (_isGraduate)
+				_currentRoom = NULL;
+			else if (_previousRoom)
+			{
+				_previousRoom->enter(this);
+				_currentRoom = _previousRoom;
+			}
+            break;
 		}
     }
 }
@@ -243,8 +282,19 @@ const std::vector<Course*> Student::getCourses() const
 	return (_subscribedCourse);
 }
 
+void	Student::setGraduate()
+{
+	_isGraduate = true;
+	LOG_ACTION("Student: " + this->getName() + " 🎓 has graduated from School 🎉");
+}
+
+bool	Student::isGraduate()
+{
+	return (_isGraduate);
+}
+
 /*Constructors*/
-Student::Student(std::string name) : IPerson(name), _level(0)
+Student::Student(std::string name) : IPerson(name), _level(0), _isGraduate(false)
 {
 	LOG_CTOR("Student parameterized constructor is called");
 }

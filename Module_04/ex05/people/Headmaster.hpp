@@ -9,6 +9,7 @@
 # include "../forms/forms.hpp"
 # include "../bell/Bell.hpp"
 
+#define GLEVEL 1
 
 // class Staff;
 // class Form;
@@ -34,6 +35,7 @@ public:
 
     void conductClasses(std::vector<Professor*> professors, std::vector<Student*> students);
     void ringBell(Bell* bell, Event eventType);
+	void setStudentsAsGraduated();
 
     //requests from staff & students
     // Form* graduateFromCourse();

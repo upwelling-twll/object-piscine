@@ -1,4 +1,5 @@
 #include "Bell.hpp"
+#include "../people/people.hpp"
 
 /*Member functions*/
 bool Bell::findObserver(IPerson* obs)
@@ -19,9 +20,42 @@ bool Bell::findObserver(IPerson* obs)
 
 void Bell::notify(Break _break)
 {
-    for (std::list<IPerson*>::iterator it = _observers.begin(); it != _observers.end(); ++it)
+	if (_break == Break::GraduationCeremonyStart)
 	{
-		(*it)->update(_break);
+		//order of notification: students->prof+sec->hm
+		std::vector<Student*> students = getObserversByType<Student>();
+		for (std::vector<Student*>::iterator it = students.begin(); it != students.end(); ++it)
+		{
+			(*it)->update(_break);
+		}
+		std::vector<Staff*> staff = getObserversByType<Staff>();
+		for (std::vector<Staff*>::iterator it2 = staff.begin() + 1; it2 != staff.end(); ++it2)
+		{
+			(*it2)->update(_break);
+		}
+		staff[0]->update(_break); //HM must arrive the last
+	}
+	else if (_break == Break::GraduationCeremonyEnd)
+	{
+		//order of notification: students->staff
+		std::vector<Student*> students = getObserversByType<Student>();
+		for (std::vector<Student*>::iterator it = students.begin(); it != students.end(); ++it)
+		{
+			(*it)->update(_break);
+		}
+		std::vector<Staff*> staff = getObserversByType<Staff>();
+		for (std::vector<Staff*>::iterator it2 = staff.begin(); it2 != staff.end(); ++it2)
+		{
+			(*it2)->update(_break);
+		}
+	}
+	//order of notification: any order
+	else
+	{
+		for (std::list<IPerson*>::iterator it = _observers.begin(); it != _observers.end(); ++it)
+		{
+			(*it)->update(_break);
+		}
 	}
 }
 
@@ -79,6 +113,27 @@ void Bell::doEvent(Event _eventType)
 			_breakTime = true;
 		}
 	}
+	else if (_eventType == Event::GraduationCeremony)
+	{
+		if (_breakTime == true && _gradCeremony == false)
+		{
+			_gradCeremony = true;
+			_message = "Time to say goodbye to the max level students!";
+			LOG_INFO(_message);
+			notify(Break::GraduationCeremonyStart);
+		}
+		else if (_breakTime == false)
+		{
+			LOG_WARNING("Graduation ceremony can not start when students do classes. Try nex time");
+		}
+		else
+		{
+			_message = "Graduation ceremony finished. Comback to your previous rooms.";
+			LOG_INFO(_message);
+			notify(Break::GraduationCeremonyEnd);
+			_gradCeremony = false;
+		}
+	}
 }
 
 void Bell::createMessage(std::string message)
@@ -94,7 +149,7 @@ void Bell::displayObserversNumber()
 /*Getters and Setters*/
 
 /*Constructors*/
-Bell::Bell() : _breakTime(false)
+Bell::Bell() : _breakTime(false), _gradCeremony(false)
 {
     LOG_CTOR("Bell constructor is called");
 	_message = "Hello it is Bell"; 

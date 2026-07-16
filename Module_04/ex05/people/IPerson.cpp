@@ -30,6 +30,12 @@ Room* IPerson::getCurrentRoom()
 	return (_currentRoom);
 }
 
+void	IPerson::setCurrentRoom(Room* p_room)
+{
+	_currentRoom = p_room;
+}
+
+
 std::string IPerson::getName()
 {
 	return (_name);

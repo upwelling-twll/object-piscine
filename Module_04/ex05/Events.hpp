@@ -4,7 +4,8 @@
 enum class Event
 {
 	RingBell,
-	LunchTime
+	LunchTime,
+	GraduationCeremony
 };
 
 enum class Break
@@ -12,7 +13,9 @@ enum class Break
 	BreakStarted,
 	BreakEnded,
 	LunchStarted,
-	LunchEnded
+	LunchEnded,
+	GraduationCeremonyStart,
+	GraduationCeremonyEnd
 };
 
 #endif

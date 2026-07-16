@@ -60,7 +60,62 @@ void Headmaster::update(Break _break)
 			_currentRoom = NULL;
 			break;
 		}
+		case Break::GraduationCeremonyStart:
+		{
+			LOG_DBUG("Headmaster: " + this->getName() + " received signal for graduation ceremony start");
+			Room* dr = findDinningRoom();
+			if (!dr)
+			{
+				LOG_DBUG("Headmaster: " + this->getName() + " can not attend graduation ceremony beacuse there is no room");
+				break;
+			}
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL && _currentRoom != dr)
+				_currentRoom->exit(this);
+			else
+			{
+				dr->enter(this);
+				_currentRoom = dr;
+			}
+			LOG_ACTION("Headmaster: " + this->getName() + " arrived to graduation ceremony");
+			setStudentsAsGraduated();
+            break;
+		}
+		case Break::GraduationCeremonyEnd:
+		{
+			LOG_DBUG("Headmaster: " + this->getName() + " received signal for graduation ceremony end");
+			Room* dr = findDinningRoom();
+			if (!dr)
+			{
+				break;
+			}
+			if (_currentRoom != NULL && _currentRoom == dr)
+				_currentRoom->exit(this);
+			LOG_ACTION("Headmaster: " + this->getName() + " left graduation ceremony");
+			if (_previousRoom)
+			{
+				_previousRoom->enter(this);
+				_currentRoom = _previousRoom;
+			}
+            break;
+		}
     }
+}
+
+void Headmaster::setStudentsAsGraduated()
+{
+	std::vector<Student*> students = SingleList<Student>::getSingleList().getVector();
+	for (std::vector<Student*>::iterator it = students.begin(); it != students.end(); ++it)
+	{
+		if ((*it)->getLevel() >= GLEVEL)
+		{
+			(*it)->setGraduate();
+			std::string name = (*it)->getName();
+			if (name == "Harry" || name == "Harry Potter" || name == "Hermione" || name == "Ron")
+			LOG_ACTION("Headmaster is giving 100 points to Gryffindor!");
+		}
+	}
+	LOG_DBUG("Headmaster: all max level students received isGraduate status");
 }
 
 /*Member functions*/

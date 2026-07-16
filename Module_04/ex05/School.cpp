@@ -16,7 +16,6 @@ void School::runDayRoutine()
 	requestRingBell(Event::LunchTime);
 	requestRingBell(Event::LunchTime);
 	launchClasses();
-
 }
 
 void School::launchClasses()
@@ -72,7 +71,31 @@ void School::recruteStudent(Student* s)
 
 void School::graduationCeremony()
 {
-	// requestRingBell(GraduationTime);
+	requestRingBell(Event::GraduationCeremony); //start ceremoy
+	requestRingBell(Event::GraduationCeremony); //end ceremony
+	std::vector<Student*> students = getStudents();
+	for (std::vector<Student*>::iterator it = students.begin(); it != students.end(); ++it)
+	{
+		if ((*it)->isGraduate())
+		{
+			LOG_DBUG("School: is removing student " + (*it)->getName());
+			Room* r = (*it)->getCurrentRoom();
+			if (r)
+			{
+				r->exit(*it);
+			}
+			std::vector<Course*> courses = (*it)->getCourses();
+			if (!courses.empty())
+			{
+				for (std::vector<Course*>::iterator cit = courses.begin(); cit != courses.end(); ++cit)
+				{
+					(*cit)->unsubscribeStudent(*it);
+				}
+			}
+			SingleList<Student>::getSingleList().remove(*it);
+		}
+	}
+	LOG_DBUG("School has " + std::to_string(SingleList<Student>::getSingleList().getSize()) + " students");
 }
 
 /*Getters and Setters*/
@@ -137,6 +160,11 @@ School::School(std::string name) : _schoolName(name)
 	RoomList::getSingleList().add(staffRR); //4
 	RoomList::getSingleList().add(cl); //4
 
+	hmoffice->enter(_hm);
+	_hm->setCurrentRoom(hmoffice);
+
+	soffice->enter(_sec);
+	_sec->setCurrentRoom(soffice);
 }
 
 /*Destructors*/

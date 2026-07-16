@@ -77,7 +77,7 @@ void	Course::holdClass()
 	}
 	if (_students.empty())
 	{
-		LOG_WARNING("Course " + getName() + " has no subscribed students!");
+		LOG_DBUG("Course " + getName() + " has no subscribed students!");
 		return;
 	}
 	else
@@ -114,7 +114,7 @@ void	Course::unsubscribeStudent(Student* p_student)
 			if ((*it) == p_student)
 			{
 				_students.erase(it);
-				LOG_DBUG("Course unsubscribeStudent() : student " + p_student->getName() + " was unsubscribed");
+				LOG_DBUG("Course unsubscribeStudent() : student " + p_student->getName() + " was unsubscribed from " + getName());
 				return;
 			}
 		}	

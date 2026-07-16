@@ -40,6 +40,10 @@ void testFacade()
    hogwarts->recruteProfessor(&p6);
 
    hogwarts->runDayRoutine();
+   hogwarts->requestRingBell(Event::RingBell);
+   hogwarts->graduationCeremony();
+   hogwarts->runDayRoutine();
+
     delete hogwarts;
 } 
 

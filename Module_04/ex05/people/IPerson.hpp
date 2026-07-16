@@ -24,6 +24,7 @@ public:
 
 	/*Getters and Setters*/
 	Room*			getCurrentRoom();
+	void			setCurrentRoom(Room* p_room);
 	std::string		getName();
 	virtual void 	update(Break _break) = 0;
 	virtual Room* findRecreationSpace() = 0;

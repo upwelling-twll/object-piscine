@@ -73,6 +73,44 @@ void Staff::update(Break _break)
 			_currentRoom = NULL;
 			break;
 		}
+		case Break::GraduationCeremonyStart:
+		{
+			LOG_DBUG("Staff: " + this->getName() + " received signal for graduation ceremony start");
+			Room* dr = findDinningRoom();
+			if (!dr)
+			{
+				LOG_DBUG("Staff: " + this->getName() + " can not attend graduation ceremony beacuse there is no room");
+				break;
+			}
+			_previousRoom = _currentRoom;
+			if (_currentRoom != NULL && _currentRoom != dr)
+				_currentRoom->exit(this);
+			else
+			{
+				dr->enter(this);
+				_currentRoom = dr;
+			}
+			LOG_ACTION("Staff: " + this->getName() + " arrived to graduation ceremony");
+            break;
+		}
+		case Break::GraduationCeremonyEnd:
+		{
+			LOG_DBUG("Staff: " + this->getName() + " received signal for graduation ceremony end");
+			Room* dr = findDinningRoom();
+			if (!dr)
+			{
+				break;
+			}
+			if (_currentRoom != NULL && _currentRoom == dr)
+				_currentRoom->exit(this);
+			LOG_ACTION("Staff: " + this->getName() + " left graduation ceremony");
+			if (_previousRoom)
+			{
+				_previousRoom->enter(this);
+				_currentRoom = _previousRoom;
+			}
+            break;
+		}
     }
 }
 

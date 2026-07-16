@@ -6,12 +6,15 @@
 # include "../Events.hpp"
 # include "../people/IPerson.hpp"
 
+class Student;
+
 class Bell : public ISubject
 {
 private:
     std::list<IPerson*> _observers;
 	std::string 		_message;
 	bool				_breakTime;
+	bool				_gradCeremony;
 	
 	
 public:
@@ -29,8 +32,19 @@ public:
 
 	void createMessage(std::string message);
 	void displayObserversNumber();
-	/*Getters and Setters*/
 	
+	/*Getters and Setters*/
+	template <typename T>
+	std::vector<T*> getObserversByType()
+	{
+		std::vector<T*> result;
+		for (IPerson* observer : _observers)
+		{
+			if (T* p = dynamic_cast<T*>(observer))
+				result.push_back(p);
+		}
+		return result;
+	}
 
 	/*Constructors*/
 	Bell(void);

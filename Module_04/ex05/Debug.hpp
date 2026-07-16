@@ -12,7 +12,7 @@
 #define GREEN   "\033[32m"
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
-#define CYAN    "\e[1;36m"
+#define CYAN    "\e[0;36m"
 #define GREY    "\033[90m"
 #define PINK    "\033[95m"
 
