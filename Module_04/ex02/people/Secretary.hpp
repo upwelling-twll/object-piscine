@@ -15,6 +15,7 @@ private:
 public:
 	/*Member functions*/
 	Form* createForm(FormType p_formType, time_t expiration);
+
 	// void archiveForm();
 
 	/*Getters and Setters*/

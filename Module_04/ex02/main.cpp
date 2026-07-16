@@ -82,8 +82,8 @@ void testFactory()
     time_t et = time(0) + (3600 * 24); //24 hours from now
     Form* newForm = sec.createForm(FormType::NeedCourseCreation, et);
     NeedCourseCreationForm* f = dynamic_cast<NeedCourseCreationForm*>(newForm);
-    
     LOG_INFO(*f);
+    delete newForm;
     
 }
 
@@ -104,6 +104,7 @@ void testCommand()
     hm.sign(f);
     hm.execute(f);
     LOG_INFO(*(CourseList::getSingleList().get(0)));
+    delete newForm;
 
 
     std::cout << "\n --- Course Finished Form --- " << std::endl;
@@ -113,6 +114,7 @@ void testCommand()
     LOG_INFO(*ff);
     hm.sign(ff);
     hm.execute(ff);
+    delete finishForm;
 
     std::cout << "\n --- Need Room Form --- " << std::endl;
     Form* roomForm = sec.createForm(FormType::NeedMoreClassRoom, et);
@@ -121,6 +123,7 @@ void testCommand()
     hm.sign(rf);
     hm.execute(rf);
     LOG_INFO(*(RoomList::getSingleList().get(0)));
+    delete roomForm;
 
     std::cout << "\n --- Subscribe Student To Course Form --- " << std::endl;
     Form* subscribeForm = sec.createForm(FormType::SubscriptionToCourse, et);
@@ -128,10 +131,27 @@ void testCommand()
     LOG_INFO(*sf);
     sf->setCourse(CourseList::getSingleList().get(0));
     sf->setStudent(&harry);
-
+    
     hm.sign(sf);
     hm.execute(sf);
     LOG_INFO(*(StudentList::getSingleList().get(0)));
+    delete subscribeForm;
+
+    int clsize = CourseList::getSingleList().getSize();
+    for (int i = 0; i < clsize; ++i)
+    {
+        Course* c = CourseList::getSingleList().get(0);
+        CourseList::getSingleList().remove(c);
+        delete(c);
+    }
+    
+    int rlsize = RoomList::getSingleList().getSize();
+    for (int i = 0; i < rlsize; ++i)
+    {
+        Room* r = RoomList::getSingleList().get(0);
+        RoomList::getSingleList().remove(r);
+        delete(r);
+    }
 }
 
 int main()
