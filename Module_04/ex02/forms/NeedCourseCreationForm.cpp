@@ -19,25 +19,38 @@ void NeedCourseCreationForm::execute(Headmaster *hm)
         LOG_WARNING("NeedCourseCreationForm:course was not created");
 }   
 
+bool NeedCourseCreationForm::isComplete()
+{
+    return courseNameSet && classesToGraduateSet && maxNumberOfStudentsSet;
+}
 /*Getters and Setters*/
 void	NeedCourseCreationForm::setCourseName(std::string name)
 {
     courseName = name;
+    courseNameSet = true;
 }
 
 void	NeedCourseCreationForm::setClassesToGraduate(int classes)
 {
     classesToGraduate = classes;
+    classesToGraduateSet = true;
 }
 
 void	NeedCourseCreationForm::setNumberOfStudents(int number)
 {
     maxNumberOfStudents = number;
+    maxNumberOfStudentsSet = true;
 }
+
 
 /*Constructors*/
 NeedCourseCreationForm::NeedCourseCreationForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
+    classesToGraduate = 0;
+    maxNumberOfStudents = 0;
+    courseNameSet= false;
+    classesToGraduateSet = false;
+    maxNumberOfStudentsSet = false;
     LOG_CTOR("NeedCourseCreationForm parameterized constructor is called");
 }
 

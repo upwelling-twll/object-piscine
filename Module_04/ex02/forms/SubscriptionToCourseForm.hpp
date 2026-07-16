@@ -13,9 +13,13 @@ private:
 	Course*		p_course;
 	Student*	p_student;
 
+	bool		courseSet;
+	bool		studentSet;
+
 public:
 	/*Member functions*/
    void execute(Headmaster *hm);
+   bool isComplete();
 
 	/*Getters and Setters*/
 	void setStudent(Student* student);

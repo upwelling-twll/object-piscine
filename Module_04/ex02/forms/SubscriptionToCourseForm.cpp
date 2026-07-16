@@ -23,15 +23,22 @@ void SubscriptionToCourseForm::execute(Headmaster *hm)
 	}
 }
 
+bool SubscriptionToCourseForm::isComplete()
+{
+	return (courseSet && studentSet);
+}
+
 /*Getters and Setters*/
 void SubscriptionToCourseForm::setCourse(Course* course)
 {
     p_course = course;
+	courseSet = true;
 }
 
 void SubscriptionToCourseForm::setStudent(Student* student)
 {
     p_student = student;
+	studentSet = true;
 }
 
 /*Constructors*/
@@ -39,6 +46,8 @@ SubscriptionToCourseForm::SubscriptionToCourseForm(FormType type, time_t expirat
 {
     p_course = NULL;
     p_student = NULL;
+	studentSet = false;
+	courseSet = false;
     LOG_CTOR("SubscriptionToCourseForm parameterized constructor is called");
 }
 

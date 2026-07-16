@@ -21,6 +21,7 @@ protected:
 public:
 	/*Member functions*/
 	virtual void	execute(Headmaster *hm) = 0;
+	virtual bool	isComplete() = 0;
 	void			beSigned();
 	
 	/*Getters and Setters*/

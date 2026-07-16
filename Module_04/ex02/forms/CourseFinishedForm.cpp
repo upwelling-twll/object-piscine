@@ -17,16 +17,24 @@ void CourseFinishedForm::execute(Headmaster *hm)
 		LOG_ACTION("CourseFinishedForm: course " + p_course->getName() + " was finished");
 	}
 }
+
+bool CourseFinishedForm::isComplete()
+{
+	return (courseSet);
+}
+
 /*Getters and Setters*/
 void	CourseFinishedForm::setCourse(Course* course)
 {
 	p_course = course;
+	courseSet = true;
 }
 
 
 /*Constructors*/
 CourseFinishedForm::CourseFinishedForm(FormType type, time_t expirationDate) : Form(type, expirationDate)
 {
+	courseSet = false;
    LOG_CTOR("CourseFinishedForm parameterized constructor is called");
 }
 

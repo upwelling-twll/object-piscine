@@ -12,10 +12,13 @@ class CourseFinishedForm : public Form
 {
 private:
 	Course* p_course;
+
+	bool courseSet;
     
 public:
 	/*Member functions*/
     void execute(Headmaster *hm);
+	bool isComplete();
 
 	/*Getters and Setters*/
 	void	setCourse(Course* course);

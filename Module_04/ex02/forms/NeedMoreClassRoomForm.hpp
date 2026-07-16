@@ -12,6 +12,7 @@ private:
 public:
 	/*Member functions*/
     void execute(Headmaster *hm);
+	bool isComplete();
 
 	/*Getters and Setters*/
 

@@ -14,9 +14,15 @@ private:
 	int			classesToGraduate;
 	int			maxNumberOfStudents;
 
+	bool courseNameSet;
+    bool classesToGraduateSet;
+    bool maxNumberOfStudentsSet;
+
 public:
 	/*Member functions*/
     void execute(Headmaster *hm);
+	bool	isComplete();
+
 
 	/*Getters and Setters*/
 	void	setCourseName(std::string name);

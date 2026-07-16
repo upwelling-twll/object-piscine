@@ -56,7 +56,11 @@ Professor* Course::getResponsable()
 
 int Course::getNumberOfStudents()
 {
-	return (_students.size());
+	int size = _students.size();
+	if (size == 0)
+		return (0);
+	else
+		return (size);
 }
 
 int Course::getNumberOfClasses()
@@ -100,7 +104,7 @@ std::ostream& operator<<(std::ostream& output_stream, Course& src)
 		output_stream << "Professor assigned : " << (src.getResponsable())->getName() << std::endl;
 	output_stream << " Number of students currently assigned : " << src.getNumberOfStudents() << std::endl;
 	output_stream << " Number of class to graduate : " << src.getNumberOfClasses() << std::endl;
-	output_stream << " Maxnumber of students : " << src.getMaxStudents()<< std::endl;
+	output_stream << " Max number of students : " << src.getMaxStudents()<< std::endl;
 
 	return output_stream;
 }

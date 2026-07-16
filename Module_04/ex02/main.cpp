@@ -8,72 +8,6 @@
 
 #include <iostream>
 
-void testSingleton()
-{
-    std::cout << "=== Test singleton ===" << std::endl;
-    Student harry("Harry");
-    Student hermione("Hermione");
-    Student ron("Ron");
-
-    // Staff filch("Argus");
-    // Staff norris("Ms Norris🐾");
-    // Staff hagrid("Rubeus");
-    Professor mcGonagall("Minerva");
-    Headmaster dumblerode("Albus");
-
-    Course potions("Potions", 100, 30);
-    Course transfiguration("Transfiguration", 50, 20);
-    Course herbology("Herbology", 50, 15);
-
-    HeadmasterOffice hmoffice;
-    SecretarialOffice soffice;
-    Classroom   potionsClass;
-    Classroom   transfigurationClass;
-    Classroom   greenhouse;
-    Room        roomofrequirement;
-
-    SingleList<Student>& students = SingleList<Student>::getSingleList();
-    SingleList<Course>& courses = SingleList<Course>::getSingleList();
-    SingleList<Staff>& staff = SingleList<Staff>::getSingleList();
-    SingleList<Room>& rooms = SingleList<Room>::getSingleList();
-
-    students.add(&harry);
-    students.add(&hermione);
-    students.add(&ron);
-
-    // staff.add(&filch);
-    // staff.add(&norris);
-    staff.add(&dumblerode);
-    staff.add(&mcGonagall);
-
-    courses.add(&potions);
-    courses.add(&transfiguration);
-    courses.add(&herbology);
-
-    rooms.add(&hmoffice);
-    rooms.add(&soffice);
-    rooms.add(&potionsClass);
-    rooms.add(&transfigurationClass);
-    rooms.add(&greenhouse);
-    rooms.add(&roomofrequirement);
-
-    LOG_INFO(*(students.get(0)));
-    // std::cout << *(students.get(1)) << std::endl;
-    // std::cout << *(students.get(2)) << std::endl;
-
-    // std::cout << *(staff.get(0)) << std::endl;
-    // std::cout << *(staff.get(1)) << std::endl;
-    // std::cout << *(staff.get(2)) << std::endl;
-
-    // std::cout << *(courses.get(0)) << std::endl;
-    // std::cout << *(courses.get(1)) << std::endl;
-    // std::cout << *(courses.get(2)) << std::endl;
-
-    std::cout << *(rooms.get(0)) << std::endl;
-    std::cout << *(rooms.get(1)) << std::endl;
-    std::cout << *(rooms.get(2)) << std::endl;
-}
-
 void testFactory()
 {
     std::cout << "=== Test factory ===" << std::endl;
@@ -98,9 +32,13 @@ void testCommand()
     time_t et = time(0) + (3600 * 24); //24 hours from now
     Form* newForm = sec.createForm(FormType::NeedCourseCreation, et);
     NeedCourseCreationForm* f = dynamic_cast<NeedCourseCreationForm*>(newForm);
-    f->setCourseName("Transfiguration");    
+    f->setCourseName("Transfiguration"); 
+    f->setNumberOfStudents(10);
+    f->setClassesToGraduate(5);
+
     LOG_INFO(*f);
     Headmaster hm("Dumbledor");
+    hm.receiveForm(f);
     hm.sign(f);
     hm.execute(f);
     LOG_INFO(*(CourseList::getSingleList().get(0)));
@@ -112,6 +50,7 @@ void testCommand()
     CourseFinishedForm* ff = dynamic_cast<CourseFinishedForm*>(finishForm);
     ff->setCourse(CourseList::getSingleList().get(0));
     LOG_INFO(*ff);
+    hm.receiveForm(ff);
     hm.sign(ff);
     hm.execute(ff);
     delete finishForm;
@@ -120,6 +59,7 @@ void testCommand()
     Form* roomForm = sec.createForm(FormType::NeedMoreClassRoom, et);
     NeedMoreClassRoomForm* rf = dynamic_cast<NeedMoreClassRoomForm*>(roomForm);
     LOG_INFO(*rf);
+    hm.receiveForm(rf);
     hm.sign(rf);
     hm.execute(rf);
     LOG_INFO(*(RoomList::getSingleList().get(0)));
@@ -131,7 +71,7 @@ void testCommand()
     LOG_INFO(*sf);
     sf->setCourse(CourseList::getSingleList().get(0));
     sf->setStudent(&harry);
-    
+    hm.receiveForm(sf);
     hm.sign(sf);
     hm.execute(sf);
     LOG_INFO(*(StudentList::getSingleList().get(0)));

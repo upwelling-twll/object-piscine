@@ -3,9 +3,6 @@
 #include "../rooms/Classroom.hpp"
 #include "../singletons.hpp"
 
-
-
-
 /*Member functions*/
 void NeedMoreClassRoomForm::execute(Headmaster *hm)
 {
@@ -21,6 +18,11 @@ void NeedMoreClassRoomForm::execute(Headmaster *hm)
     }
     else 
         LOG_WARNING("NeedMoreClassRoomForm:room was not created");
+}
+
+bool NeedMoreClassRoomForm::isComplete()
+{
+    return (true);
 }
 
 /*Getters and Setters*/
