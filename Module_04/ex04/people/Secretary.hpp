@@ -5,12 +5,11 @@
 # include "../forms/Form.hpp"
 # include "Staff.hpp"
 
-// class Form;
+class Form;
 
 class Secretary : public Staff
 {
 private:
-    // Add member variables here
 	void sendFormToArchive(Form* p_form);
 
 public:
