@@ -1,5 +1,5 @@
 #include "School.hpp"
-#include "singletonTypedefs.hpp"
+#include "../singletonTypedefs.hpp"
 
 
 /*Member functions*/

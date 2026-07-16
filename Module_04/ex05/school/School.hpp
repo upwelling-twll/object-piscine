@@ -3,17 +3,17 @@
 
 # include <iostream>
 
-#include "FormType.hpp"
-#include "Events.hpp"
+#include "../FormType.hpp"
+#include "../Events.hpp"
 
-#include "courses/Course.hpp"
-#include "bell/Bell.hpp"
-#include "forms/forms.hpp"
-#include "people/people.hpp"
-#include "rooms/rooms.hpp"
-#include "singletons.hpp"
-#include "Debug.hpp"
-#include "courses/CourseBlueprint.hpp"
+#include "../courses/Course.hpp"
+#include "../bell/Bell.hpp"
+#include "../forms/forms.hpp"
+#include "../people/people.hpp"
+#include "../rooms/rooms.hpp"
+#include "../singletons.hpp"
+#include "../Debug.hpp"
+#include "../courses/CourseBlueprint.hpp"
 
 class School
 {

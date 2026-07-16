@@ -6,7 +6,7 @@
 #include "singletons.hpp"
 #include "Debug.hpp"
 #include "courses/CourseBlueprint.hpp"
-#include "School.hpp"
+#include "school/School.hpp"
 #include <iostream>
 
 
