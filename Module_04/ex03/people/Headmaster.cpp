@@ -5,6 +5,8 @@
 #include "../courses/Course.hpp"
 #include "../singletons.hpp"
 #include "../FormType.hpp"
+#include <algorithm>
+
 
 /*Member functions*/
 void Headmaster::receiveForm(Form* p_form)
@@ -25,6 +27,19 @@ void Headmaster::receiveForm(Form* p_form)
 	}
 	sign(p_form);
 	execute(p_form);
+	// move to secretary archive
+	if (p_secretary)
+	{
+		auto it = std::find(_formToValidate.begin(), _formToValidate.end(), p_form);
+		_formToValidate.erase(it);
+		p_secretary->archiveForm(p_form);
+	}
+	else
+	{
+		LOG_WARNING("Headmaster: no secretary to archive the form");
+	}
+
+	LOG_DBUG("Headmaster: finished signing and executing form");
 }
 
 void Headmaster::sign(Form* p_form)

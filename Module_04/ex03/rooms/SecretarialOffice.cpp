@@ -1,18 +1,28 @@
 #include "SecretarialOffice.hpp"
 #include "../Debug.hpp"
+#include "../forms/Form.hpp"
+#include <algorithm>
 
 /*Member functions*/
+void SecretarialOffice::addToArchive(Form* p_form)
+{
+	if (!p_form)
+		std::invalid_argument("SecretarialOffice addToArchive() received null form");
+	else
+	{
+		// don't check duplicate by pointer (unique ownership), just store
+		_archivedForms.push_back(p_form);
+		LOG_ACTION("SecretarialOffice: form was archived");
+	}
+}
 
 /*Getters and Setters*/
-// std::vector<Form*> SecretarialOffice::getArchivedForms()
-// {
-//     if (!_archivedForms)
-//         return (NULL);
-//     else
-//     {
-//         return (_archivedForms.size());
-//     }
-// }
+
+int SecretarialOffice::getArchivedForms()
+{
+	return (_archivedForms.size());
+}
+
 /*Constructors*/
 SecretarialOffice::SecretarialOffice()
 {
@@ -23,6 +33,11 @@ SecretarialOffice::SecretarialOffice()
 SecretarialOffice::~SecretarialOffice( void )
 {
 	LOG_DTOR("SecretarialOffice destructor is called");
+	for (std::vector<Form*>::iterator it = _archivedForms.begin(); it != _archivedForms.end(); ++it)
+	{
+		delete(*it);
+	}
+	_archivedForms.clear();
 }
 
 /*Overload operators*/

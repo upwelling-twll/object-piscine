@@ -22,16 +22,17 @@ void testMediator()
     Secretary sec("Percy Weasley");
     dumblerode.setSecretary(&sec);
 
-    Course potions("Potions", 100, 0);
-    Course transfiguration("Transfiguration", 1, 0);
-    Course herbology("Herbology", 50, 0);
+    Course* potions = new Course("Potions", 100, 0);
+    Course* transfiguration = new Course("Transfiguration", 1, 0);
+    Course* herbology = new Course("Herbology", 50, 0);
 
-    HeadmasterOffice hmoffice;
-    SecretarialOffice soffice;
-    Classroom   potionsClass;
+    HeadmasterOffice* hmoffice = new HeadmasterOffice();
+    SecretarialOffice* soffice = new SecretarialOffice();
+    Classroom*   potionsClass = new Classroom();
     // Classroom*   transfigurationClass = new Classroom();
-    Classroom   greenhouse;
+    Classroom*   greenhouse = new Classroom();
     // Room        roomofrequirement;
+
 
     SingleList<Student>& students = SingleList<Student>::getSingleList();
     SingleList<Course>& courses = SingleList<Course>::getSingleList();
@@ -47,15 +48,15 @@ void testMediator()
     staff.add(&dumblerode);
     staff.add(&mcGonagall);
 
-    courses.add(&potions);
-    courses.add(&transfiguration);
-    courses.add(&herbology);
+    courses.add(potions);
+    courses.add(transfiguration);
+    courses.add(herbology);
 
-    rooms.add(&hmoffice);
-    rooms.add(&soffice);
-    rooms.add(&potionsClass);
+    rooms.add(hmoffice);
+    rooms.add(soffice);
+    rooms.add(potionsClass);
     // rooms.add(transfigurationClass);
-    rooms.add(&greenhouse);
+    rooms.add(greenhouse);
     // rooms.add(&roomofrequirement);
 
     LOG_INFO(*(students.get(0)));
@@ -78,8 +79,8 @@ void testMediator()
 
     LOG_DBUG("Staff list size: " + std::to_string(StaffList::getSingleList().getSize()));
     
-    potionsClass.assignCourse(&potions);
-    greenhouse.assignCourse(&herbology);
+    potionsClass->assignCourse(potions);
+    greenhouse->assignCourse(herbology);
     mcGonagall.setHeadmaster(&dumblerode);
     // mcGonagall.assignCourse(&transfiguration);
     // transfiguration.assign(&mcGonagall);
@@ -91,14 +92,33 @@ void testMediator()
 
     // transfiguration.setClassroom(transfigurationClass);
     // transfigurationClass->assignCourse(&transfiguration);
-    LOG_INFO(transfiguration);
+    LOG_INFO(*transfiguration);
     dumblerode.conductClasses();
 
     // LOG_INFO("Harry attended dancing " + std::to_string(harry.getAttendance(&)) + " times");
     // dumblerode.conductClasses();
     // dumblerode.conductClasses();
     // LOG_INFO("Harry attended transfiguration " + std::to_string(harry.getAttendance(&transfiguration)) + " times");
+    int rsize = RoomList::getSingleList().getSize();
+	for (int i = 0; i != rsize; i++)
+	{
+		Room* r = RoomList::getSingleList().get(0);
+		RoomList::getSingleList().remove(r);
+		// LOG_DBUG("DELETE: ");
+		// LOG_DBUG((r));
 
+		delete r;
+	}
+	int csize = CourseList::getSingleList().getSize();
+	for (int i = 0; i != csize; i++)
+	{
+		Course* c = CourseList::getSingleList().get(0);
+		CourseList::getSingleList().remove(c);
+		// LOG_DBUG("DELETE: ");
+		// LOG_DBUG((r));
+
+		delete c;
+	}
 } 
 
 int main()

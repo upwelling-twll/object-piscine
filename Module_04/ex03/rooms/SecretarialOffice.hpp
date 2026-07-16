@@ -6,16 +6,19 @@
 
 # include "Room.hpp"
 
-// class Form;
+class Form;
 
 class SecretarialOffice : public Room
 {
 private:
-   	// std::vector<Form*> _archivedForms;
+   	std::vector<Form*> _archivedForms;
 
 public:
 	/*Member functions*/
+	void addToArchive(Form* p_form);
+
 	/*Getters and Setters*/
+	int getArchivedForms();
 
 	/*Constructors*/
     SecretarialOffice();
