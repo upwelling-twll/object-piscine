@@ -6,15 +6,17 @@ This repository contains my solutions to 5 Object-Oriented Programming exercises
 
 Depending on the exercise, this repository includes implementations and practice with concepts such as:
 
-* Encapsulation
-* Composition, aggregation, inheritance, association
-* UML diagrams
-* SOLID
-* Signleton
-* Factory and Command
-* Mediator
-* Observer
-* Facade
+* Encapsulation - Module_00
+* Composition, aggregation, inheritance, association - Module_01
+* UML diagrams - Module_02
+* SOLID - Module_03
+* Signleton - Module_04
+* Factory and Command - Module_04
+* Mediator - Module_04
+* Observer - Module_04
+* Facade - Module_04
+
+* Module_05 includes all these context in a program of Train Management System (still in process)
 
 
 Each exercise focuses on a specific OOP concept and is designed to build upon previous exercises.
