@@ -33,14 +33,14 @@ This module demonstrates six fundamental design patterns through a school simula
 
 ## Exercises & Patterns
 
-### [Exercise 01 — Singleton](README_ex01_Singleton.md)
+### [Exercise 01 — Singleton](ex01/README.md)
 **Pattern**: Singleton  
 **Concept**: Centralized, globally accessible instances of collections.  
 **Key Class**: `SingleList<T>` — manages a single static container per type (students, staff, courses, rooms).
 
 ---
 
-### [Exercise 02 — Factory & Command](README_ex02_Factory_Command.md)
+### [Exercise 02 — Factory & Command](ex02/README.md)
 **Patterns**: Factory, Command  
 **Concepts**:
 - **Factory**: `Secretary::createForm()` centralizes form object creation.
@@ -50,14 +50,15 @@ This module demonstrates six fundamental design patterns through a school simula
 
 ---
 
-### [Exercise 03 — Mediator](README_ex03_Mediator.md)
+### [Exercise 03 — Mediator](ex03/README.md)
 **Pattern**: Mediator  
 **Concept**: `Headmaster` orchestrates interactions between participants (professors, students, secretary, rooms).  
 **Key Class**: `Headmaster` — centralizes coordination and eliminates direct peer-to-peer coupling.
 
 ---
 
-### [Exercise 04 & 05 — Observer & Facade](README_ex04-05_Observer_Facade.md)
+### [Exercise 04 — Observer](ex04/README.md)
+### [Exercise 05 — Facade](ex05/README.md)
 **Patterns**: Observer, Facade
 
 #### Observer (ex04)
