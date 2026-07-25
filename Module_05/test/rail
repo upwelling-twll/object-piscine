@@ -1,0 +1,5 @@
+Node AbuDhabi
+Node Fujairah
+Node AlAin
+Rail AbuDhabi Fujairah 200.0 100.0
+Rail AbuDhabi AlAin 300.0 70.0
