@@ -31,7 +31,7 @@ void testAggregation()
         worker->takeTool(NEWShovel);
         worker->useTool(NEWShovel); 
         std::cout << WHITE << *NEWShovel << RESET << std::endl; 
-        // delete worker;  
+        // // delete worker;  
         std::cout << WHITE << *NEWShovel << RESET << std::endl;
         delete NEWShovel; 
         NEWShovel = NULL;
@@ -45,20 +45,22 @@ void testAggregation()
         worker->takeTool(Hammer1);
         worker->takeTool(Shovel2);
         std::cout << YELLOW << *worker << RESET << std::endl;
+        std::cout << YELLOW << *worker << RESET << std::endl;
+        
         worker->useTool(Shovel1);
         worker->useTool(Hammer1);
         worker->useTool(Shovel2);
         std::cout << WHITE << *Shovel1 << RESET << std::endl;
-        std::cout << PINK << *Hammer1 << RESET << std::endl;
+        // std::cout << PINK << *Hammer1 << RESET << std::endl;
         std::cout << WHITE << *Shovel2 << RESET << std::endl;
-        delete Hammer1;
         std::cout << YELLOW << *worker << RESET << std::endl;
         delete worker;
+        delete Hammer1;
         delete Shovel1;
         delete Shovel2;
     }
-    catch (const char* msg) {
-        std::cerr << RED <<"Error: " << msg << RESET << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
     }
 }
 
@@ -77,6 +79,8 @@ void testToolTransfer()
         std::cout << WHITE << *tool << RESET << std::endl;
 
         worker1.useTool(tool);
+        // worker2.useTool(tool);
+
 
         worker2.takeTool(tool);
         worker2.useTool(tool);
@@ -86,12 +90,13 @@ void testToolTransfer()
         
         worker2.takeTool(tool);
         worker2.discardTool(tool);
-        worker1.discardTool(tool);
+        // worker1.discardTool(tool);
+        std::cout << WHITE << *tool << RESET << std::endl;
         
-        // worker2.useTool(tool);
+        worker2.useTool(tool);
     }
-    catch (const char* msg) {
-        std::cerr << RED <<"Error: " << msg << RESET << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
     }
     delete tool;
 }
@@ -105,11 +110,25 @@ void testWorkshopAssociation()
     Workshop workshop("Nan Curunír (Saruman's Workshop in Isengard)", "Shovel");
     Workshop workshop2("Gorgoroth (Sauron's Workshop in Mordor)", "Hammer");
     Workshop workshop3("Saruman's Workshop in Bag End", "Shovel");
-
+    
+    Shovel shovel1("stolen shovel", "Shovel");
+    Shovel shovel2("another stolen shovel", "Shovel");
+    Shovel shovel3("old shovel", "Shovel");
+    Hammer hammer1("stolen hammer", "Hammer");
+    Hammer hammer2("another stolen hammer", "Hammer");
+    Hammer hammer3("old hammer", "Hammer");
     try {
+
+        worker1.takeTool(&shovel1);
+        worker2.takeTool(&shovel2);
+        worker3.takeTool(&shovel3);
+
+        worker1.takeTool(&hammer1);
+        worker2.takeTool(&hammer2);
+        worker1.takeTool(&hammer3);
+
         workshop.registerWorker(&worker1);
         workshop.registerWorker(&worker2);
-        workshop.registerWorker(&worker1);
         workshop.displayWorkers();
         std::cout << std::endl;
         std::cout << YELLOW << worker1 << RESET << std::endl;
@@ -117,17 +136,20 @@ void testWorkshopAssociation()
 
         workshop2.registerWorker(&worker2);
         workshop3.registerWorker(&worker2);
-        std::cout << YELLOW << worker1 << RESET << std::endl;
+        std::cout << YELLOW << worker2 << RESET << std::endl;
+        workshop.displayWorkers();
         workshop2.displayWorkers();
         workshop3.displayWorkers();
 
+        std::cout << "\n== Test workday ==" << std::endl;
         workshop.executeWorkDay();
-        workshop.releaseWorker(&worker3);
-        // worker3.work();
+        // workshop.releaseWorker(&worker3);
+        worker3.work(&workshop);
+        worker2.discardTool(&hammer2);
         workshop.releaseWorker(&worker1);
         workshop.displayWorkers();
-        std::cout << std::endl;
-        std::cout << YELLOW << worker1 << RESET << std::endl;
+        // std::cout << std::endl;
+        // std::cout << YELLOW << worker1 << RESET << std::endl;
     }
     catch (const std::exception& e) {
         std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
@@ -162,6 +184,10 @@ void testWorshopToolRequirement()
     std::cout << "=== Workshop Tool Requirement Test ===" << std::endl;
     Worker worker("Orc");
     Workshop workshop("Isengard", "Hammer");
+    Workshop workshop2("Mordor", "Hammer");
+    Workshop workshop3("Beg End", "Shovel");
+
+
 
     try {
         workshop.registerWorker(&worker);
@@ -171,11 +197,20 @@ void testWorshopToolRequirement()
     }
 
     Hammer hammer("Ugly Hammer", "Hammer");
+    Shovel shovel("Stinky Shovel", "Shovel");
+
     worker.takeTool(&hammer);
+    worker.takeTool(&shovel);
 
     try {
         workshop.registerWorker(&worker);
+        workshop2.registerWorker(&worker);
+        workshop3.registerWorker(&worker);
+
         workshop.displayWorkers();
+        workshop2.displayWorkers();
+        workshop3.displayWorkers();
+
     }
     catch (const std::exception& e) {
         std::cerr << RED <<"Error: " << e.what() << RESET << std::endl;
@@ -189,14 +224,12 @@ void testWorshopToolRequirement()
 
 int main()
 {
-    // testComposition();
-    // testAggregation();
-    // testInheritance();
-    // testWorkshopAssociation();
-    // testToolTransfer();
-    // testAutoRelease();
-    // testInvalidOperations();
-    // testToolType();
+    testToolTransfer();
+    testComposition();
+    testAggregation();
+    testWorkshopAssociation();
+    testToolType();
     testWorshopToolRequirement();
+   
     return 0;
 }

@@ -1,5 +1,5 @@
 #ifndef OSTREAMLOGGER_HPP
-#define OSTREAMLOFFER_HPP
+#define OSTREAMLOGGER_HPP
 
 #include <iostream>
 #include <fstream>

@@ -9,10 +9,13 @@ void Worker::useTool(Tool* tool)
 {
 	if (!tool)
 	{
-		throw std::runtime_error("Worker " + this->_name + " has no tool to use.");
+		throw std::runtime_error("Worker " + this->_name + " cannot use tool which does not exist.");
 		return;
 	}
-    tool->use();
+	if (tool->getMemberOfUse() == this)
+   		tool->use();
+	else
+		throw std::runtime_error("Worker " + this->_name + " cannot use tool which does not belong to them.");
 }
 
 void Worker::takeTool(Tool* tool)
@@ -39,7 +42,7 @@ void Worker::takeTool(Tool* tool)
 
 void Worker::discardTool(Tool* tool)
 {
-	std::cout << "Worker " << this->_name << " is trying to discard a tool " << tool->getName() << std::endl;
+	// std::cout << "Worker " << this->_name << " is trying to discard a tool " << tool->getName() << std::endl;
 	if (this->_tools.empty())
 	{
 		throw std::runtime_error("Worker " + this->_name + " has no tools to discard.");
@@ -51,23 +54,32 @@ void Worker::discardTool(Tool* tool)
 			this->_tools.erase(it);
 			tool->setMemberOfUse(NULL);
 			std::cout << YELLOW << "Worker " << this->_name << " has discarded a tool." << RESET << std::endl;
+			break;
 		}
-		std::vector<Workshop*> workshopsCopy = this->_workshops;
-		for (std::vector<Workshop*>::iterator it = workshopsCopy.begin(); it != workshopsCopy.end(); ++it)
+		if (it == this->_tools.end())
+			throw std::runtime_error("Worker " + this->_name + " has no such tool in inventory.");
+		//check if there are other tools of this type in worker's inventory
+	}
+		std::string toolType = tool->getType();
+		if (this->getTool(toolType))
+			return;
+		//worker must leave all workshops where tool of this type was required
+		else
 		{
-			std::string requiredToolType = (*it)->getRequiredToolType();
-			std::string toolType = tool->getType();
-			std::cout << YELLOW << "Worker " << this->_name << " is checking if the discarded tool is required by workshop. his tool type is " << toolType << " and the required tool type is " << requiredToolType << "." << RESET << std::endl;
-			if (requiredToolType == toolType)
+			std::vector<Workshop*> workshopsCopy = this->_workshops;
+			for (std::vector<Workshop*>::iterator it = workshopsCopy.begin(); it != workshopsCopy.end(); ++it)
 			{
-				(*it)->releaseWorker(this);
-				std::cout << YELLOW << "Worker " << this->_name << " has been released from the workshop due to discarding a required tool." << RESET << std::endl;
+				std::string requiredToolType = (*it)->getRequiredToolType();
+				// std::cout << YELLOW << "Worker " << this->_name << " is checking if the discarded tool is required by workshop. his tool type is " << toolType << " and the required tool type is " << requiredToolType << "." << RESET << std::endl;
+				if (requiredToolType == toolType)
+				{
+					(*it)->releaseWorker(this);
+					std::cout << YELLOW << "Worker " << this->_name << " has been released from the workshop due to discarding a required tool." << RESET << std::endl;
+				}
+				std::cout << *this << std::endl;
 			}
-			std::cout << *this << std::endl;
 		}
 		return;
-	}
-	throw std::runtime_error("Worker " + this->_name + " has no such tool in inventory.");
 }
 
 void Worker::registerInWorkshop(Workshop* workshop)
@@ -96,10 +108,10 @@ void Worker::leaveWorkshop(Workshop* workshop)
 		throw std::runtime_error("Worker " + this->_name + " has no workshop to leave.");
 		return;
 	}
-	std::cout << YELLOW << "Worker " << this->_name << " is trying to leave workshop " << workshop->getName() << RESET << std::endl;
+	// std::cout << YELLOW << "Worker " << this->_name << " is trying to leave workshop " << workshop->getName() << RESET << std::endl;
 	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
 	{
-		std::cout << YELLOW << "Worker " << this->_name << " is checking if they are registered in the workshop " << (*it)->getName() << "." << RESET << std::endl;
+		// std::cout << YELLOW << "Worker " << this->_name << " is checking if they are registered in the workshop " << (*it)->getName() << "." << RESET << std::endl;
 		if (*it == workshop)
 		{
 			this->_workshops.erase(it);
@@ -122,15 +134,23 @@ Tool* Worker::getTool(const std::string& toolType)
 	return NULL;
 }
 
-void Worker::work()
+void Worker::work(Workshop *workshop)
 {
+	if (!workshop)
+		throw std::runtime_error("Worker " + this->_name + " received null workshop");
 	if (this->_workshops.empty())
 	{
 		throw std::runtime_error("Worker " + this->_name + " is unemployed and can go touch the grass.");
 	}
-	else
+	for (std::vector<Workshop*>::iterator it = this->_workshops.begin(); it != this->_workshops.end(); ++it)
 	{
-		std::cout << YELLOW << "Worker " << this->_name << " is working" << RESET << std::endl;
+		if (*it == workshop)
+		{
+			std::cout << YELLOW << "Worker " << this->_name << " is working" << RESET << std::endl;
+			break;
+		}
+		if (it == this->_workshops.end())
+			throw std::runtime_error("Worker " + this->_name + " is not registered for this workshop and can go touch the grass.");
 	}
 }
 

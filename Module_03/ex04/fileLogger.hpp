@@ -1,5 +1,5 @@
 #ifndef FILELOGGER_HPP
-#define FILELOFFER_HPP
+#define FILELOGGER_HPP
 
 #include <iostream>
 #include <fstream>

@@ -69,7 +69,7 @@ void Workshop::executeWorkDay()
 		if (*it)
 		{
 			std::cout << GREEN << (*it)->getName() << " is sent to work in " << this->_name << "." << RESET << std::endl;
-			(*it)->work();
+			(*it)->work(this);
 		}	
 	}
 }
