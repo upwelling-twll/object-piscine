@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <expected>
 #include "inc/Debug.hpp"
 
 struct rail{
@@ -39,12 +40,14 @@ void parseRailwayNetwork(std::string filename)
 {
     if (!isValidFile(filename))
         return (0);
-    
+    std::stringstream iss;
+    iss << file.rdbuf();
     auto rail = parseRail(iss);
     if (!rail)
-        std::cerr << rail.error();
-
-
+    {
+        std::cerr << rail.error() << "\n";
+        return;
+    }
 }
 
 int main()
