@@ -1,1 +1,0 @@
-/usr/local/bin/c++ -g -Wl,--dependency-file=CMakeFiles/TimerUl.dir/link.d CMakeFiles/TimerUl.dir/src/main.cpp.o -o TimerUl
