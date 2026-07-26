@@ -1,6 +1,6 @@
 # Object Piscine
 
-This repository contains my solutions to 5 Object-Oriented Programming exercises from 42 Object Piscine. The goal of this project was to build a solid understanding of OOP fundamentals.
+This repository contains my solutions to 5 Object-Oriented Programming exercises from 42 Object Piscine and one practical exercise. The goal of this project was to build a solid understanding of OOP fundamentals.
 
 ##  Topics Covered
 
