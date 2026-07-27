@@ -1,0 +1,11 @@
+Logger - singleton
+
+RailwayBuilder & TrainBuilder - for Railway and train parsing
+
+Pathfinder - strategy
+
+TrainState & RailwayState - State Pattern
+
+EventGenerator - Factory pattern
+
+Event - Observer pattern

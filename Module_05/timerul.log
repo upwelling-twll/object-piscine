@@ -1,0 +1,18 @@
+[DEBUG][/app/src/parsing/ParseRailways.cpp:58] Parse Railway Network
+[ INFO][/app/src/parsing/ParseRailways.cpp:100] Parsed 3 cities and 2 rails.
+[DEBUG][/app/src/parsing/ParseTrains.cpp:101] Parse Trains list
+[ INFO][/app/src/parsing/ParseTrains.cpp:132] Parsed 2 trains.
+[DEBUG][/app/src/parsing/ParseRailways.cpp:58] Parse Railway Network
+[ INFO][/app/src/parsing/ParseRailways.cpp:100] Parsed 3 cities and 2 rails.
+[DEBUG][/app/src/parsing/ParseTrains.cpp:101] Parse Trains list
+[ INFO][/app/src/parsing/ParseTrains.cpp:132] Parsed 2 trains.
+[DEBUG][/app/src/parsing/ParseRailways.cpp:58] Parse Railway Network
+[ INFO][/app/src/parsing/ParseRailways.cpp:100] Parsed 3 cities and 2 rails.
+[DEBUG][/app/src/parsing/ParseTrains.cpp:101] Parse Trains list
+[ INFO][/app/src/parsing/ParseTrains.cpp:132] Parsed 2 trains.
+[DEBUG][/app/src/parsing/ParseRailways.cpp:58] Parse Railway Network
+[ INFO][/app/src/parsing/ParseRailways.cpp:100] Parsed 3 cities and 2 rails.
+[DEBUG][/app/src/parsing/ParseTrains.cpp:101] Parse Trains list
+[ INFO][/app/src/parsing/ParseTrains.cpp:132] Parsed 2 trains.
+[ INFO][/app/src/parsing/ParseTrains.cpp:135] Parsed train name: AB; from: AbuDhabi; to: AlAin; weight: 300; maxSpeed: 80; acceleration: 0.05; deceleration: 30; departureTime: 0min; stop time: 70min
+[ INFO][/app/src/parsing/ParseTrains.cpp:135] Parsed train name: CD; from: AbuDhabi; to: Fujairah; weight: 300; maxSpeed: 80; acceleration: 0.05; deceleration: 30; departureTime: 600min; stop time: 30min

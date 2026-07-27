@@ -1,7 +1,8 @@
 #include "ParseRailways.hpp"
 #include "ParseTrains.hpp"
 
-#include "Debug.hpp"
+// #include "Debug.hpp"
+#include "Logger.hpp"
 
 void print_welcom_header()
 {
@@ -22,6 +23,8 @@ void print_welcom_header()
 
 int main(int argc, char** argv)
 {
+    railways::Logger::get().setLevel(railways::LogLevel::DEBUG);
+    railways::Logger::get().enableFile("timerul.log"); 
     if (argc != 3)
         return (1);
         // ERROR();

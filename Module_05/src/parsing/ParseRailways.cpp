@@ -1,5 +1,6 @@
 #include "ParseRailways.hpp"
-#include "Debug.hpp"
+#include "Logger.hpp"
+
 struct Rail {
     std::string from;
     std::string to;
@@ -95,6 +96,6 @@ void parseRailwayNetwork(const std::string& filename)
             std::cerr << "Unknown line type: " << line << "\n";
         }
     }
-
-    LOG_DBUG("Parsed " << _cities.size() << " cities and " << _rails.size() << " rails.");
+    auto& log = railways::Logger::get();
+    log.info(std::format("Parsed {} cities and {} rails.", std::to_string(_cities.size()), std::to_string(_rails.size())));
 }

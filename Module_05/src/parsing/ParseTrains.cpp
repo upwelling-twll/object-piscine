@@ -1,5 +1,5 @@
 #include "ParseTrains.hpp"
-#include "Debug.hpp"
+#include "Logger.hpp"
 
 
 struct Train {
@@ -128,18 +128,21 @@ void parseTrains(const std::string& filename)
             std::cerr << "Unknown line type: " << line << "\n";
         }
     }
-
-    LOG_DBUG("Parsed " << _trains.size() << " trains.");
+    auto& log = railways::Logger::get();
+    log.info(std::format("Parsed {} trains.", std::to_string(_trains.size())));
     for (const auto& train : _trains)
     {
-        LOG_DBUG("Parsed train name: " << train.name 
-            << "; from : " << (train.from) 
-            << "; to : " << (train.to) 
-            << "; weight : " << (train.weight) 
-            << "; maxSpeed : " << (train.maxSpeed) 
-            << "; acceleration : " << (train.acceleration) 
-            << "; deceleration : " << (train.deceleration) 
-            << "; departureTime : " << (train.departureTime) 
-            << "; stop time : " << (train.stationStopTime));
+        log.info(std::format(
+            "Parsed train name: {}; from: {}; to: {}; weight: {}; maxSpeed: {}; acceleration: {}; deceleration: {}; departureTime: {}; stop time: {}",
+            train.name,
+            train.from,
+            train.to,
+            train.weight,
+            train.maxSpeed,
+            train.acceleration,
+            train.deceleration,
+            train.departureTime,
+            train.stationStopTime
+        ));
     }
 }
