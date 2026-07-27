@@ -15,7 +15,6 @@ struct Train {
     std::chrono::minutes stationStopTime; //in minutes
 };
 
-
 bool isTrainTag(const std::string& tag)
 {
     // Must start with "Train" and have at least one non-space character after it.
@@ -45,7 +44,6 @@ bool    saveTime(Train* train, std::string str, std::string fieldName)
     int hours = -1;
     int minutes = -1;
     char symbol_h = 0;
-    LOG_DBUG("Saving time :" + fieldName + " from " + str );
     if (! (ss >> hours >> symbol_h >> minutes))
         return (false);
     if (symbol_h != 'h' && symbol_h != 'H')
@@ -80,6 +78,7 @@ std::expected<Train, std::string> parseOneTrain(std::string_view line)
         return std::unexpected("Invalid train definition. Departure time: ");
     if (!saveTime(&train, stop, "stop"))
         return std::unexpected("Invalid train definition Stop time: ");
+    //TODO : validate all physical characteresic of train (weight; maxSpeed; acceleration; deceleration) 
     return train;
 }
 
@@ -96,6 +95,7 @@ static bool isValidFile(const std::string& filename)
     }
     return true;
 }
+
 void parseTrains(const std::string& filename)
 {
     LOG_DBUG("Parse Trains list");
@@ -143,11 +143,3 @@ void parseTrains(const std::string& filename)
             << "; stop time : " << (train.stationStopTime));
     }
 }
-
-/*
-    std::string from;
-    std::string to;
-    double      weight;
-    double      maxSpeed;
-    double      acceleration; // measured in m/s2
-    double      deceleration; // measured in m/s2/*/
