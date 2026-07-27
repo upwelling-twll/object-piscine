@@ -1,3 +1,3 @@
-Train1 80 0.05 300.0 30.0 AbuDhabi AlAin 12h00 01h00
-Train1 80 0.05 300.0 30.0 AbuDhabi Fujairah 9h00 00h30
+TrainAB 80 0.05 300.0 30.0 AbuDhabi AlAin 0h00 01h10
+TrainCD 80 0.05 300.0 30.0 AbuDhabi Fujairah 10h00 00h30
 

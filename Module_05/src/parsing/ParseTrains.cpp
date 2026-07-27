@@ -1,6 +1,6 @@
 #include "ParseTrains.hpp"
 #include "Debug.hpp"
-#include <cctype>
+
 
 struct Train {
     int id = 0;
@@ -11,6 +11,8 @@ struct Train {
     double      maxSpeed;
     double      acceleration; // measured in m/s2
     double      deceleration; // measured in m/s2
+    std::chrono::minutes departureTime; //in minutes , time since midnight
+    std::chrono::minutes stationStopTime; //in minutes
 };
 
 
@@ -31,16 +33,53 @@ bool isTrainTag(const std::string& tag)
     return true;
 }
 
+void   saveTrainName(std::string tag, Train* train)
+{
+    constexpr std::string_view prefix = "Train";
+    train->name = tag.substr(prefix.size(), tag.size() - prefix.size());
+}
+
+bool    saveTime(Train* train, std::string str, std::string fieldName)
+{
+    std::stringstream ss(str);
+    int hours = -1;
+    int minutes = -1;
+    char symbol_h = 0;
+    LOG_DBUG("Saving time :" + fieldName + " from " + str );
+    if (! (ss >> hours >> symbol_h >> minutes))
+        return (false);
+    if (symbol_h != 'h' && symbol_h != 'H')
+        return (false);
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59)
+        return (false);
+    if (fieldName == "departure")
+        train->departureTime = std::chrono::hours(hours) + std::chrono::minutes(minutes);
+    else if (fieldName == "stop")
+        train->stationStopTime = std::chrono::hours(hours) + std::chrono::minutes(minutes);
+    return (true);
+}
+
 std::expected<Train, std::string> parseOneTrain(std::string_view line)
 {
     std::istringstream iss{std::string(line)};
     std::string tag;
+    std::string departure;
+    std::string stop;
     Train train;
+    iss >> tag;
 
-    if (!(iss >> tag >> train.name >> train.from >> train.to >> train.weight >> train.maxSpeed >> train.acceleration >> train.deceleration) || !isTrainTag(tag))
+    if (!isTrainTag(tag))
+        return std::unexpected("Invalid train definition. Wrong tag : ");
+    saveTrainName(tag, &train);
+    if (!(iss >> train.maxSpeed >> train.acceleration >> train.weight >> 
+        train.deceleration >> train.from >> train.to >> departure >> stop))
     {
-        return std::unexpected("Invalid train definition");
+        return std::unexpected("Invalid train definition : ");
     }
+    if (!saveTime(&train, departure, "departure"))
+        return std::unexpected("Invalid train definition. Departure time: ");
+    if (!saveTime(&train, stop, "stop"))
+        return std::unexpected("Invalid train definition Stop time: ");
     return train;
 }
 
@@ -77,7 +116,7 @@ void parseTrains(const std::string& filename)
             auto trainOrError = parseOneTrain(line);
             if (!trainOrError)
             {
-                std::cerr << trainOrError.error() << "\n";
+                std::cerr << trainOrError.error() << line << "\n";
                 continue;
             }
             Train train = *trainOrError;
@@ -91,4 +130,24 @@ void parseTrains(const std::string& filename)
     }
 
     LOG_DBUG("Parsed " << _trains.size() << " trains.");
+    for (const auto& train : _trains)
+    {
+        LOG_DBUG("Parsed train name: " << train.name 
+            << "; from : " << (train.from) 
+            << "; to : " << (train.to) 
+            << "; weight : " << (train.weight) 
+            << "; maxSpeed : " << (train.maxSpeed) 
+            << "; acceleration : " << (train.acceleration) 
+            << "; deceleration : " << (train.deceleration) 
+            << "; departureTime : " << (train.departureTime) 
+            << "; stop time : " << (train.stationStopTime));
+    }
 }
+
+/*
+    std::string from;
+    std::string to;
+    double      weight;
+    double      maxSpeed;
+    double      acceleration; // measured in m/s2
+    double      deceleration; // measured in m/s2/*/

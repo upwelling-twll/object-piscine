@@ -8,6 +8,9 @@
 #include <string>
 #include <vector>
 
+#include <cctype>
+#include <chrono>
+
 void parseTrains(const std::string& filename);
 
 #endif
