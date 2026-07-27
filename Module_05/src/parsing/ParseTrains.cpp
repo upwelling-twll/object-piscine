@@ -78,7 +78,7 @@ std::expected<Train, std::string> parseOneTrain(std::string_view line)
         return std::unexpected("Invalid train definition. Departure time: ");
     if (!saveTime(&train, stop, "stop"))
         return std::unexpected("Invalid train definition Stop time: ");
-    //TODO : validate all physical characteresic of train (weight; maxSpeed; acceleration; deceleration) 
+    //TODO : validate all physical characteristics of train (weight; maxSpeed; acceleration; deceleration) 
     return train;
 }
 
