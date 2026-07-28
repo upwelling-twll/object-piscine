@@ -31,6 +31,12 @@ public:
 
 	/*Getters and Setters*/
 
+	 /*Constructors - Deleted copy, move allowed*/
+	RailwaySimulation(const RailwaySimulation&) = delete;
+	RailwaySimulation& operator=(const RailwaySimulation&) = delete;
+	RailwaySimulation(RailwaySimulation&&) = default;
+	RailwaySimulation& operator=(RailwaySimulation&&) = default;
+
 	/*Destructors*/
     ~RailwaySimulation( void );
 

@@ -23,7 +23,7 @@ std::expected<RailwaySimulation, std::string> RailwaySimulation::create(Simulati
     //         sim.addObserver(std::make_unique<FileResultLogger>(filename));
     //     }
     // }
-    return sim;
+    return std::move(sim);
 }
 
 /*Getters and Setters*/
