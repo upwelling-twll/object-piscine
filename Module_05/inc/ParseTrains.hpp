@@ -11,6 +11,8 @@
 #include <cctype>
 #include <chrono>
 
-void parseTrains(const std::string& filename);
+class Train;
+
+std::expected<std::vector<Train>, std::string>  parseTrains(const std::string& filename);
 
 #endif

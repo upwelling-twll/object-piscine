@@ -9,9 +9,9 @@ std::expected<RailwaySimulation, std::string> RailwaySimulation::create(Simulati
     // if (!network)
     //  return std::unexpected(network.error());
     // 2. Parse & validate trains
-    // auto trains = parseTrains(config.trainsFile);
-    // if (!trains)
-    //     return std::unexpected(trains.error());
+    auto trains = parseTrains(config.trainsFile);
+    if (!trains)
+        return std::unexpected(trains.error());
     // 3. Assemble the simulation object
     RailwaySimulation sim(std::move(config));
     // sim._network = std::move(*network);

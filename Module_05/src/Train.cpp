@@ -2,16 +2,16 @@
 
 // Constructors
 Train::Train(void) 
-    : id(0), name(""), from(""), to(""), weight(0.0), maxSpeed(0.0), 
+    : id(0), name(""), from(""), to(""), weight(0.0), cof(0.0), 
       acceleration(0.0), deceleration(0.0), 
       departureTime(0), stationStopTime(0)
 {
 }
 
 Train::Train(int id, const std::string& name, const std::string& from, const std::string& to,
-             double weight, double maxSpeed, double acceleration, double deceleration,
+             double weight, double cof, double acceleration, double deceleration,
              std::chrono::minutes departureTime, std::chrono::minutes stationStopTime)
-    : id(id), name(name), from(from), to(to), weight(weight), maxSpeed(maxSpeed),
+    : id(id), name(name), from(from), to(to), weight(weight), cof(cof),
       acceleration(acceleration), deceleration(deceleration),
       departureTime(departureTime), stationStopTime(stationStopTime)
 {
@@ -28,7 +28,7 @@ const std::string& Train::getName() const { return name; }
 const std::string& Train::getFrom() const { return from; }
 const std::string& Train::getTo() const { return to; }
 double Train::getWeight() const { return weight; }
-double Train::getMaxSpeed() const { return maxSpeed; }
+double Train::getCOF() const { return cof; }
 double Train::getAcceleration() const { return acceleration; }
 double Train::getDeceleration() const { return deceleration; }
 std::chrono::minutes Train::getDepartureTime() const { return departureTime; }
@@ -40,7 +40,7 @@ void Train::setName(const std::string& name) { this->name = name; }
 void Train::setFrom(const std::string& from) { this->from = from; }
 void Train::setTo(const std::string& to) { this->to = to; }
 void Train::setWeight(double weight) { this->weight = weight; }
-void Train::setMaxSpeed(double maxSpeed) { this->maxSpeed = maxSpeed; }
+void Train::setCOF(double cof) { this->cof = cof; }
 void Train::setAcceleration(double acceleration) { this->acceleration = acceleration; }
 void Train::setDeceleration(double deceleration) { this->deceleration = deceleration; }
 void Train::setDepartureTime(std::chrono::minutes time) { this->departureTime = time; }
@@ -56,7 +56,7 @@ Train& Train::operator=(const Train& src)
         from = src.from;
         to = src.to;
         weight = src.weight;
-        maxSpeed = src.maxSpeed;
+        cof = src.cof;
         acceleration = src.acceleration;
         deceleration = src.deceleration;
         departureTime = src.departureTime;
@@ -72,7 +72,7 @@ std::ostream& operator<<(std::ostream &output_stream, const Train& src)
                   << " (ID: " << src.getId() << ")\n"
                   << "  From: " << src.getFrom() << " -> To: " << src.getTo() << "\n"
                   << "  Weight: " << src.getWeight() << " kg\n"
-                  << "  Max Speed: " << src.getMaxSpeed() << " km/h\n"
+                  << "  Max Speed: " << src.getCOF() << " km/h\n"
                   << "  Acceleration: " << src.getAcceleration() << " m/s²\n"
                   << "  Deceleration: " << src.getDeceleration() << " m/s²\n"
                   << "  Departure: " << src.getDepartureTime().count() << " min\n"

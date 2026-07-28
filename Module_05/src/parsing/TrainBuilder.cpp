@@ -1,7 +1,7 @@
 #include "TrainBuilder.hpp"
 
 TrainBuilder::TrainBuilder()
-    : _id(0), _name(""), _from(""), _to(""), _weight(0.0), _maxSpeed(0.0),
+    : _id(0), _name(""), _from(""), _to(""), _weight(0.0), _cof(0.0),
       _acceleration(0.0), _deceleration(0.0),
       _departureTime(0), _stationStopTime(0)
 {
@@ -38,9 +38,9 @@ TrainBuilder& TrainBuilder::withWeight(double weight)
     return *this;
 }
 
-TrainBuilder& TrainBuilder::withMaxSpeed(double maxSpeed)
+TrainBuilder& TrainBuilder::withCOF(double cof)
 {
-    _maxSpeed = maxSpeed;
+    _cof = cof;
     return *this;
 }
 
@@ -78,12 +78,12 @@ std::expected<void, std::string> TrainBuilder::validateWeight(double weight)
     return {};
 }
 
-std::expected<void, std::string> TrainBuilder::validateMaxSpeed(double maxSpeed)
+std::expected<void, std::string> TrainBuilder::validateCOF(double cof)
 {
-    if (maxSpeed <= 0.0)
-        return std::unexpected("Max speed must be positive");
-    if (maxSpeed > 500.0)  // 500 km/h max
-        return std::unexpected("Max speed exceeds maximum (500 km/h)");
+    if (cof <= 0.0)
+        return std::unexpected("Coefficient of friction must be positive");
+    if (cof > 1.0)  // 1 max
+        return std::unexpected("Max coefficient of friction is 1");
     return {};
 }
 
@@ -91,7 +91,7 @@ std::expected<void, std::string> TrainBuilder::validateAcceleration(double accel
 {
     if (acceleration <= 0.0)
         return std::unexpected("Acceleration must be positive");
-    if (acceleration > 10.0)  // 10 m/s² max
+    if (acceleration > 1000.0)  // 1000 kilonewtons
         return std::unexpected("Acceleration exceeds maximum (10 m/s²)");
     return {};
 }
@@ -100,7 +100,7 @@ std::expected<void, std::string> TrainBuilder::validateDeceleration(double decel
 {
     if (deceleration <= 0.0)
         return std::unexpected("Deceleration must be positive");
-    if (deceleration > 10.0)  // 10 m/s² max
+    if (deceleration > 3000.0)  // max braking force is 3000 kilonewton
         return std::unexpected("Deceleration exceeds maximum (10 m/s²)");
     return {};
 }
@@ -143,9 +143,9 @@ std::expected<Train, std::string> TrainBuilder::build()
     if (!weightValidation)
         return std::unexpected(weightValidation.error());
     
-    auto maxSpeedValidation = validateMaxSpeed(_maxSpeed);
-    if (!maxSpeedValidation)
-        return std::unexpected(maxSpeedValidation.error());
+    auto cofValidation = validateCOF(_cof);
+    if (!cofValidation)
+        return std::unexpected(cofValidation.error());
     
     auto accelValidation = validateAcceleration(_acceleration);
     if (!accelValidation)
@@ -156,6 +156,6 @@ std::expected<Train, std::string> TrainBuilder::build()
         return std::unexpected(decelValidation.error());
     
     // Build and return Train
-    return Train(_id, _name, _from, _to, _weight, _maxSpeed, 
+    return Train(_id, _name, _from, _to, _weight, _cof, 
                  _acceleration, _deceleration, _departureTime, _stationStopTime);
 }

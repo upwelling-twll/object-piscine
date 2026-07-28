@@ -1,4 +1,5 @@
 #include "ParseTrains.hpp"
+#include "TrainBuilder.hpp"
 #include "Logger.hpp"
 
 struct TrainRaw {
@@ -7,7 +8,7 @@ struct TrainRaw {
     std::string from;
     std::string to;
     double      weight;
-    double      maxSpeed;
+    double      cof;
     double      acceleration; // measured in m/s2
     double      deceleration; // measured in m/s2
     std::chrono::minutes departureTime; //in minutes , time since midnight
@@ -55,7 +56,8 @@ bool    saveTime(TrainRaw* train, std::string str, std::string fieldName)
         train->stationStopTime = std::chrono::hours(hours) + std::chrono::minutes(minutes);
     return (true);
 }
-
+//TrainAB 80 0.05 356.0 30.0 CityA CityB 14h10 00h10
+//name weight/ coef_of_friction / accel / decel / from / to / dep_time/ station_time
 std::expected<TrainRaw, std::string> parseOneTrain(std::string_view line)
 {
     std::istringstream iss{std::string(line)};
@@ -68,8 +70,8 @@ std::expected<TrainRaw, std::string> parseOneTrain(std::string_view line)
     if (!isTrainTag(tag))
         return std::unexpected("Invalid train definition. Wrong tag : ");
     saveTrainName(tag, &train);
-    if (!(iss >> train.maxSpeed >> train.acceleration >> train.weight >> 
-        train.deceleration >> train.from >> train.to >> departure >> stop))
+    if (!(iss >> train.weight >> train.cof >> train.acceleration >> train.deceleration 
+         >> train.from >> train.to >> departure >> stop))
     {
         return std::unexpected("Invalid train definition : ");
     }
@@ -77,7 +79,7 @@ std::expected<TrainRaw, std::string> parseOneTrain(std::string_view line)
         return std::unexpected("Invalid train definition. Departure time: ");
     if (!saveTime(&train, stop, "stop"))
         return std::unexpected("Invalid train definition Stop time: ");
-    //TODO : validate all physical characteristics of train (weight; maxSpeed; acceleration; deceleration) 
+    //TODO : validate all physical characteristics of train (weight; cof; acceleration; deceleration) 
     return train;
 }
 
@@ -95,15 +97,13 @@ static bool isValidFile(const std::string& filename)
     return true;
 }
 
-#include "TrainBuilder.hpp"  // Add this include
-
-void parseTrains(const std::string& filename)
+std::expected<std::vector<Train>, std::string> parseTrains(const std::string& filename)
 {
     LOG_DBUG("Parse Trains list");
     std::vector<Train> _trains;  // Changed from TrainRaw to Train
 
     if (!isValidFile(filename))
-        return;
+        return std::unexpected("Invalid train data file. ");
 
     std::ifstream file(filename);
     std::string line;
@@ -131,7 +131,7 @@ void parseTrains(const std::string& filename)
                 .withFrom(rawTrain.from)
                 .withTo(rawTrain.to)
                 .withWeight(rawTrain.weight)
-                .withMaxSpeed(rawTrain.maxSpeed)
+                .withCOF(rawTrain.cof)
                 .withAcceleration(rawTrain.acceleration)
                 .withDeceleration(rawTrain.deceleration)
                 .withDepartureTime(rawTrain.departureTime)
@@ -158,14 +158,15 @@ void parseTrains(const std::string& filename)
     for (const auto& train : _trains)
     {
         log.debug(std::format(
-            "Train: {}; from: {}; to: {}; weight: {}; maxSpeed: {}; accel: {}; decel: {}",
+            "Train: {}; from: {}; to: {}; weight: {}; cof: {}; accel: {}; decel: {}",
             train.getName(),
             train.getFrom(),
             train.getTo(),
             train.getWeight(),
-            train.getMaxSpeed(),
+            train.getCOF(),
             train.getAcceleration(),
             train.getDeceleration()
         ));
     }
+    return (_trains);
 }
