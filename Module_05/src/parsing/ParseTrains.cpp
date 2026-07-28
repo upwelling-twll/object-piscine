@@ -1,8 +1,7 @@
 #include "ParseTrains.hpp"
 #include "Logger.hpp"
 
-
-struct Train {
+struct TrainRaw {
     int id = 0;
     std::string name;
     std::string from;
@@ -23,7 +22,7 @@ bool isTrainTag(const std::string& tag)
         return false;
     if (tag.rfind(std::string(prefix), 0) != 0)
         return false;
-    // Ensure the remainder (the train name) contains no whitespace and is non-empty
+    // Ensure the remainder (the TrainRawname) contains no whitespace and is non-empty
     for (size_t i = prefix.size(); i < tag.size(); ++i)
     {
         if (std::isspace(static_cast<unsigned char>(tag[i])))
@@ -32,13 +31,13 @@ bool isTrainTag(const std::string& tag)
     return true;
 }
 
-void   saveTrainName(std::string tag, Train* train)
+void   saveTrainName(std::string tag, TrainRaw* train)
 {
     constexpr std::string_view prefix = "Train";
     train->name = tag.substr(prefix.size(), tag.size() - prefix.size());
 }
 
-bool    saveTime(Train* train, std::string str, std::string fieldName)
+bool    saveTime(TrainRaw* train, std::string str, std::string fieldName)
 {
     std::stringstream ss(str);
     int hours = -1;
@@ -57,13 +56,13 @@ bool    saveTime(Train* train, std::string str, std::string fieldName)
     return (true);
 }
 
-std::expected<Train, std::string> parseOneTrain(std::string_view line)
+std::expected<TrainRaw, std::string> parseOneTrain(std::string_view line)
 {
     std::istringstream iss{std::string(line)};
     std::string tag;
     std::string departure;
     std::string stop;
-    Train train;
+    TrainRaw train;
     iss >> tag;
 
     if (!isTrainTag(tag))
@@ -96,16 +95,20 @@ static bool isValidFile(const std::string& filename)
     return true;
 }
 
+#include "TrainBuilder.hpp"  // Add this include
+
 void parseTrains(const std::string& filename)
 {
     LOG_DBUG("Parse Trains list");
-    std::vector<Train> _trains;
+    std::vector<Train> _trains;  // Changed from TrainRaw to Train
 
     if (!isValidFile(filename))
         return;
 
     std::ifstream file(filename);
     std::string line;
+    int trainCount = 0;
+    
     while (std::getline(file, line))
     {
         if (line.empty())
@@ -113,36 +116,56 @@ void parseTrains(const std::string& filename)
 
         if (line.starts_with("Train"))
         {
-            auto trainOrError = parseOneTrain(line);
-            if (!trainOrError)
+            auto trainRawOrError = parseOneTrain(line);
+            if (!trainRawOrError)
             {
-                std::cerr << trainOrError.error() << line << "\n";
+                std::cerr << trainRawOrError.error() << line << "\n";
                 continue;
             }
-            Train train = *trainOrError;
-            train.id = static_cast<int>(_trains.size()) + 1;
-            _trains.push_back(std::move(train));
+            
+            // Use TrainBuilder to construct and validate
+            TrainRaw rawTrain = *trainRawOrError;
+            auto trainOrError = TrainBuilder()
+                .withId(trainCount + 1)
+                .withName(rawTrain.name)
+                .withFrom(rawTrain.from)
+                .withTo(rawTrain.to)
+                .withWeight(rawTrain.weight)
+                .withMaxSpeed(rawTrain.maxSpeed)
+                .withAcceleration(rawTrain.acceleration)
+                .withDeceleration(rawTrain.deceleration)
+                .withDepartureTime(rawTrain.departureTime)
+                .withStationStopTime(rawTrain.stationStopTime)
+                .build();
+            
+            if (!trainOrError)
+            {
+                std::cerr << "Train validation failed: " << trainOrError.error() << "\n";
+                continue;
+            }
+            
+            _trains.push_back(*trainOrError);
+            trainCount++;
         }
         else
         {
             std::cerr << "Unknown line type: " << line << "\n";
         }
     }
+    
     auto& log = railways::Logger::get();
     log.info(std::format("Parsed {} trains.", std::to_string(_trains.size())));
     for (const auto& train : _trains)
     {
-        log.info(std::format(
-            "Parsed train name: {}; from: {}; to: {}; weight: {}; maxSpeed: {}; acceleration: {}; deceleration: {}; departureTime: {}; stop time: {}",
-            train.name,
-            train.from,
-            train.to,
-            train.weight,
-            train.maxSpeed,
-            train.acceleration,
-            train.deceleration,
-            train.departureTime,
-            train.stationStopTime
+        log.debug(std::format(
+            "Train: {}; from: {}; to: {}; weight: {}; maxSpeed: {}; accel: {}; decel: {}",
+            train.getName(),
+            train.getFrom(),
+            train.getTo(),
+            train.getWeight(),
+            train.getMaxSpeed(),
+            train.getAcceleration(),
+            train.getDeceleration()
         ));
     }
 }

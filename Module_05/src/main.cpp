@@ -1,10 +1,10 @@
 #include "ParseRailways.hpp"
 #include "ParseTrains.hpp"
 
-// #include "Debug.hpp"
+#include "RailwaySimulation.hpp"
 #include "Logger.hpp"
 
-void print_welcom_header()
+void print_welcome_header()
 {
     constexpr std::string_view cyan = "\033[1;36m";
     constexpr std::string_view yellow = "\033[1;33m";
@@ -23,14 +23,20 @@ void print_welcom_header()
 
 int main(int argc, char** argv)
 {
-    railways::Logger::get().setLevel(railways::LogLevel::DEBUG);
-    railways::Logger::get().enableFile("timerul.log"); 
     if (argc != 3)
         return (1);
         // ERROR();
-    print_welcom_header();
-    parseRailwayNetwork(argv[1]);
-    parseTrains(argv[2]);
+    print_welcome_header();
+    auto sim = RailwaySimulation::create({
+        .networkFile  = argv[1],
+        .trainsFile   = argv[2],
+        .level        = railways::LogLevel::DEBUG,
+    });
+
+    if (! sim)
+        return (1);
+    // parseRailwayNetwork(argv[1]);
+    // parseTrains(argv[2]);
 
     return (0);
 }
