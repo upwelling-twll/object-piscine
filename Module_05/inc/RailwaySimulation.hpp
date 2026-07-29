@@ -5,9 +5,7 @@
 # include <iostream>
 # include "Logger.hpp"
 # include "Train.hpp"
-
-// class Rails;
-class RailwayNetwork;
+# include "RailwayNetwork.hpp"
 
 struct SimulationConfig {
 	std::string networkFile;
@@ -18,8 +16,7 @@ struct SimulationConfig {
 class RailwaySimulation
 {
 private:
-    // RailwayNetwork		_network;
-	// std::vector<Rails>	_network;
+    RailwayNetwork		_network;
 	std::vector<Train>	_trains;
 	SimulationConfig	_config;
 
