@@ -1,6 +1,7 @@
 #include "RailwaySimulation.hpp"
 #include "ParseRailwaysNetwork.hpp"
 #include "ParseTrains.hpp"
+#include "RailwayNetwork.hpp"
 #include "Logger.hpp"
 
 
@@ -20,7 +21,7 @@ RailwaySimulation::create(SimulationConfig config)
     RailwaySimulation sim(std::move(config));
     sim._network = std::move(*network);
     sim._trains  = std::move(*trains);
-
+    sim._network.printGraph();
     return sim;
 }
 
