@@ -50,7 +50,10 @@ void RailwayNetwork::printGraph() const
         const auto& neighbors = neighbours(node.get());
         for (const auto& rail : neighbors)
         {
-            log.debug(std::format("  -> {} (Length: {:.2f} km)", rail->getTo()->getName(), rail->getLength()));
+            if (rail->getTo() != node.get())
+                log.debug(std::format("  -> {} (Length: {:.2f} km)", rail->getTo()->getName(), rail->getLength()));
+            else
+                log.debug(std::format("  -> {} (Length: {:.2f} km)", rail->getFrom()->getName(), rail->getLength()));
         }
     }
 }
