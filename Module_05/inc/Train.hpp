@@ -4,7 +4,7 @@
 # include <iostream>
 # include <string>
 # include <chrono>
- 
+ # include "TrainState.hpp"
 //order in input file:
 //TrainAB 80 0.05 356.0 30.0 CityA CityB 14h10 00h10
 //name coef_of_friction / accel / decel / from / to / dep_time/ station_time
@@ -22,6 +22,8 @@ private:
     double                  deceleration;
     std::chrono::minutes    departureTime;
     std::chrono::minutes    stationStopTime;
+
+    std::unique_ptr<TrainState>   state;
 
 public:
 	/*Getters*/

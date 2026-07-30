@@ -31,10 +31,7 @@ int main(int argc, char** argv)
         .trainsFile   = argv[2],
         .level        = railways::LogLevel::DEBUG,
     });
-
     if (! sim)
         return (1);
-    // parseRailwayNetwork(argv[1]);
-    // parseTrains(argv[2]);
     return (0);
 }

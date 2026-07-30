@@ -1,11 +1,15 @@
-Logger - singleton
+done Singleton - Logger available from anywhere
 
-RailwayBuilder & TrainBuilder - for Railway and train parsing
+done Builder - classes RailwayBuilder & TrainBuilder to create instances of Railway and Train, validating its attributes on creation 
 
-Pathfinder - strategy
+done Facade - wrap all api to one Simulation class. In main only Simulation is used
 
-TrainState & RailwayState - State Pattern
+Strategy - class IPathfinder and its concrete implementations with different strategies for pathfinding (Shortest distance / min time / avoiding specific nodes or by algorithm names etc)
 
-EventGenerator - Factory pattern
+State Pattern - setting and changing TrainState & RailwayState depending on their status like 'onRainSegment'/'moving'/'stopedOnStation'/'emergencyStop', etc
 
-Event - Observer pattern
+Observer pattern - EventNotificationSystem is a Subject, while Trains and Nodes are observers
+
+Commander - class responsible for giving command to all trains (get your schedule / depart from first station/ finish )
+
+Factory pattern - (?) EventGenerator or some actions on setting scheldue to each train, to send command on rail segment closure/add new train  
