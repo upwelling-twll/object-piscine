@@ -1,11 +1,14 @@
 #ifndef RAILWAYSIMULATION_HPP
 # define RAILWAYSIMULATION_HPP
 # include <expected>
+# include <memory>
 # include <vector>
 # include <iostream>
 # include "Logger.hpp"
 # include "Train.hpp"
 # include "RailwayNetwork.hpp"
+# include "PathFindingStrategy.hpp"
+
 
 struct SimulationConfig {
 	std::string networkFile;
@@ -18,7 +21,10 @@ class RailwaySimulation
 private:
     RailwayNetwork		_network;
 	std::vector<Train>	_trains;
+	std::unique_ptr<PathfindingStrategy> _pathFinder;
+	
 	SimulationConfig	_config;
+
 
 	explicit RailwaySimulation(SimulationConfig cnf);
 

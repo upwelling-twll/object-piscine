@@ -17,7 +17,8 @@ class TrainState //TrainState is a state, while Train is a context
 		virtual void update(Train&, double dt) = 0;
 
 		virtual std::string_view name() const = 0;
-
+ 		// virtual void onEnter(Train& train) {}
+      	// virtual void onExit(Train& train) {}
 };
 
 class AcceleratingState : public TrainState
