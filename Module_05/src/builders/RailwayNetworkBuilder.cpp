@@ -34,8 +34,10 @@ std::expected<const std::string, std::string> RailwayNetworkBuilder::validateNod
     std::string_view prefix = "";
     if (name.starts_with("RailNode"))
         prefix = "RailNode";
-    if (name.starts_with("City"))
+    else if (name.starts_with("City"))
         prefix = "City";
+    else
+        return std::unexpected("Node name does not have expected prefix ('City' or 'RailNode')");
     std::string cleanName = name.substr(prefix.size(), name.size() - prefix.size());
     if (cleanName.empty())
         return std::unexpected("Node name is empty string");
