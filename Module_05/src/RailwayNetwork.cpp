@@ -38,3 +38,19 @@ double RailwayNetwork::distance(const Rail& rail) const
 {
     return rail.getLength();
 }
+
+void RailwayNetwork::printGraph() const
+{
+    auto& log = railways::Logger::get();
+    
+    log.debug("Railway Network Graph:");
+    for (const auto& node : _nodes)
+    {
+        log.debug(std::format("- Node: {}", node->getName()));
+        const auto& neighbors = neighbours(node.get());
+        for (const auto& rail : neighbors)
+        {
+            log.debug(std::format("  -> {} (Length: {:.2f} km)", rail->getTo()->getName(), rail->getLength()));
+        }
+    }
+}

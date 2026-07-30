@@ -144,7 +144,7 @@ std::expected<std::vector<Train>, std::string> parseTrains(const std::string& fi
                 continue;
             }
             
-            _trains.push_back(*trainOrError);
+            _trains.push_back(std::move(*trainOrError));
             trainCount++;
         }
         else

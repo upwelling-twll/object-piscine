@@ -40,6 +40,8 @@ public:
 
 	size_t nodeCount() const { return _nodes.size(); }
 	size_t railCount() const { return _rails.size(); }
+	
+	void printGraph() const;
 };
 
 #endif

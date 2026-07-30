@@ -4,7 +4,7 @@
 Train::Train(void) 
     : id(0), name(""), from(""), to(""), weight(0.0), cof(0.0), 
       acceleration(0.0), deceleration(0.0), 
-      departureTime(0), stationStopTime(0)
+      departureTime(0), stationStopTime(0), state(nullptr)
 {
 }
 
@@ -13,7 +13,7 @@ Train::Train(int id, const std::string& name, const std::string& from, const std
              std::chrono::minutes departureTime, std::chrono::minutes stationStopTime)
     : id(id), name(name), from(from), to(to), weight(weight), cof(cof),
       acceleration(acceleration), deceleration(deceleration),
-      departureTime(departureTime), stationStopTime(stationStopTime)
+      departureTime(departureTime), stationStopTime(stationStopTime), state(nullptr)
 {
 }
 

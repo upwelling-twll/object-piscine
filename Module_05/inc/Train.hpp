@@ -4,7 +4,8 @@
 # include <iostream>
 # include <string>
 # include <chrono>
- # include "TrainState.hpp"
+# include <memory>
+# include "TrainState.hpp"
 //order in input file:
 //TrainAB 80 0.05 356.0 30.0 CityA CityB 14h10 00h10
 //name coef_of_friction / accel / decel / from / to / dep_time/ station_time
@@ -55,12 +56,15 @@ public:
           double weight, double cof, double acceleration, double deceleration,
           std::chrono::minutes departureTime, std::chrono::minutes stationStopTime);
 	Train(void);
+	Train(const Train& src);
+	Train(Train&& src) noexcept = default;
 
 	/*Destructors*/
     ~Train(void);
 
 	/*Overload operators*/
 	Train &operator=(const Train& src);
+	Train &operator=(Train&& src) noexcept = default;
 };
 
 std::ostream& operator<<(std::ostream &output_stream, const Train& src);
