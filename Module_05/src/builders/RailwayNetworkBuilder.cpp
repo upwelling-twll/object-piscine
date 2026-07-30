@@ -124,14 +124,15 @@ std::expected<RailwayNetwork, std::string> RailwayNetworkBuilder::build()
             return std::unexpected(std::format("Rail '{}'→'{}': {}", pr.from, pr.to, spdOk.error()));
 
         // Resolve node pointers — must already exist in the network
-        Node* fromNode = network.findNode(pr.from);
+        Node* fromNode = NULL;
+        fromNode = network.findNode(pr.from);
         if (!fromNode)
             return std::unexpected(std::format("Rail references unknown node: '{}'", pr.from));
-
-        Node* toNode = network.findNode(pr.to);
+        Node* toNode = NULL;
+        toNode = network.findNode(pr.to);
+        // log.debug(std::format("toNode: '{}'", pr.to));
         if (!toNode)
             return std::unexpected(std::format("Rail references unknown node: '{}'", pr.to));
-
         if (fromNode == toNode)
             return std::unexpected(std::format("Rail '{}' → '{}': self-loop not allowed", pr.from, pr.to));
         if (!uniqueRail(network, fromNode, toNode))
