@@ -2,6 +2,8 @@
 # define NODE_HPP
 # include <iostream>
 # include <string>
+#include "Logger.hpp"
+
 
 class Node
 {

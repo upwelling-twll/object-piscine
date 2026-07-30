@@ -36,6 +36,5 @@ int main(int argc, char** argv)
         return (1);
     // parseRailwayNetwork(argv[1]);
     // parseTrains(argv[2]);
-
     return (0);
 }

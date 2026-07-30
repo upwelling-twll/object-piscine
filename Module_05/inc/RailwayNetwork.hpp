@@ -8,6 +8,8 @@
 
 # include "Node.hpp"
 # include "Rail.hpp"
+#include "Logger.hpp"
+
 
 class RailwayNetwork
 {

@@ -24,15 +24,24 @@ RailwayNetworkBuilder& RailwayNetworkBuilder::addRail(const std::string& from,
 }
 
 
-std::expected<void, std::string> RailwayNetworkBuilder::validateNodeName(const std::string& name, const RailwayNetwork& network)
+std::expected<const std::string, std::string> RailwayNetworkBuilder::validateNodeName(const std::string& name, const RailwayNetwork& network)
 {
+    auto& log = railways::Logger::get();
     if (name.empty())
         return std::unexpected("Node name cannot be empty");
     if (name.size() > 100)
         return std::unexpected("Node name exceeds maximum length (100 chars)");
-    if (network.findNode(name) != nullptr)
-        return std::unexpected(std::format("Node name is not unique: {}", name));
-    return {};
+    std::string_view prefix = "";
+    if (name.starts_with("RailNode"))
+        prefix = "RailNode";
+    if (name.starts_with("City"))
+        prefix = "City";
+    std::string cleanName = name.substr(prefix.size(), name.size() - prefix.size());
+    if (cleanName.empty())
+        return std::unexpected("Node name is empty string");
+    if (network.findNode(cleanName) != nullptr)
+        return std::unexpected(std::format("Node name is not unique: {}", name));  
+    return cleanName;
 }
 
 std::expected<void, std::string> RailwayNetworkBuilder::validateLength(double length)
@@ -76,24 +85,24 @@ std::expected<RailwayNetwork, std::string> RailwayNetworkBuilder::build()
 
     size_t nodeId = 1;
     for (const auto& pn : _nodes)
-    {
-        // Validate name
+    {   
+        // Reject duplicate names
+        if (!seen.insert(pn.name).second)
+            return std::unexpected(std::format("Duplicate node name: '{}'", pn.name));
+        
+            // Validate name
         auto nameOk = validateNodeName(pn.name, network);
         if (!nameOk)
             return std::unexpected(std::format("Node '{}': {}", pn.name, nameOk.error()));
 
-        // Reject duplicate names
-        if (!seen.insert(pn.name).second)
-            return std::unexpected(std::format("Duplicate node name: '{}'", pn.name));
-
         std::unique_ptr<Node> node;
         if (pn.name.starts_with("City"))
-            node = std::make_unique<City>(nodeId, pn.name);
+            node = std::make_unique<City>(nodeId, *nameOk);
         else
-            node = std::make_unique<RailNode>(nodeId, pn.name);
+            node = std::make_unique<RailNode>(nodeId, *nameOk);
 
         log.debug(std::format("  Node [{}] '{}' ({})",
-            nodeId, pn.name, node->isCity() ? "City" : "RailNode"));
+            nodeId, *nameOk, node->isCity() ? "City" : "RailNode"));
 
         network.addNode(std::move(node));
         ++nodeId;

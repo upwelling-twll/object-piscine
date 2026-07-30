@@ -37,7 +37,7 @@ public:
 	RailwayNetworkBuilder& addNode(const std::string& name);
 	RailwayNetworkBuilder& addRail(const std::string& from, const std::string& to, double length, double speedLimit);
 
-	static std::expected<std::string, std::string> validateNodeName(const std::string& name, const RailwayNetwork& network);
+	static std::expected<const std::string, std::string> validateNodeName(const std::string& name, const RailwayNetwork& network);
 	static std::expected<void, std::string> validateLength(double length);
 	static std::expected<void, std::string> validateSpeedLimit(double speed);
 	bool uniqueRail(const RailwayNetwork& network, Node* from, Node* to);
