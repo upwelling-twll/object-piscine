@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+class IEdgeCostCalculator;
 class RailwayNetwork;
 
 struct Route {
@@ -24,7 +25,10 @@ class PathfindingStrategy
 };
 
 class DijkstraDistanceStrategy : public PathfindingStrategy {
-  public:
+    private:
+        IEdgeCostCalculator& calculator_;
+
+    public:
       std::expected<Route, std::string> findRoute(
           const RailwayNetwork& network, 
           std::string_view startNode, 
