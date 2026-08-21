@@ -85,7 +85,7 @@ std::expected<RailwayNetwork, std::string> RailwayNetworkBuilder::build()
     std::unordered_set<std::string> seen;
     RailwayNetwork network;
 
-    size_t nodeId = 1;
+    size_t nodeId = 0;
     for (const auto& pn : _nodes)
     {   
         // Reject duplicate names

@@ -53,22 +53,26 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	Node* startPtr = network.findNode(std::string(startNode));
 	Node* endPtr   = network.findNode(std::string(endNode));
 	if (!startPtr || !endPtr)
-		return std::unexpected<std::string>("Node not found");
-
+	return std::unexpected<std::string>("Node not found");
+	
 	int startId = static_cast<int>(startPtr->getId());
 	int endId   = static_cast<int>(endPtr->getId());
-
+	
 	// Build adjacency list from ALL rails in the network
+	// log.debug(std::format("node count {}", std::to_string(network.nodeCount())));
 	std::vector<std::vector<std::pair<int, int>>> graph(network.nodeCount());
 	for (const auto& rail : network._rails)
 	{
+		// log.debug(std::format("another rail"));
 		int fromId = static_cast<int>(rail->getFrom()->getId());
 		int toId   = static_cast<int>(rail->getTo()->getId());
 		int length = static_cast<int>(rail->getLength());
+		// log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
 		graph[fromId].emplace_back(toId, length);
+		// log.debug(std::format("Adding rail from {} with id {} ", rail->getTo()->getName(), std::to_string(rail->getTo()->getId())));
 		graph[toId].emplace_back(fromId, length); // undirected graph
 	}
-
+	// log.debug(std::format("starting algo"));
 	auto [dist, parent] = algorithm(graph, startId);
 
 	if (dist[endId] == INF)
@@ -84,7 +88,6 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	// 		r.nodes.push_back(node->getName());
 	// }
 	// std::reverse(r.nodes.begin(), r.nodes.end());
-
 	log.debug(std::format("Distance from {} to {}: {}", std::string(startNode), std::string(endNode), r.totalDistance));
 	return r;
 }
