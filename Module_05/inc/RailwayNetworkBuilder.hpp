@@ -8,7 +8,7 @@
 # include "RailwayNetwork.hpp"
 
 //   Names starting with "City" → City subclass
-//   Everything else            → RailNode subclass
+//  Names starting with "RailNode" → RailNode subclass
 
 class RailwayNetworkBuilder
 {
