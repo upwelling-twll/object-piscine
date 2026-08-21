@@ -26,7 +26,7 @@ class PathfindingStrategy
 
 class DijkstraDistanceStrategy : public PathfindingStrategy {
     private:
-        IEdgeCostCalculator& calculator_;
+        // IEdgeCostCalculator& calculator_;
 
     public:
       std::expected<Route, std::string> findRoute(

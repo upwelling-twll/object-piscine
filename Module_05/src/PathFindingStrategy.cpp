@@ -60,7 +60,7 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 
 	// Build adjacency list from ALL rails in the network
 	std::vector<std::vector<std::pair<int, int>>> graph(network.nodeCount());
-	for (const auto& rail : network.getRails())
+	for (const auto& rail : network._rails)
 	{
 		int fromId = static_cast<int>(rail->getFrom()->getId());
 		int toId   = static_cast<int>(rail->getTo()->getId());
@@ -77,13 +77,13 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	// Reconstruct path from end to start using parent array
 	Route r;
 	r.totalDistance = dist[endId];
-	for (int cur = endId; cur != -1; cur = parent[cur])
-	{
-		Node* node = network.getNodeById(static_cast<size_t>(cur));
-		if (node)
-			r.nodes.push_back(node->getName());
-	}
-	std::reverse(r.nodes.begin(), r.nodes.end());
+	// for (int cur = endId; cur != -1; cur = parent[cur])
+	// {
+	// 	Node* node = network.getNodeById(static_cast<size_t>(cur));
+	// 	if (node)
+	// 		r.nodes.push_back(node->getName());
+	// }
+	// std::reverse(r.nodes.begin(), r.nodes.end());
 
 	log.debug(std::format("Distance from {} to {}: {}", std::string(startNode), std::string(endNode), r.totalDistance));
 	return r;

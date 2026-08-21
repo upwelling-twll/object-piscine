@@ -24,9 +24,10 @@ Node* RailwayNetwork::findNode(const std::string& name) const
     if (it == _lookup.end())
         return nullptr;
     auto& log = railways::Logger::get();
-    log.debug(std::format("Found node: {} with ID: {}", it->second->getName(), it->second->getId()));
+    // log.debug(std::format("Found node: {} with ID: {}", it->second->getName(), it->second->getId()));
     return it->second;
 }
+
 
 const std::vector<Rail*> RailwayNetwork::neighbours(Node* node) const
 {
@@ -40,6 +41,11 @@ double RailwayNetwork::distance(const Rail& rail) const
 {
     return rail.getLength();
 }
+
+// std::vector<std::unique_ptr<Rail>> RailwayNetwork::getRails() const
+// {
+//     return _rails;
+// }
 
 // vector<vector<pair<int, int>>> RailwayNetwork::getGraph()
 // {

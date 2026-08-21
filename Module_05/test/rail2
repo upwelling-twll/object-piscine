@@ -1,0 +1,6 @@
+Node CityAbuDhabi
+Node CityFujairah
+Node CityAlAin
+Rail AbuDhabi Fujairah 500.0 100.0
+Rail AbuDhabi AlAin 300.0 70.0
+Rail AlAin Fujairah 1 100.0
