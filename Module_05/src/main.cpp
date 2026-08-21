@@ -29,9 +29,13 @@ int main(int argc, char** argv)
     auto sim = RailwaySimulation::create({
         .networkFile  = argv[1],
         .trainsFile   = argv[2],
+        .strategy     = STRATEGY::DIJKSTRA_DISTANCE,
         .level        = railways::LogLevel::DEBUG,
     });
     if (! sim)
         return (1);
+    // todo: use different strategies to compare their performance
+    // start simulation with different strategies, to find the best option available for this input use ALL_STRATEGIES
+    sim->runSimulation();
     return (0);
 }

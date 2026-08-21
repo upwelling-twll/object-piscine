@@ -7,13 +7,15 @@ Node CityParis
 Node RailNodeA
 Node RailNodeB
 Node RailNodeC
-Rail AbuDhabi Fujairah 200.0 100.0
+Rail AbuDhabi Fujairah 500.0 100.0
 Rail AbuDhabi AlAin 300.0 70.0
-Rail NewYork London 300.0 50.0
+Rail NewYork London 10.0 50.0
 Rail London Paris 200.0 60.0
 Rail NewYork Paris 400.0 100.0
 Rail Fujairah AlAin 100.0 80.0
 Rail AbuDhabi London 500.0 120.0
-Rail Fujairah Paris 400.0 110.0
 Rail London AlAin 300.0 90.0
 Rail NewYork AlAin 400.0 110.0
+Rail Paris Fujairah 10.0 10.0
+Rail Paris London 10.0 10.0
+Rail Paris NewYork 10.0 10.0

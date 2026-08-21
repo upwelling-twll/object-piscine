@@ -37,6 +37,8 @@ public:
 	Node*                    findNode(const std::string& name) const;
 	const std::vector<Rail*> neighbours(Node* node) const;
 	double                   distance(const Rail& rail) const;
+	
+	// vector<vector<pair<int, int>>> getGraph();
 
 	size_t nodeCount() const { return _nodes.size(); }
 	size_t railCount() const { return _rails.size(); }

@@ -30,6 +30,9 @@ class DijkstraDistanceStrategy : public PathfindingStrategy {
           std::string_view startNode, 
           std::string_view endNode
       ) override;
+
+    // Returns {distances, parents} for path reconstruction
+    std::pair<std::vector<int>, std::vector<int>> algorithm(std::vector<std::vector<std::pair<int, int>>> &graph, int start);
 };
 
 class AStarTimeEstimatorStrategy : public PathfindingStrategy {

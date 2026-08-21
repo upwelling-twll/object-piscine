@@ -136,7 +136,9 @@ std::expected<Train, std::string> TrainBuilder::build()
         return std::unexpected(fromValidation.error());
     
     auto toValidation = validateStation(_to);
-    if (!toValidation)
+    if (_from == _to)
+        return std::unexpected("From and to stations cannot be the same");
+    else if (!toValidation)
         return std::unexpected(toValidation.error());
     
     auto weightValidation = validateWeight(_weight);

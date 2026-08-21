@@ -25,10 +25,38 @@ RailwaySimulation::create(SimulationConfig config)
     return sim;
 }
 
+void    RailwaySimulation::runSimulation()
+{
+    auto& log = railways::Logger::get();
+
+    for (auto& train : _trains)
+    {
+        auto route = _pathFinder->findRoute(_network, train.getFrom(), train.getTo());
+        if (route)
+        {
+            // std::stringstream ss;
+            // for (const auto& s : route->nodes) ss << s << " ";
+            log.debug(std::format("Train {} from {} to {}: fastest route found {}.", train.getId(), train.getFrom(), train.getTo(), route->totalDistance));
+        }
+        else
+            log.error(std::format("Train {} not found route", train.getId()));
+    }
+}
+
 RailwaySimulation::RailwaySimulation(SimulationConfig cnf)
     : _config(std::move(cnf))
 {
-    // log.debug("Simulation constructor called");
+     switch (_config.strategy)
+    {
+        case STRATEGY::DIJKSTRA_DISTANCE:
+            _pathFinder = std::make_unique<DijkstraDistanceStrategy>(); 
+            break;
+        case STRATEGY::A_STAR_TIME:
+            _pathFinder = std::make_unique<AStarTimeEstimatorStrategy>();
+            break;
+    }
+    auto& log = railways::Logger::get();
+    log.debug("Simulation constructor called");
 }
 
 RailwaySimulation::~RailwaySimulation()

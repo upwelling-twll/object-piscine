@@ -23,6 +23,8 @@ Node* RailwayNetwork::findNode(const std::string& name) const
     auto it = _lookup.find(name);
     if (it == _lookup.end())
         return nullptr;
+    auto& log = railways::Logger::get();
+    log.debug(std::format("Found node: {} with ID: {}", it->second->getName(), it->second->getId()));
     return it->second;
 }
 
@@ -38,6 +40,20 @@ double RailwayNetwork::distance(const Rail& rail) const
 {
     return rail.getLength();
 }
+
+// vector<vector<pair<int, int>>> RailwayNetwork::getGraph()
+// {
+//     vector<vector<pair<int, int>>> graph(_nodes.size());
+//     for (const auto& rail : _rails)
+//     {
+//         size_t fromId = rail->getFrom()->getId();
+//         size_t toId = rail->getTo()->getId();
+//         int length = static_cast<int>(rail->getLength());
+//         graph[fromId].emplace_back(toId, length);
+//         graph[toId].emplace_back(fromId, length); // undirected graph
+//     }
+//     return graph;
+// }
 
 void RailwayNetwork::printGraph() const
 {
