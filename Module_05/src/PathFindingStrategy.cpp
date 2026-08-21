@@ -81,6 +81,7 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	// Reconstruct path from end to start using parent array
 	Route r;
 	r.totalDistance = dist[endId];
+	// TODO : for output build route using Node instances
 	// for (int cur = endId; cur != -1; cur = parent[cur])
 	// {
 	// 	Node* node = network.getNodeById(static_cast<size_t>(cur));
