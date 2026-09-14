@@ -7,6 +7,7 @@
 
 class IEdgeCostCalculator;
 class RailwayNetwork;
+class Train;
 
 struct Route {
       std::vector<std::string> nodes;
@@ -19,8 +20,7 @@ class PathfindingStrategy
       virtual ~PathfindingStrategy() = default;
       virtual std::expected<Route, std::string> findRoute(
           const RailwayNetwork& network, 
-          std::string_view startNode, 
-          std::string_view endNode
+          const Train& train
       ) = 0;
 };
 
@@ -31,8 +31,7 @@ class DijkstraDistanceStrategy : public PathfindingStrategy {
     public:
       std::expected<Route, std::string> findRoute(
           const RailwayNetwork& network, 
-          std::string_view startNode, 
-          std::string_view endNode
+          const Train& train
       ) override;
 
     // Returns {distances, parents} for path reconstruction
@@ -43,8 +42,7 @@ class AStarTimeEstimatorStrategy : public PathfindingStrategy {
   public:
       std::expected<Route, std::string> findRoute(
           const RailwayNetwork& network, 
-          std::string_view startNode, 
-          std::string_view endNode
+          const Train& train
       ) override;
 };
 

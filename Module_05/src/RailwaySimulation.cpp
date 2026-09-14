@@ -4,7 +4,6 @@
 #include "RailwayNetwork.hpp"
 #include "Logger.hpp"
 
-
 std::expected<RailwaySimulation, std::string>
 RailwaySimulation::create(SimulationConfig config)
 {
@@ -31,7 +30,7 @@ void    RailwaySimulation::runSimulation()
 
     for (auto& train : _trains)
     {
-        auto route = _pathFinder->findRoute(_network, train.getFrom(), train.getTo());
+        auto route = _pathFinder->findRoute(_network, train);
         if (route)
         {
             // std::stringstream ss;

@@ -1,5 +1,6 @@
 #include "PathFindingStrategy.hpp"
 #include "RailwayNetwork.hpp"
+#include "Train.hpp"
 #include "Logger.hpp"
 
 const int INF=1e9;
@@ -45,11 +46,11 @@ std::pair<std::vector<int>, std::vector<int>> DijkstraDistanceStrategy::algorith
 
 std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
           const RailwayNetwork& network, 
-          std::string_view startNode, 
-          std::string_view endNode)
+         const Train& train)
 {
     auto& log = railways::Logger::get();
-
+	std::string_view startNode = train.getFrom();
+    std::string_view endNode = train.getTo();
 	Node* startPtr = network.findNode(std::string(startNode));
 	Node* endPtr   = network.findNode(std::string(endNode));
 	if (!startPtr || !endPtr)
@@ -66,6 +67,7 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 		// log.debug(std::format("another rail"));
 		int fromId = static_cast<int>(rail->getFrom()->getId());
 		int toId   = static_cast<int>(rail->getTo()->getId());
+		// int weight = getWeight(rail, train);
 		int length = static_cast<int>(rail->getLength());
 		// log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
 		graph[fromId].emplace_back(toId, length);
@@ -95,11 +97,10 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 
 std::expected<Route, std::string> AStarTimeEstimatorStrategy::findRoute(
           const RailwayNetwork& network, 
-          std::string_view startNode, 
-          std::string_view endNode)
+          const Train& train)
 {
 	Route r;
-	r.nodes.push_back(std::string(endNode));
+	// r.nodes.push_back(std::string(endNode));
 	r.totalDistance = 100;
 	//TODO: implement A* algorithm
 	return r;
