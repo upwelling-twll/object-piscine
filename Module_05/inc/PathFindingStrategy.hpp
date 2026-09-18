@@ -26,7 +26,7 @@ class PathfindingStrategy
 
 class DijkstraDistanceStrategy : public PathfindingStrategy {
     private:
-        // IEdgeCostCalculator& calculator_;
+        IEdgeCostCalculator& calculator;
 
     public:
       std::expected<Route, std::string> findRoute(
@@ -36,6 +36,10 @@ class DijkstraDistanceStrategy : public PathfindingStrategy {
 
     // Returns {distances, parents} for path reconstruction
     std::pair<std::vector<int>, std::vector<int>> algorithm(std::vector<std::vector<std::pair<int, int>>> &graph, int start);
+    DijkstraDistanceStrategy(IEdgeCostCalculator& calculator)
+        : calculator(calculator)
+    {
+    }
 };
 
 class AStarTimeEstimatorStrategy : public PathfindingStrategy {

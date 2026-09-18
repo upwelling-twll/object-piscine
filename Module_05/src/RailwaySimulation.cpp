@@ -3,6 +3,7 @@
 #include "ParseTrains.hpp"
 #include "RailwayNetwork.hpp"
 #include "Logger.hpp"
+#include "IEdgeCostCalculator.hpp"
 
 std::expected<RailwaySimulation, std::string>
 RailwaySimulation::create(SimulationConfig config)
@@ -48,8 +49,11 @@ RailwaySimulation::RailwaySimulation(SimulationConfig cnf)
      switch (_config.strategy)
     {
         case STRATEGY::DIJKSTRA_DISTANCE:
-            _pathFinder = std::make_unique<DijkstraDistanceStrategy>(); 
+        {
+           TravelTimeCalculator calculator; 
+            _pathFinder = std::make_unique<DijkstraDistanceStrategy>(calculator); 
             break;
+        }
         case STRATEGY::A_STAR_TIME:
             _pathFinder = std::make_unique<AStarTimeEstimatorStrategy>();
             break;

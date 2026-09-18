@@ -61,13 +61,15 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	
 	// Build adjacency list from ALL rails in the network
 	// log.debug(std::format("node count {}", std::to_string(network.nodeCount())));
+	//std::pair<int, int> - here first int is an index of NODE at the end of the edge, second int is WEIGHT of the edge
 	std::vector<std::vector<std::pair<int, int>>> graph(network.nodeCount());
 	for (const auto& rail : network._rails)
 	{
 		// log.debug(std::format("another rail"));
 		int fromId = static_cast<int>(rail->getFrom()->getId());
 		int toId   = static_cast<int>(rail->getTo()->getId());
-		// int weight = getWeight(rail, train);
+		// double edgeWeight = getWeight(rail, train);
+
 		int length = static_cast<int>(rail->getLength());
 		// log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
 		graph[fromId].emplace_back(toId, length);
