@@ -9,6 +9,8 @@
 # include "RailwayNetwork.hpp"
 # include "PathFindingStrategy.hpp"
 
+class IEdgeCostCalculator;
+
 enum class STRATEGY
 {
     DIJKSTRA_DISTANCE,
@@ -32,6 +34,7 @@ private:
 	std::unique_ptr<PathfindingStrategy>	_pathFinder;
 	
 	SimulationConfig						_config;
+	std::unique_ptr<IEdgeCostCalculator>	_calculator;
 
 
 	explicit RailwaySimulation(SimulationConfig cnf);

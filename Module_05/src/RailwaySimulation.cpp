@@ -31,7 +31,8 @@ void    RailwaySimulation::runSimulation()
 
     for (auto& train : _trains)
     {
-        auto route = _pathFinder->findRoute(_network, train);
+        log.debug(std::format("Train {} from {} to {}: searching route.", train.getId(), train.getFrom(), train.getTo()));
+        auto route = _pathFinder->findRoute(*_calculator, _network, train);
         if (route)
         {
             // std::stringstream ss;
@@ -50,13 +51,16 @@ RailwaySimulation::RailwaySimulation(SimulationConfig cnf)
     {
         case STRATEGY::DIJKSTRA_DISTANCE:
         {
-           TravelTimeCalculator calculator; 
-            _pathFinder = std::make_unique<DijkstraDistanceStrategy>(calculator); 
-            break;
+           _calculator = std::make_unique<TravelTimeCalculator>(); 
+           _pathFinder = std::make_unique<DijkstraDistanceStrategy>();
+           break;
         }
         case STRATEGY::A_STAR_TIME:
+        {
+            _calculator = std::make_unique<TravelTimeCalculator>(); 
             _pathFinder = std::make_unique<AStarTimeEstimatorStrategy>();
             break;
+        }
     }
     auto& log = railways::Logger::get();
     log.debug("Simulation constructor called");

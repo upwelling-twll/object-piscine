@@ -2,14 +2,15 @@
 #include "RailwayNetwork.hpp"
 #include "Train.hpp"
 #include "Logger.hpp"
+#include "IEdgeCostCalculator.hpp"
 
 const int INF=1e9;
 
 
-std::pair<std::vector<int>, std::vector<int>> DijkstraDistanceStrategy::algorithm(std::vector<std::vector<std::pair<int, int>>> &graph, int start)
+std::pair<std::vector<double>, std::vector<int>> DijkstraDistanceStrategy::algorithm(std::vector<std::vector<std::pair<int, double>>> &graph, int start)
 {
 	int n = static_cast<int>(graph.size());
-	std::vector<int> dist(n, INF);
+	std::vector<double> dist(n, INF);
 	std::vector<int> parent(n, -1);
 	dist[start] = 0;
 	std::vector<bool> visited(n, false);
@@ -45,8 +46,9 @@ std::pair<std::vector<int>, std::vector<int>> DijkstraDistanceStrategy::algorith
 }
 
 std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
-          const RailwayNetwork& network, 
-         const Train& train)
+		IEdgeCostCalculator& calculator,
+        const RailwayNetwork& network, 
+        const Train& train)
 {
     auto& log = railways::Logger::get();
 	std::string_view startNode = train.getFrom();
@@ -60,23 +62,25 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	int endId   = static_cast<int>(endPtr->getId());
 	
 	// Build adjacency list from ALL rails in the network
-	// log.debug(std::format("node count {}", std::to_string(network.nodeCount())));
+	log.debug(std::format("node count {}", std::to_string(network.nodeCount())));
 	//std::pair<int, int> - here first int is an index of NODE at the end of the edge, second int is WEIGHT of the edge
-	std::vector<std::vector<std::pair<int, int>>> graph(network.nodeCount());
+	std::vector<std::vector<std::pair<int, double>>> graph(network.nodeCount());
 	for (const auto& rail : network._rails)
 	{
-		// log.debug(std::format("another rail"));
+		log.debug(std::format("checking rail #{}, extracting its To and From values", rail->getId()));
 		int fromId = static_cast<int>(rail->getFrom()->getId());
 		int toId   = static_cast<int>(rail->getTo()->getId());
-		// double edgeWeight = getWeight(rail, train);
+		log.debug(std::format("checking rail #{}, passing to edgeCost", rail->getId()));
+
+		double edgeWeight = calculator.edgeCost(train, *rail);
 
 		int length = static_cast<int>(rail->getLength());
-		// log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
-		graph[fromId].emplace_back(toId, length);
-		// log.debug(std::format("Adding rail from {} with id {} ", rail->getTo()->getName(), std::to_string(rail->getTo()->getId())));
-		graph[toId].emplace_back(fromId, length); // undirected graph
+		log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
+		graph[fromId].emplace_back(toId, edgeWeight);
+		log.debug(std::format("Adding rail from {} with id {} ", rail->getTo()->getName(), std::to_string(rail->getTo()->getId())));
+		graph[toId].emplace_back(fromId, edgeWeight); // undirected graph
 	}
-	// log.debug(std::format("starting algo"));
+	log.debug(std::format("starting algo"));
 	auto [dist, parent] = algorithm(graph, startId);
 
 	if (dist[endId] == INF)
@@ -93,11 +97,12 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	// 		r.nodes.push_back(node->getName());
 	// }
 	// std::reverse(r.nodes.begin(), r.nodes.end());
-	log.debug(std::format("Distance from {} to {}: {}", std::string(startNode), std::string(endNode), r.totalDistance));
+	log.debug(std::format("Best route distance from {} to {}: {}", std::string(startNode), std::string(endNode), r.totalDistance));
 	return r;
 }
 
 std::expected<Route, std::string> AStarTimeEstimatorStrategy::findRoute(
+		  IEdgeCostCalculator& calculator,
           const RailwayNetwork& network, 
           const Train& train)
 {
