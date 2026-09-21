@@ -35,6 +35,7 @@ public:
 	void addRail(std::unique_ptr<Rail> rail);
 
 	Node*                    findNode(const std::string& name) const;
+	Node*                    findNodeById(size_t id) const;
 	const std::vector<Rail*> neighbours(Node* node) const;
 	double                   distance(const Rail& rail) const;
 

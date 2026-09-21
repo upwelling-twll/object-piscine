@@ -1,6 +1,13 @@
 Node CityAbuDhabi
 Node CityFujairah
 Node CityAlAin
-Rail AbuDhabi Fujairah 500.0 100.0
-Rail AbuDhabi AlAin 300.0 70.0
-Rail AlAin Fujairah 1 100.0
+Node RailNodeStation1
+Node RailNodeStation2
+Rail AbuDhabi Fujairah 100.0 50.0
+Rail AbuDhabi AlAin 50.0 100.0
+Rail AlAin Fujairah 50 100.0
+Rail AbuDhabi Station1 10 100.0
+Rail Fujairah Station2 10 100.0
+Rail Station1 Station2 10 100.0
+
+

@@ -28,6 +28,12 @@ Node* RailwayNetwork::findNode(const std::string& name) const
     return it->second;
 }
 
+Node* RailwayNetwork::findNodeById(size_t id) const
+{
+    if (id >= _nodes.size())
+        return nullptr;
+    return _nodes[id].get();
+}
 
 const std::vector<Rail*> RailwayNetwork::neighbours(Node* node) const
 {

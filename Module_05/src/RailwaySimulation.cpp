@@ -47,6 +47,7 @@ void    RailwaySimulation::runSimulation()
 RailwaySimulation::RailwaySimulation(SimulationConfig cnf)
     : _config(std::move(cnf))
 {
+    auto& log = railways::Logger::get();
      switch (_config.strategy)
     {
         case STRATEGY::DIJKSTRA_DISTANCE:
@@ -62,7 +63,6 @@ RailwaySimulation::RailwaySimulation(SimulationConfig cnf)
             break;
         }
     }
-    auto& log = railways::Logger::get();
     log.debug("Simulation constructor called");
 }
 

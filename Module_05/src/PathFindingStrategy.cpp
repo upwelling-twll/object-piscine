@@ -73,12 +73,16 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 		log.debug(std::format("checking rail #{}, passing to edgeCost", rail->getId()));
 
 		double edgeWeight = calculator.edgeCost(train, *rail);
-
+		// if (toId != endId)
+		// {
+		// 	edgeWeight += train.getStationStopTime().count() * 60.0; // convert minutes to seconds
+		// 	log.debug(std::format("Adding station stop time {} for rail #{}, edgeWeight before: {}, edgeWeight after: {}", train.getStationStopTime().count(), rail->getId(), std::to_string(edgeWeight - train.getStationStopTime().count() * 60.0), std::to_string(edgeWeight)));
+		// }
 		int length = static_cast<int>(rail->getLength());
 		log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
 		graph[fromId].emplace_back(toId, edgeWeight);
 		log.debug(std::format("Adding rail from {} with id {} ", rail->getTo()->getName(), std::to_string(rail->getTo()->getId())));
-		graph[toId].emplace_back(fromId, edgeWeight); // undirected graph
+		graph[toId].emplace_back(fromId, edgeWeight); // undirected graph so we add both directions
 	}
 	log.debug(std::format("starting algo"));
 	auto [dist, parent] = algorithm(graph, startId);
@@ -86,18 +90,69 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	if (dist[endId] == INF)
 		return std::unexpected<std::string>("No route found");
 
+	log.debug("===== DIJKSTRA RESULT =====");
+	for (size_t i = 0; i < dist.size(); ++i)
+	{
+		Node* node = network.findNodeById(i);
+		std::string nodeName = node ? std::string(node->getName()) : "UNKNOWN";
+		std::string parentName = "NONE";
+
+		if (parent[i] != -1)
+		{
+			Node* parentNode = network.findNodeById(parent[i]);
+			if (parentNode)
+			{
+				parentName = std::string(parentNode->getName());
+			}
+		}
+		log.debug(std::format(
+			"{} | distance: {} | previous: {}",
+			nodeName,
+			dist[i],
+			parentName
+		));
+	}
+	log.debug("===========================");
+
 	// Reconstruct path from end to start using parent array
+	std::vector<int> path;
+	for (int cur = endId; cur != -1; cur = parent[cur])
+	{
+		path.push_back(cur);
+	}
+	std::reverse(path.begin(), path.end());
+	log.debug(std::format("Best route from {} to {}: ", std::string(startNode), std::string(endNode)));
+	for (size_t i = 0; i + 1 < path.size(); ++i)
+	{
+		int fromId = path[i];
+		int toId   = path[i + 1];
+
+		// Find the unique rail connecting these nodes
+		for (const auto& rail : network._rails)
+		{
+			int railFrom = static_cast<int>(rail->getFrom()->getId());
+			int railTo   = static_cast<int>(rail->getTo()->getId());
+
+			if ((railFrom == fromId && railTo == toId) ||
+				(railFrom == toId && railTo == fromId))
+			{
+				// This is the rail used by the route
+				log.debug(std::format("Using rail #{}, from {} to {}", rail->getId(), rail->getFrom()->getName(), rail->getTo()->getName()));
+				break;
+			}
+		}
+	}
 	Route r;
 	r.totalDistance = dist[endId];
 	// TODO : for output build route using Node instances
 	// for (int cur = endId; cur != -1; cur = parent[cur])
 	// {
-	// 	Node* node = network.getNodeById(static_cast<size_t>(cur));
+	// 	Node* node = network.findNodeById(static_cast<size_t>(cur));
 	// 	if (node)
 	// 		r.nodes.push_back(node->getName());
 	// }
 	// std::reverse(r.nodes.begin(), r.nodes.end());
-	log.debug(std::format("Best route distance from {} to {}: {}", std::string(startNode), std::string(endNode), r.totalDistance));
+	log.debug(std::format("Best route distance from {} to {}: time {}", std::string(startNode), std::string(endNode), r.totalDistance / 60.0));
 	return r;
 }
 

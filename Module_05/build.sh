@@ -3,4 +3,4 @@ cmake -S . -B build \
 
 cmake --build build
 
-./build/TimerUl test/rail test/train
+./build/TimerUl test/rail2 test/train2
