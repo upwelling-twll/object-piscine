@@ -48,6 +48,16 @@ double RailwayNetwork::distance(const Rail& rail) const
     return rail.getLength();
 }
 
+void RailwayNetwork::sortByDepartureTime()
+{
+    for (auto& railList : _adjacency)
+    {
+        std::sort(railList.second.begin(), railList.second.end(),
+                  [](const Rail* a, const Rail* b) {
+                      return a->getDepartureTime() < b->getDepartureTime();
+                  });
+    }
+}
 // std::vector<std::unique_ptr<Rail>> RailwayNetwork::getRails() const
 // {
 //     return _rails;
