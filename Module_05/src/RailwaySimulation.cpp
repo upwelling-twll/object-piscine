@@ -37,7 +37,7 @@ void    RailwaySimulation::runSimulation()
         {
             // std::stringstream ss;
             // for (const auto& s : route->nodes) ss << s << " ";
-            log.debug(std::format("Train {} from {} to {}: fastest route found {}.", train.getId(), train.getFrom(), train.getTo(), route->totalDistance));
+            log.debug(std::format("Train {} from {} to {}: fastest route found time in hours {}.", train.getId(), train.getFrom(), train.getTo(), route->totalDistance / 3600.0));
         }
         else
             log.error(std::format("Train {} not found route", train.getId()));

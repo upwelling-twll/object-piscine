@@ -73,11 +73,12 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 		log.debug(std::format("checking rail #{}, passing to edgeCost", rail->getId()));
 
 		double edgeWeight = calculator.edgeCost(train, *rail);
-		// if (toId != endId)
-		// {
-		// 	edgeWeight += train.getStationStopTime().count() * 60.0; // convert minutes to seconds
-		// 	log.debug(std::format("Adding station stop time {} for rail #{}, edgeWeight before: {}, edgeWeight after: {}", train.getStationStopTime().count(), rail->getId(), std::to_string(edgeWeight - train.getStationStopTime().count() * 60.0), std::to_string(edgeWeight)));
-		// }
+		if (toId != endId)
+		{
+			log.debug(std::format("Station stop time for train {} is {} minutes", train.getId(), train.getStationStopTime()));
+			edgeWeight += train.getStationStopTime().count() * 60.0; // convert minutes to seconds
+			log.debug(std::format("Adding station stop time {} for rail #{}, edgeWeight before: {}, edgeWeight after: {}", train.getStationStopTime().count(), rail->getId(), std::to_string(edgeWeight - train.getStationStopTime().count() * 60.0), std::to_string(edgeWeight)));
+		}
 		int length = static_cast<int>(rail->getLength());
 		log.debug(std::format("Adding rail from {} with id {} ", rail->getFrom()->getName(), std::to_string(rail->getFrom()->getId())));
 		graph[fromId].emplace_back(toId, edgeWeight);
@@ -152,7 +153,7 @@ std::expected<Route, std::string> DijkstraDistanceStrategy::findRoute(
 	// 		r.nodes.push_back(node->getName());
 	// }
 	// std::reverse(r.nodes.begin(), r.nodes.end());
-	log.debug(std::format("Best route distance from {} to {}: time {}", std::string(startNode), std::string(endNode), r.totalDistance / 60.0));
+	log.debug(std::format("Best route distance from {} to {}: time in seconds: {}; in minutes: {}; in hours: {}", std::string(startNode), std::string(endNode), r.totalDistance, r.totalDistance / 60.0, r.totalDistance / 3600.0));
 	return r;
 }
 
