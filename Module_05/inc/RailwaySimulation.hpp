@@ -10,6 +10,7 @@
 # include "PathFindingStrategy.hpp"
 
 class IEdgeCostCalculator;
+class RoutePlanner;
 
 enum class STRATEGY
 {
@@ -35,7 +36,7 @@ private:
 	
 	SimulationConfig						_config;
 	std::unique_ptr<IEdgeCostCalculator>	_calculator;
-
+	RoutePlanner							_planner;
 
 	explicit RailwaySimulation(SimulationConfig cnf);
 

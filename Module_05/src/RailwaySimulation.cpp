@@ -4,6 +4,7 @@
 #include "RailwayNetwork.hpp"
 #include "Logger.hpp"
 #include "IEdgeCostCalculator.hpp"
+#include "RoutePlanner.hpp"
 
 std::expected<RailwaySimulation, std::string>
 RailwaySimulation::create(SimulationConfig config)
@@ -32,15 +33,16 @@ void    RailwaySimulation::runSimulation()
     for (auto& train : _trains)
     {
         log.debug(std::format("Train {} from {} to {}: searching route.", train.getId(), train.getFrom(), train.getTo()));
-        auto route = _pathFinder->findRoute(*_calculator, _network, train);
-        if (route)
-        {
-            // std::stringstream ss;
-            // for (const auto& s : route->nodes) ss << s << " ";
-            log.debug(std::format("Train {} from {} to {}: fastest route found time in hours {}.", train.getId(), train.getFrom(), train.getTo(), route->totalDistance / 3600.0));
-        }
-        else
-            log.error(std::format("Train {} not found route", train.getId()));
+        auto routes = _planner.buildRoutes(_pathFinder, _network, train);
+        // auto route = _pathFinder->findRoute(*_calculator, _network, train);
+        // if (route)
+        // {
+        //     // std::stringstream ss;
+        //     // for (const auto& s : route->nodes) ss << s << " ";
+        //     log.debug(std::format("Train {} from {} to {}: fastest route found time in hours {}.", train.getId(), train.getFrom(), train.getTo(), route->totalDistance / 3600.0));
+        // }
+        // else
+        //     log.error(std::format("Train {} not found route", train.getId()));
     }
 }
 
